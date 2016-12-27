@@ -14,7 +14,10 @@
         "compile": "npm run compile:ts",
         "compile:ts": "tsc --outDir ./lib --module commonjs ./src/typescript/app.ts",
         "build:less": "lessc client/less/style.less public/css/style.css",
-        "build:bundle": "browserify ./client/js/app.js | uglifyjs -mc > ./public/js/bundle.js"
+        "build:bundle": "browserify ./client/js/app.js | uglifyjs -mc > ./public/js/bundle.js",
+        "build:clean": "rimraf public/css/*, public/js/*",
+        "prebuild": "npm run build:clean",
+        "build": "npm run build:less && npm run build:bundle"
     },
     "dependencies": {
         "body-parser": "~1.15.2",
