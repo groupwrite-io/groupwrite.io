@@ -18,13 +18,18 @@
         "build:clean": "rimraf public/css/*, public/js/*",
         "prebuild": "npm run build:clean",
         "build": "npm run build:less && npm run build:bundle",
-        "watch:bundle": "watchify ./client/js/app.js -o ./public/js/bundle.js -v"
+        "watch:bundle": "watchify ./client/js/app.js -o ./public/js/bundle.js -v",
+
+        "mongo-mac": "mkdir mongo-db; mongod --dbpath mongo-db",
+        "mongo-win": "md mongo-db & \"C:/Program Files/MongoDb/Server/3.2/bin/mongod.exe\" --dbpath mongo-db"
     },
     "dependencies": {
         "body-parser": "~1.15.2",
         "cookie-parser": "~1.4.3",
         "debug": "~2.2.0",
         "express": "~4.14.0",
+        "mongodb": "^2.2.16",
+        "mongoose": "^4.7.5",
         "morgan": "~1.7.0",
         "mustache": "^2.3.0",
         "mustache-express": "^1.2.4",
