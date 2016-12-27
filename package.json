@@ -1,31 +1,36 @@
 {
-  "name": "writing.io",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "test": "mocha test -u bdd -R spec",
-    "pretest": "echo 'about to run the test...'",
-    "posttest": "echo 'the test has been run!'",
-    "start": "nodemon ./bin/www",
-    "start:dev": "node ./bin/www 4000",
-    "lint": "jshint routes/index.js",
-    "compile:ts": "tsc --outDir ./lib --module commonjs ./src/typescript/app.ts"
-  },
-  "dependencies": {
-    "body-parser": "~1.15.2",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "express": "~4.14.0",
-    "morgan": "~1.7.0",
-    "mustache": "^2.3.0",
-    "mustache-express": "^1.2.4",
-    "serve-favicon": "~2.3.0"
-  },
-  "devDependencies": {
-    "jshint": "^2.9.4",
-    "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
-    "should": "^11.1.2",
-    "typescript": "^2.1.4"
-  }
+    "name": "writing.io",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "test": "mocha test -u bdd -R spec",
+        "pretest": "echo 'about to run the test...'",
+        "posttest": "echo 'the test has been run!'",
+        "start": "nodemon ./bin/www",
+        "start:dev": "node ./bin/www 4000",
+        "lint": "jshint routes/index.js",
+
+        "precompile": "npm run clean",
+        "clean": "rimraf lib/*",
+        "compile": "npm run compile:ts",
+        "compile:ts": "tsc --outDir ./lib --module commonjs ./src/typescript/app.ts"
+    },
+    "dependencies": {
+        "body-parser": "~1.15.2",
+        "cookie-parser": "~1.4.3",
+        "debug": "~2.2.0",
+        "express": "~4.14.0",
+        "morgan": "~1.7.0",
+        "mustache": "^2.3.0",
+        "mustache-express": "^1.2.4",
+        "serve-favicon": "~2.3.0"
+    },
+    "devDependencies": {
+        "jshint": "^2.9.4",
+        "mocha": "^3.2.0",
+        "nodemon": "^1.11.0",
+        "rimraf": "^2.5.4",
+        "should": "^11.1.2",
+        "typescript": "^2.1.4"
+    }
 }
