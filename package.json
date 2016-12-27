@@ -4,8 +4,11 @@
     "private": true,
     "scripts": {
         "test": "mocha test -u bdd -R spec",
+        "pretest": "echo 'about to run the test...'", // npm run lint
+        "posttest": "echo 'the test has been run!'",
         "start": "nodemon ./bin/www",
-        "start:dev": "node ./bin/www 4000"
+        "start:dev": "node ./bin/www 4000",
+        "lint": "jshint routes/index.js"
     },
     "dependencies": {
         "body-parser": "~1.15.2",
@@ -18,6 +21,7 @@
         "serve-favicon": "~2.3.0"
     },
     "devDependencies": {
+        "jshint": "^2.9.4",
         "mocha": "^3.2.0",
         "nodemon": "^1.11.0",
         "should": "^11.1.2"
