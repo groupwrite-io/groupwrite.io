@@ -1,7 +1,9 @@
 class Messenger {
  message(name: string) {
-  return "Hello from the Messenger class, " + name;
+  return "Hello Ron from the Messenger class, " + name;
  }
 }
 
 export = Messenger;
+
+alert("Js loaded");
