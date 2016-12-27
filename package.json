@@ -9,11 +9,11 @@
         "start": "nodemon ./bin/www",
         "start:dev": "node ./bin/www 4000",
         "lint": "jshint routes/index.js",
-
         "precompile": "npm run clean",
         "clean": "rimraf lib/*",
         "compile": "npm run compile:ts",
-        "compile:ts": "tsc --outDir ./lib --module commonjs ./src/typescript/app.ts"
+        "compile:ts": "tsc --outDir ./lib --module commonjs ./src/typescript/app.ts",
+        "build:less": "lessc client/less/style.less public/css/style.css"
     },
     "dependencies": {
         "body-parser": "~1.15.2",
@@ -27,6 +27,7 @@
     },
     "devDependencies": {
         "jshint": "^2.9.4",
+        "less": "^2.7.1",
         "mocha": "^3.2.0",
         "nodemon": "^1.11.0",
         "rimraf": "^2.5.4",
