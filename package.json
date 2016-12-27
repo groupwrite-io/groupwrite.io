@@ -17,7 +17,8 @@
         "build:bundle": "browserify ./client/js/app.js | uglifyjs -mc > ./public/js/bundle.js",
         "build:clean": "rimraf public/css/*, public/js/*",
         "prebuild": "npm run build:clean",
-        "build": "npm run build:less && npm run build:bundle"
+        "build": "npm run build:less && npm run build:bundle",
+        "watch:bundle": "watchify ./client/js/app.js -o ./public/js/bundle.js -v"
     },
     "dependencies": {
         "body-parser": "~1.15.2",
@@ -38,6 +39,7 @@
         "rimraf": "^2.5.4",
         "should": "^11.1.2",
         "typescript": "^2.1.4",
-        "uglifyjs": "^2.4.10"
+        "uglifyjs": "^2.4.10",
+        "watchify": "^3.8.0"
     }
 }
