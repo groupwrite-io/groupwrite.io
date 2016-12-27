@@ -1,6 +1,14 @@
-extends layout
+<html>
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+<head>
+    <title>writing.io</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+    <h1>{{message}}</h1>
+    <h2>{{error.status}}</h2>
+    <pre>#{error.stack}</pre>
+</body>
+
+</html>
