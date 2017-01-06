@@ -4,28 +4,31 @@
     <title>writing.io</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="icon" type="image/png" href="/favicon.png">
+
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
 </head>
 
 <body>
-    <div id='login-page'>
-        <h1>{{title}}</h1>
-        <p>Welcome to {{title}}</p>
+    <h1>write.io</h1>
 
+    <div v-if='seen' id='login-page'>
+        <p>Pick a username</p>
         <form onsubmit="return false">
             <input placeholder="Anonymous" v-model="nickname" />
             <button v-on:click="login">Write!</button>
         </form>
     </div>
 
-    <div id='game-page'>
+    <div v-if='seen' id='game-page'>
         <h1>List of players</h1>
         <ol>
             <li v-for="player in players">
                 {{ player.nickname }}
             </li>
         </ol>
+        <button v-on:click="quit">Quit</button>
     </div>
+
     <script src="client.js"></script>
 </body>
 
