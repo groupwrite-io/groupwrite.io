@@ -12,8 +12,10 @@
         <h1>{{title}}</h1>
         <p>Welcome to {{title}}</p>
 
-        <input placeholder="Anonymous" name="nickname" />
-        <button id="submit">Write!</button>
+        <form onsubmit="return false">
+            <input placeholder="Anonymous" v-model="nickname" />
+            <button v-on:click="login">Write!</button>
+        </form>
     </div>
 
     <script src="client.js"></script>
