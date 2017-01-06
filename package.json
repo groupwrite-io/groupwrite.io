@@ -4,47 +4,22 @@
     "private": true,
     "scripts": {
         "test": "mocha test -u bdd -R spec",
-        "pretest": "echo 'about to run the test...'",
-        "posttest": "echo 'the test has been run!'",
         "start": "nodemon ./bin/www",
-        "start:dev": "node ./bin/www 4000",
-        "lint": "jshint routes/index.js",
-        "precompile": "npm run clean",
-        "clean": "rimraf lib/*",
-        "compile": "npm run compile:ts",
-        "compile:ts": "tsc --outDir ./lib --module commonjs ./src/typescript/app.ts",
-        "build:less": "lessc client/less/style.less public/css/style.css",
-        "build:bundle": "browserify ./client/js/app.js | uglifyjs -mc > ./public/js/bundle.js",
-        "build:clean": "rimraf public/css/*, public/js/*",
-        "prebuild": "npm run compile && npm run build:clean",
-        "build": "npm run build:less && npm run build:bundle",
-        "watch:bundle": "watchify ./client/js/app.js -o ./public/js/bundle.js -v",
-
-        "mongo-mac": "mkdir mongo-db; mongod --dbpath mongo-db",
-        "mongo-win": "md mongo-db & \"C:/Program Files/MongoDb/Server/3.2/bin/mongod.exe\" --dbpath mongo-db"
+        "start:dev": "node ./bin/www"
     },
     "dependencies": {
         "body-parser": "~1.15.2",
         "cookie-parser": "~1.4.3",
         "debug": "~2.2.0",
         "express": "~4.14.0",
-        "mongodb": "^2.2.16",
-        "mongoose": "^4.7.5",
         "morgan": "~1.7.0",
         "mustache": "^2.3.0",
         "mustache-express": "^1.2.4",
         "serve-favicon": "~2.3.0"
     },
     "devDependencies": {
-        "browserify": "^13.1.1",
-        "jshint": "^2.9.4",
-        "less": "^2.7.1",
         "mocha": "^3.2.0",
         "nodemon": "^1.11.0",
-        "rimraf": "^2.5.4",
-        "should": "^11.1.2",
-        "typescript": "^2.1.4",
-        "uglifyjs": "^2.4.10",
-        "watchify": "^3.8.0"
+        "should": "^11.1.2"
     }
 }

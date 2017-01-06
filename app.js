@@ -11,10 +11,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var db = require('../config/db');
-//var mongoose = require('mongoose');
-
-//mongoose.connect(db.url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +28,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
@@ -56,5 +52,3 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
-
-console.log("Server up. please connect to http://localhost:3000");
