@@ -24,6 +24,14 @@ var io = require('socket.io')(server);
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
     console.log('a user connected');
+    socket.on('client:login', function (nickname) {
+        console.log('login: nickname= ' + nickname);
+        io.emit('server:joined', nickname);
+    });
+    socket.on('client:quit', function (nickname) {
+        console.log('quit: nickname= ' + nickname);
+        io.emit('server:quit', nickname);
+    });
     socket.on('disconnect', function () {
         console.log('user disconnected');
     });
