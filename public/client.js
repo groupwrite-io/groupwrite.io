@@ -54,3 +54,6 @@ var pages = {
         }
     })
 };
+
+
+var socket = io();
