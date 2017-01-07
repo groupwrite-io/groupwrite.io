@@ -1,27 +1,25 @@
 {
-  "name": "writing.io",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "test": "mocha test -u bdd -R spec",
-    "start": "nodemon -e js,mustache ./server.js",
-    "start:dev": "node ./server.js"
-  },
-  "dependencies": {
-    "body-parser": "~1.15.2",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "express": "~4.14.0",
-    "morgan": "~1.7.0",
-    "mustache": "^2.3.0",
-    "mustache-express": "^1.2.4",
-    "mustache-layout": "^1.2.0",
-    "serve-favicon": "~2.3.0",
-    "socket.io": "^1.7.2"
-  },
-  "devDependencies": {
-    "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
-    "should": "^11.1.2"
-  }
+    "name": "writing.io",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "test": "mocha test -u bdd -R spec",
+        "start": "nodemon ./server.js",
+        "start:dev": "node ./server.js"
+    },
+    "dependencies": {
+        "body-parser": "~1.15.2",
+        "cookie-parser": "~1.4.3",
+        "debug": "~2.2.0",
+        "express": "~4.14.0",
+        "express3-handlebars": "^0.5.2",
+        "morgan": "~1.7.0",
+        "serve-favicon": "~2.3.0",
+        "socket.io": "^1.7.2"
+    },
+    "devDependencies": {
+        "mocha": "^3.2.0",
+        "nodemon": "^1.11.0",
+        "should": "^11.1.2"
+    }
 }

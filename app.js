@@ -11,15 +11,15 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var mustacheLayout = require("mustache-layout");
+var exphbs = require('express3-handlebars');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
 
 // Register '.mustache' extension with The Mustache Express
-app.engine('mustache', mustacheLayout);
-app.set('view engine', 'mustache');
-app.set('views', __dirname + '/views');
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 app.set("view options", {
     layout: true
 });

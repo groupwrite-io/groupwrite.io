@@ -26,6 +26,8 @@ socket.on('server:quit', function (nickname) {
 
 var pages = {
     login: new Vue({
+        delimiters: ['${', '}'],
+
         el: '#login-page',
         data: {
             seen: true,
@@ -41,6 +43,7 @@ var pages = {
         }
     }),
     game: new Vue({
+        delimiters: ['${', '}'],
         el: '#game-page',
         data: {
             seen: false,
