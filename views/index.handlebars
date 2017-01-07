@@ -1,11 +1,13 @@
 <div v-if='seen' id='login-page'>
-    <h1>write.io</h1>
+    <div class="center">
+        <h1>write.io</h1>
 
-    <p>Pick a username</p>
-    <form onsubmit="return false">
-        <input placeholder="Anonymous" v-model="nickname" />
-        <button v-on:click="login">Write!</button>
-    </form>
+        <p>Pick a username</p>
+        <form onsubmit="return false">
+            <input placeholder="Anonymous" v-model="nickname" />
+            <button v-on:click="login">Write!</button>
+        </form>
+    </div>
 </div>
 
 <div v-if='seen' id='game-page'>
