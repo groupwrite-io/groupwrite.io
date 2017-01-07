@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var http = require('http').Server(express);
-var io = require('socket.io')(http);
+var state = require('../state');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {

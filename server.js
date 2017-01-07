@@ -19,6 +19,7 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+var state = require('./state');
 
 var io = require('socket.io')(server);
 console.log("Starting socket.io");
@@ -26,11 +27,20 @@ io.on('connection', function (socket) {
     console.log('a user connected');
     socket.on('client:login', function (nickname) {
         console.log('login: nickname= ' + nickname);
-        io.emit('server:joined', nickname);
+        state.players.push({
+            nickname: nickname
+        });
+        io.emit('server:state', state);
     });
     socket.on('client:quit', function (nickname) {
         console.log('quit: nickname= ' + nickname);
-        io.emit('server:quit', nickname);
+        // remove me from the list of players
+        var myindex = state.players.findIndex(function (element) {
+            return element.nickname == nickname;
+        })
+        console.assert(myindex !== -1, "Failed to find current player");
+        state.players.splice(myindex, 1);
+        io.emit('server:state', state);
     });
     socket.on('disconnect', function () {
         console.log('user disconnected');

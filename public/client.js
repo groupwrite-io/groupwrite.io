@@ -1,27 +1,7 @@
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
-var global = {};
-global.players = [];
-
 var socket = io();
 
-socket.on('server:joined', function (nickname) {
-    global.currentPlayerId = getRandomArbitrary(0, 10000);
-    global.players.push({
-        id: global.currentPlayerId,
-        nickname: nickname
-    });
-});
-
-socket.on('server:quit', function (nickname) {
-    // remove me from the list of players
-    var myindex = global.players.findIndex(function (element) {
-        return element.nickname == nickname;
-    })
-    console.assert(myindex !== -1, "Failed to find current player");
-    global.players.splice(myindex, 1);
+socket.on('server:state', function (state) {
+    pages.game.players = state.players;
 });
 
 var pages = {
@@ -47,7 +27,7 @@ var pages = {
         el: '#game-page',
         data: {
             seen: false,
-            players: global.players
+            players: []
         },
         methods: {
             quit: function () {
