@@ -5,10 +5,10 @@ socket.on('server:state', function (state) {
 });
 
 var pages = {
-    login: new Vue({
+    home: new Vue({
         delimiters: ['${', '}'],
 
-        el: '#login-page',
+        el: '#home-page',
         data: {
             seen: true,
             nickname: ''
