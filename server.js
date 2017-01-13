@@ -116,6 +116,5 @@ function onListening() {
     debug('Listening on ' + bind);
 }
 
-module.exports = {
-    io : io
-};
+module.exports.test = 'test'
+module.exports.io = io;
