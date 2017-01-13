@@ -1,7 +1,12 @@
 var express = require('express');
 
-var state = {
-    players: []
+var State = {
+    state: {
+        players: []
+    },
+    clearAll : function(){
+        State.state.players=[];
+    }
 };
 
-module.exports = state;
+module.exports = State;

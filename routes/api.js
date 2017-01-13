@@ -2,9 +2,16 @@ var express = require('express');
 var router = express.Router();
 var state = require('../state');
 
-/* GET home page. */
-router.get('/state.json', function (req, res, next) {
+/* GET state. */
+router.get('/state', function (req, res, next) {
     res.json(state);
 });
+
+/* POST clear all. */
+router.post('/clearAll', function (req, res, next) {
+    state.clearAll();
+});
+
+
 
 module.exports = router;
