@@ -8,7 +8,9 @@ Every player sees in real time what every other player is writing, and can vote 
 
 The end result is a collaboratively created story.
 
-[Follow Our Blog](https://medium.com/write-io) for updates.
+* [Follow Our Blog](https://medium.com/write-io) for updates.
+* [Our Trello](https://trello.com/b/8TIzvBXR/write-io)  (TBD migrate everything to github)
+* [A sample story created with write.io](https://www.facebook.com/ripper234/posts/10153753024424159)
 
 ### Dependencies / Tech Stack ###
 
