@@ -8,10 +8,13 @@ The end result is a collaboratively created story.
 
 [Follow Our Blog](https://medium.com/write-io) for updates.
 
-### What is this repository for? ###
+### Dependencies / Tech Stack ###
 
-* writing.io game
-* v0.0
+* git
+* Node
+* Express
+* Vue
+* Socket.io
 
 ### How do I get set up? ###
 
