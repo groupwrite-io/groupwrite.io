@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/ripper234/write.io.svg?branch=master)](https://travis-ci.org/ripper234/write.io)
-
 # README #
+
+[![Build Status](https://travis-ci.org/ripper234/write.io.svg?branch=master)](https://travis-ci.org/ripper234/write.io)
 
 **write.io** (codename) is a collaborative writing game. You connect to the server (via browser, no install needed). The server then quickly matches you with a few fellow players to form a new writing group. All members of the writing group are online now, and start collaborating on writing a new story. The game works in rounds: in each round, players suggest different continuations to the current, ongoing story.
 
