@@ -6,7 +6,7 @@ Every player sees in real time what every other player is writing, and can vote 
 
 The end result is a collaboratively created story.
 
-***[Follow Our Blog](https://medium.com/write-io) for updates***.
+[Follow ***Our Blog***](https://medium.com/write-io) for updates.
 
 ### Dependencies / Tech Stack ###
 
@@ -36,5 +36,3 @@ TBD:
 ### Who do I talk to? ###
 
 For any questions, contact Ron Gross (chiefninjaofficer@gmail.com, +972-52-6558841)
-
-***[Follow Our Blog](https://medium.com/write-io) for updates***.
