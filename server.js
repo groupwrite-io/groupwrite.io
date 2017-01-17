@@ -25,6 +25,7 @@ var io = require('socket.io')(server);
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
     console.log('a user connected');
+        var myindex = State.state.players.findIndex(function (element) {
     socket.on('disconnect', function () {
         console.log('user disconnected');
         // TODO handle user quitting

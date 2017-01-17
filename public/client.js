@@ -4,6 +4,8 @@ socket.on('server:state', function (state) {
     pages.game.players = state.players;
 });
 
+var myNickname = '';
+
 var pages = {
     home: new Vue({
         delimiters: ['${', '}'],
@@ -20,7 +22,7 @@ var pages = {
                     // TODO handle login failure
                 });
 
-                
+                pages.game.nickname = this.nickname;
                 this.seen = false;
                 pages.game.seen = true;
             }
@@ -31,16 +33,16 @@ var pages = {
         el: '#game-page',
         data: {
             seen: false,
-            players: []
+            players: [],
+            nickname: null
         },
         methods: {
             quit: function () {
-                $.post('/api/quit', {nickname: pages.login.nickname}, function (state) {
+                $.post('/api/quit', {nickname: this.nickname}, function (state) {
                     // TODO handle quit error
                 })
-
                 this.seen = false;
-                pages.login.seen = true;
+                pages.home.seen = true;
             }
         }
     })
