@@ -10,6 +10,7 @@ The end result is a collaboratively created story.
 
 * [Follow Our Blog](https://medium.com/write-io) for updates
 * [Current Tasks](https://github.com/ripper234/write.io/projects/1)
+* [Slack](https://www.hamsterpad.com/chat/writeio)
 * [A sample story created with write.io](https://www.facebook.com/ripper234/posts/10153753024424159)
 * [Give us a :star:](https://github.com/write-io/write.io)
 
