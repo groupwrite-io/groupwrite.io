@@ -18,12 +18,11 @@ The end result is a collaboratively created story.
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* git pull
+* npm install
+* npm start
+* http://localhost:3000/
+** See also admin screen at http://localhost:3000/admin
 
 ### Contribution guidelines ###
 
