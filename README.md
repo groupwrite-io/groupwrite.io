@@ -21,8 +21,8 @@ The end result is a collaboratively created story.
 * git pull
 * npm install
 * npm start
-* http://localhost:3000/
-* (See also admin screen at http://localhost:3000/admin)
+* [http://localhost:3000/](http://localhost:3000/)
+* (See also admin screen at [http://localhost:3000/admin](http://localhost:3000/admin))
 
 ### Contribution guidelines ###
 
