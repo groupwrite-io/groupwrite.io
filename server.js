@@ -25,18 +25,9 @@ var io = require('socket.io')(server);
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
     console.log('a user connected');
-    socket.on('client:quit', function (nickname) {
-        console.log('quit: nickname= ' + nickname);
-        // remove me from the list of players
-        var myindex = state.players.findIndex(function (element) {
-            return element.nickname == nickname;
-        })
-        console.assert(myindex !== -1, "Failed to find current player");
-        State.state.players.splice(myindex, 1);
-        io.emit('server:state', State.state);
-    });
     socket.on('disconnect', function () {
         console.log('user disconnected');
+        // TODO handle user quitting
     });
 });
 

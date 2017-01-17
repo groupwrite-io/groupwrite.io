@@ -35,7 +35,9 @@ var pages = {
         },
         methods: {
             quit: function () {
-                socket.emit('client:quit', pages.login.nickname);
+                $.post('/api/quit', {nickname: pages.login.nickname}, function (state) {
+                    // TODO handle quit error
+                })
 
                 this.seen = false;
                 pages.login.seen = true;
