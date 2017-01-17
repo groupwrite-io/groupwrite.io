@@ -26,11 +26,13 @@ The end result is a collaboratively created story.
 
 ### Contribution guidelines ###
 
+* We're having weekly coding sessions in Tel Aviv, usually on Thursday evening or Friday noonish. You're welcome to join!
+
+TBD:
 * Writing tests
 * Code review
 * Other guidelines
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+For any questions, contact Ron Gross (chiefninjaofficer@gmail.com, +972-52-6558841)
