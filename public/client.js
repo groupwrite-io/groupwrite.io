@@ -1,6 +1,7 @@
 var socket = io();
 
 socket.on('server:state', function (state) {
+    debugger;
     pages.game.players = state.players;
 });
 
@@ -18,7 +19,9 @@ var pages = {
 
         methods: {
             login: function () {
-                $.post('/api/login', {nickname: this.nickname}, function (state) {
+                $.post('/api/login', {
+                    nickname: this.nickname
+                }, function (state) {
                     // TODO handle login failure
                 });
 
@@ -38,7 +41,9 @@ var pages = {
         },
         methods: {
             quit: function () {
-                $.post('/api/quit', {nickname: this.nickname}, function (state) {
+                $.post('/api/quit', {
+                    nickname: this.nickname
+                }, function (state) {
                     // TODO handle quit error
                 })
                 this.seen = false;
