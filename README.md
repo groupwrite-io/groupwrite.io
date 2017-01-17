@@ -6,7 +6,7 @@ Every player sees in real time what every other player is writing, and can vote 
 
 The end result is a collaboratively created story.
 
-[Follow ***Our Blog***](https://medium.com/write-io) for updates.
+[Follow Our Blog](https://medium.com/write-io) for updates.
 
 ### Dependencies / Tech Stack ###
 
