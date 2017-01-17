@@ -16,7 +16,11 @@ var pages = {
 
         methods: {
             login: function () {
-                socket.emit('client:login', this.nickname);
+                $.post('/api/login', {nickname: this.nickname}, function (state) {
+                    // TODO handle login failure
+                });
+
+                
                 this.seen = false;
                 pages.game.seen = true;
             }

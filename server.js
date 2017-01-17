@@ -25,14 +25,6 @@ var io = require('socket.io')(server);
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
     console.log('a user connected');
-    socket.on('client:login', function (nickname) {
-        console.log('login: nickname= ' + nickname);
-// todo: replace with setter addPlayer
-        State.state.players.push({
-            nickname: nickname
-        });
-        io.emit('server:state', State.state);
-    });
     socket.on('client:quit', function (nickname) {
         console.log('quit: nickname= ' + nickname);
         // remove me from the list of players

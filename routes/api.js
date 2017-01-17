@@ -21,6 +21,12 @@ router.post('/clearAll', function (req, res, next) {
     res.send(true);
 });
 
+router.post('/login', function(req, res, next) {
+    State.state.players.push({
+        nickname: req.params.nickname
+    });
+    io.emit('server:state', State.state);
+});
 
 
 module.exports = router;
