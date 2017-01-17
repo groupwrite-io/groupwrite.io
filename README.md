@@ -41,3 +41,7 @@ TBD:
 ### Who do I talk to? ###
 
 For any questions, contact Ron Gross (chiefninjaofficer@gmail.com, +972-52-6558841)
+
+# Potential P.R venues / Storythons
+
+* http://tisch.nyu.edu/itp
