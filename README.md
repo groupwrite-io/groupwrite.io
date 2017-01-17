@@ -22,7 +22,7 @@ The end result is a collaboratively created story.
 * npm install
 * npm start
 * http://localhost:3000/
-** See also admin screen at http://localhost:3000/admin
+* (See also admin screen at http://localhost:3000/admin)
 
 ### Contribution guidelines ###
 
