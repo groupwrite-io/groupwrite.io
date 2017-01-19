@@ -13,12 +13,12 @@
 
 <div v-if='seen' id='game-page'>
     <h1>List of players</h1>
+    <textarea  v-on:change="submitText"  cols="60" rows="3" v-model="playerText"></textarea>
     <ol>
-        <li v-for="player in players">
+        <li v-for="player in players" v-if='player.nickname ==  >
             ${player.nickname}
             <form onsubmit="return false">
-                <textarea name="playerText" cols="60" rows="3"></textarea>
-                <button v-on:click="submitText">Submit!</button>
+                <textarea  v-on:change="submitText"  cols="60" rows="3" v-model="playerText"></textarea>
             </form>
         </li>
     </ol>
