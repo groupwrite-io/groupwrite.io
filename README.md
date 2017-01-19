@@ -46,3 +46,9 @@ For any questions, contact Ron Gross (chiefninjaofficer@gmail.com, +972-52-65588
 # Potential P.R venues / Storythons
 
 * http://tisch.nyu.edu/itp
+
+# OKRs for March 31 2017
+* Launch Alpha
+** Deployed server that anyone can play on
+* Produce 3 decent stories
+** Each story gets 50 page views
