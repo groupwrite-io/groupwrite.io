@@ -27,7 +27,8 @@ var pages = {
         el: '#game-page',
         data: {
             seen: false,
-            players: []
+            players: [],
+            playerText: ""
         },
         methods: {
             quit: function () {
@@ -35,6 +36,9 @@ var pages = {
 
                 this.seen = false;
                 pages.login.seen = true;
+            },
+            submitText: function(){
+                socket.emit('client:submitText', pages.login.nickname, this.playerText);
             }
         }
     })

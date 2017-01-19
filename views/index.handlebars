@@ -1,4 +1,5 @@
-<div v-if='seen' id='home-page'>
+<div v-if='seen' id='home-page' xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml"
+     xmlns:v-on="http://www.w3.org/1999/xhtml">
     <div class="center">
         <h1>write.io</h1>
 
@@ -15,6 +16,10 @@
     <ol>
         <li v-for="player in players">
             ${player.nickname}
+            <form onsubmit="return false">
+                <textarea name="playerText" cols="60" rows="3"></textarea>
+                <button v-on:click="submitText">Submit!</button>
+            </form>
         </li>
     </ol>
     <button v-on:click="quit">Quit</button>
