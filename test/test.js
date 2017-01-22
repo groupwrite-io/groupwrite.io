@@ -44,7 +44,7 @@ describe('Game page', function () {
             .type('#choosenickname', 'ripper234')
             .click('#write-btn')
             .evaluate(function () {
-                return document.querySelectorAll('#game-page h1')[0];
+                return document.querySelectorAll('#game-page h1')[0].innerHTML;
             }).run(function (err, result) {
                 result.should.equal("List of players");
                 done();
@@ -58,9 +58,9 @@ describe('Game page', function () {
             .type('#choosenickname', username)
             .click('#write-btn')
             .evaluate(function () {
-                return document.querySelectorAll('#game-page h1')[0];
+                return document.querySelectorAll('#game-page')[0].innerHTML;
             }).run(function (err, result) {
-                result.should.equal(username);
+                result.should.containEql(username);
                 done();
             });
     });
