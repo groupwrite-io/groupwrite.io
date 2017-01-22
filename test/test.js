@@ -8,7 +8,6 @@ describe('my first test', function () {
 });
 
 // Web tests
-var url = 'http://localhost:3000';
 require('../server');
 
 // describe('Homepage', function () {
@@ -19,6 +18,8 @@ require('../server');
 //     });
 // });
 
+var url = 'http://localhost:3000';
+
 describe('Start page', function () {
     this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
 
@@ -26,10 +27,40 @@ describe('Start page', function () {
         new Nightmare()
             .goto(url)
             .evaluate(function () {
-                // return document.visible('#home-pagez')
                 return document.querySelectorAll('#home-page').length;
             }).run(function (err, result) {
                 result.should.equal(1);
+                done();
+            });
+    });
+});
+
+describe('Game page', function () {
+    this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
+
+    it("should contain the list of players", function (done) {
+        new Nightmare()
+            .goto(url)
+            .type('#choosenickname', 'ripper234')
+            .click('#write-btn')
+            .evaluate(function () {
+                return document.querySelectorAll('#game-page h1')[0];
+            }).run(function (err, result) {
+                result.should.equal("List of players");
+                done();
+            });
+    });
+
+    it("should contain the current user's name", function (done) {
+        var username = 'sinbad';
+        new Nightmare()
+            .goto(url)
+            .type('#choosenickname', username)
+            .click('#write-btn')
+            .evaluate(function () {
+                return document.querySelectorAll('#game-page h1')[0];
+            }).run(function (err, result) {
+                result.should.equal(username);
                 done();
             });
     });
