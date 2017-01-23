@@ -1,21 +1,10 @@
-<div v-if='seen' id='home-page'>
-    <div class="center">
-        <h1>write.io</h1>
+<script>
+    import Vue from 'vue';
+    import Home from './Home.vue';
+    import Game from './Game.vue';
 
-        <p>Pick a username</p>
-        <form onsubmit="return false">
-            <input id="choosenickname" placeholder="Anonymous" v-model="nickname" autofocus />
-            <button id="write-btn" v-on:click="login">Write!</button>
-        </form>
-    </div>
-</div>
-
-<div v-if='seen' id='game-page'>
-    <h1>List of players</h1>
-    <ol>
-        <li v-for="player in players">
-            ${player.nickname}
-        </li>
-    </ol>
-    <button v-on:click="quit">Quit</button>
-</div>
+    new Vue({
+        el: '#app',
+        render: h => h(Home)
+    })
+</script>

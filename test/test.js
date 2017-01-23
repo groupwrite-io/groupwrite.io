@@ -24,7 +24,7 @@ describe('Start page', function () {
 describe('Game page', function () {
     this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
 
-    it("should contain the list of players", function (done) {
+    it("should contain the 'List of Players'", function (done) {
         new Nightmare()
             .goto(url)
             .type('#choosenickname', 'ripper234')

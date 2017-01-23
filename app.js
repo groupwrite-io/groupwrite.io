@@ -10,7 +10,12 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var api = require('./routes/api');
 
-var app = express();
+const webpackConfig = require('./config/webpack.dev.config.js');
+import expressDev from 'express-dev';
+
+var app = expressDev(webpackConfig);
+const compiler = require('webpack')(webpackConfig);
+
 var exphbs = require('express3-handlebars');
 
 
@@ -37,18 +42,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(expressWinston.logger({
     transports: [
-    new winston.transports.Console({
+        new winston.transports.Console({
             json: false,
             colorize: true
         })
-  ],
+    ],
     meta: false, // optional: control whether you want to log the meta data about the request (default to true)
     msg: "HTTP {{req.method}} {{req.url}}", // optional: customize the default logging message. E.g. "{{res.statusCode}} {{req.method}} {{res.responseTime}}ms {{req.url}}"
     expressFormat: true, // Use the default Express/morgan request formatting. Enabling this will override any msg if true. Will only output colors with colorize set to true
     colorize: true, // Color the text and status code, using the Express/morgan color palette (text: gray, status: default green, 3XX cyan, 4XX yellow, 5XX red).
     ignoreRoute: function (req, res) {
-            return false;
-        } // optional: allows to skip some log messages based on request and/or response
+        return false;
+    } // optional: allows to skip some log messages based on request and/or response
 }));
 
 
@@ -61,7 +66,7 @@ app.use(expressWinston.errorLogger({
             json: true,
             colorize: true
         })
-      ]
+    ]
 }));
 
 // catch 404 and forward to error handler
@@ -81,6 +86,11 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+app.set('port', process.env.PORT || 3000);
+app.set('host', process.env.HOST || '0.0.0.0');
+
+// app.listen(app.get('port'), app.get('host'), webpackMiddleware.listen);
 
 module.exports = app;
 
