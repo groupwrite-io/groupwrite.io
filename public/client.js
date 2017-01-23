@@ -1,4 +1,5 @@
-var socket = io();
+var socket = require('socket.io-client')();
+var $ = require('jQuery');
 
 $.postJSON = function (url, data, callback) {
     return jQuery.ajax({
@@ -16,4 +17,3 @@ socket.on('server:state', function (state) {
 });
 
 var myNickname = '';
-var socket = io();
