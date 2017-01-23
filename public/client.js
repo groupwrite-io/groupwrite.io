@@ -17,3 +17,18 @@ socket.on('server:state', function (state) {
 });
 
 var myNickname = '';
+
+
+var Vue = require('vue').Vue;
+    var Home = require('./Home.vue').Home;
+    var Game = require('./Game.vue').Game;
+    /*
+    import Vue from 'vue';
+    import Home from './Home.vue';
+    import Game from './Game.vue';
+    */
+
+    new Vue({
+        el: '#app',
+        render: h => h(Home)
+    })
