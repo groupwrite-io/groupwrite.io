@@ -9,22 +9,24 @@
 <button id="write-btn" v-on:click="login">Write!</button>
 </form>
 </div>
-</div>
-
 </template>
 
 <script>
+    import Game from './game.vue'
+    import Home from './home.vue'
+
     export default {
         name: 'home',
 
         delimiters: ['${', '}'],
-        el: '#game-page',
+        el: '#home-page',
         data() {
             return {
                 seen: true,
                 nickname: ''
             }
         },
+
         methods: {
             login: function () {
                 $.postJSON('/api/login', {
