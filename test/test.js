@@ -1,22 +1,8 @@
 var should = require('should');
 var Nightmare = require('nightmare');
 
-describe('my first test', function () {
-    it('is running', function () {
-        true.should.equal(true);
-    });
-});
-
 // Web tests
 require('../server');
-
-// describe('Homepage', function () {
-//     it('Sanity', function () {
-//         yield Nightmare()
-//             .goto('http://localhost:3000/')
-//             .visible('#home-pagez')
-//     });
-// });
 
 var url = 'http://localhost:3000';
 
