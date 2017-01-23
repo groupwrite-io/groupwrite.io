@@ -12,7 +12,6 @@ $.postJSON = function(url, data, callback) {
 };
 
 socket.on('server:state', function (state) {
-    debugger;
     pages.game.players = state.players;
 });
 

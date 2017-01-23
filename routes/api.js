@@ -24,7 +24,7 @@ router.post('/clearAll', function (req, res, next) {
 // POST /login
 router.post('/login', function (req, res, next) {
     State.state.players.push({
-        nickname: req.params.nickname
+        nickname: req.body.nickname
     });
     server.io.emit('server:state', State.state);
     res.send(true);
@@ -34,7 +34,7 @@ router.post('/login', function (req, res, next) {
 router.post('/quit', function (req, res, next) {
     // remove me from the list of players
     var myindex = state.players.findIndex(function (element) {
-        return element.nickname == req.params.nickname;
+        return element.nickname == req.body.nickname;
     })
     console.assert(myindex !== -1, "Failed to find current player");
     State.state.players.splice(myindex, 1);
