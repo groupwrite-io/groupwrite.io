@@ -16,7 +16,6 @@
         name: 'game',
 
         delimiters: ['${', '}'],
-        el: '#game-page',
         data() {
             return {
                 seen: false,

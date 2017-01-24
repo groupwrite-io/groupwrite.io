@@ -19,7 +19,6 @@
         name: 'home',
 
         delimiters: ['${', '}'],
-        el: '#home-page',
         data() {
             return {
                 seen: true,
@@ -29,7 +28,8 @@
 
         methods: {
             login: function () {
-                $.postJSON('/api/login', {
+                var request = require('superagent');
+                request.post('/api/login', {
                     nickname: this.nickname
                 }, function (state) {
                     // TODO handle login failure
