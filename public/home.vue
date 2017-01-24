@@ -12,9 +12,6 @@
 </template>
 
 <script>
-    import Game from './game.vue'
-    import Home from './home.vue'
-
     export default {
         name: 'home',
 
@@ -35,9 +32,14 @@
                     // TODO handle login failure
                 });
 
-                pages.game.nickname = this.nickname;
                 this.seen = false;
-                pages.game.seen = true;
+
+                this.$emit('nickname-selected', this.nickname)
+                console.log('home emitted nickname-selected event')
+
+                // TODO delete
+                //Game.nickname = this.nickname;
+                // Game.seen = true;
             }
         }
     }

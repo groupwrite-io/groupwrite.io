@@ -1,6 +1,7 @@
 var socket = require('socket.io-client')();
 socket.on('server:state', function (state) {
-    pages.game.players = state.players;
+    // TODO fix
+    // pages.game.players = state.players;
 });
 
 var myNickname = '';

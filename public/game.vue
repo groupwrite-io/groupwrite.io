@@ -12,6 +12,8 @@
 </template>
 
 <script>
+    import Home from './home.vue'
+
     export default {
         name: 'game',
 
@@ -31,7 +33,7 @@
                     // TODO handle quit error
                 })
                 this.seen = false;
-                pages.home.seen = true;
+                Home.seen = true;
             }
         }
     }

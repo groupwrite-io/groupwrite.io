@@ -15,12 +15,19 @@
         delimiters: ['${', '}'],
         data() {
             return {
-                seen: true,
+                nickname: ''
             }
         },
         components: {
             Game,
             Home
+        },
+        created: function () {
+            debugger;
+            this.$on('nickname-selected', function (params) {
+                console.log('nickname-selected event fired, params= ' + params)
+            })
+            console.log('app.vue registered on nickname-selected events')
         }
     }
 </script>

@@ -1,5 +1,6 @@
 $.get('/api/state', function (state) {
-    pages.game.players = state.players;
+    // TODO Fix
+    // pages.game.players = state.players;
 });
 
 new Vue({
@@ -9,11 +10,11 @@ new Vue({
 
     methods: {
         clearAll: function () {
-            $.post('/api/clearAll', function (result){
-                if (result==true){
+            $.post('/api/clearAll', function (result) {
+                if (result == true) {
                     alert('Cleared!');
                 }
-                else{
+                else {
                     alert('Error');
                 }
             });
