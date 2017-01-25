@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import Game from './Game.vue'
+  import Game from './game.vue'
 
   export default {
     name: 'admin',
