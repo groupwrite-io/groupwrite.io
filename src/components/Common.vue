@@ -1,12 +1,12 @@
 <template>
-  <div class="hello">
+  <div class="common">
     <h1>{{ msg }}</h1>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'hello',
+    name: 'common',
     data() {
       return {
         msg: 'write.io'

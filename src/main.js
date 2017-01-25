@@ -2,13 +2,15 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import Home from './components/home.vue'
+
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
 // 1. Define route components.
 // These can be imported from other files
-const Home = { template: '<div>home</div>' }
+
 const Bar = { template: '<div>bar</div>' }
 
 // 2. Define some routes

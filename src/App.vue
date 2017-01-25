@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <hello></hello>
+    <common></common>
 
     <p>
       <router-link to="/">Go to Home</router-link>
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-  import Hello from './components/Hello'
+  import Common from './components/Common'
 
   export default {
     name: 'app',
     components: {
-      Hello
+      Common
     }
   }
 </script>
