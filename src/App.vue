@@ -4,8 +4,9 @@
       <common></common>
 
       <p>
-        <router-link to="/">Go to Home</router-link>
-        <router-link to="/game">Go to Game</router-link>
+        <router-link to="/">Home</router-link>
+        <router-link to="/game">Game</router-link>
+        <router-link to="/admin">Admin</router-link>
       </p>
     </div>
     <router-view></router-view>
@@ -35,5 +36,7 @@
 .debug {
   background-color:lightgray
 }
-
+a {
+  margin-right: 10px;
+}
 </style>

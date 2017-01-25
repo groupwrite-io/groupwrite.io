@@ -33,5 +33,6 @@ li {
 
 a {
   color: #42b983;
+  margin-right: 10px;
 }
 </style>
