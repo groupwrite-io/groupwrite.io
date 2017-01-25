@@ -1,6 +1,6 @@
 <template>
   <div class="common">
-    <h1>{{ msg }}</h1>
+    <h1>debug toolbar</h1>
   </div>
 </template>
 

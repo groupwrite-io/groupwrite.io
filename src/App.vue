@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <common></common>
+    <div class="debug">
+      <common></common>
 
-    <p>
-      <router-link to="/">Go to Home</router-link>
-      <router-link to="/game">Go to Game</router-link>
-    </p>
-    <router-view></router-view>
-
+      <p>
+        <router-link to="/">Go to Home</router-link>
+        <router-link to="/game">Go to Game</router-link>
+      </p>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -32,4 +32,8 @@
   color: #2c3e50;
   margin-top: 60px;
 }
+.debug {
+  background-color:lightgray
+}
+
 </style>
