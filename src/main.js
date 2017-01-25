@@ -22,9 +22,7 @@ const routes = [
 // 3. Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
 // keep it simple for now.
-const router = new VueRouter({
-  routes // short for routes: routes
-})
+const router = new VueRouter({ routes })
 
 /* eslint-disable no-new */
 new Vue({
@@ -33,3 +31,4 @@ new Vue({
   router,
   components: { App }
 })
+
