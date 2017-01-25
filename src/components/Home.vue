@@ -12,13 +12,15 @@
 </template>
 
 <script>
+  var VueRouter = require('vue-router')
+  var router = new VueRouter()
+
   export default {
     name: 'home',
 
     delimiters: ['${', '}'],
     data() {
       return {
-        seen: true,
         nickname: ''
       }
     },
@@ -28,11 +30,15 @@
         var request = require('superagent')
         request.post('/api/login', {
           nickname: this.nickname
-        }, function (state) {
+        }, function (err, state) {
           // TODO handle login failure
+          if (err) {
+            console.log(err)
+          } else {
+            debugger
+            router.replace('/game')
+          }
         })
-
-        this.seen = false
 
         this.$emit('nickname-selected', this.nickname)
         console.log('home emitted nickname-selected event')

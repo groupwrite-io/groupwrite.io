@@ -6,7 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var api = require('./routes');
+var api = require('./api');
 var app = express();
 
 // TODO Delete
