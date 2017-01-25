@@ -35,7 +35,6 @@
           if (err) {
             console.log(err)
           } else {
-            debugger
             router.replace('/game')
           }
         })
