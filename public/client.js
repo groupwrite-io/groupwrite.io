@@ -17,6 +17,30 @@ socket.on('server:state', function (state) {
 
 var myNickname = '';
 
+//Vue.component('component-playerName', {
+//  data: function () {
+//    return {
+//        nickname:this.nickname;
+//    }
+//  }
+//})
+
+
+
+Vue.component('child', {
+  // declare the props
+  props: ['message'],
+  // just like data, the prop can be used inside templates
+  // and is also made available in the vm as this.message
+  template: '<span>{{ message }}</span>'
+})
+Vue.component('child2', {
+  // camelCase in JavaScript
+  props: ['myMessage'],
+  template: '<span>{{ myMessage }}</span>'
+})
+
+
 var pages = {
     home: new Vue({
         delimiters: ['${', '}'],
@@ -61,10 +85,12 @@ var pages = {
                 pages.home.seen = true;
             },
             submitText: function(){
-                socket.emit('client:submitText', pages.login.nickname, this.playerText);
+                //socket.emit('client:submitText', pages.login.nickname, this.playerText);
             }
         }
     })
+
+
 };
 
 
