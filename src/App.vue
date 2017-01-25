@@ -16,6 +16,12 @@
 <script>
   import Common from './components/Common'
 
+  var socket = require('socket.io-client')()
+  socket.on('server:state', function (state) {
+    // TODO fix
+    // pages.game.players = state.players
+  })
+
   export default {
     name: 'app',
     components: {
