@@ -3,15 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import Home from './components/home.vue'
+import Game from './components/game.vue'
 
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-
-// 1. Define route components.
-// These can be imported from other files
-
-const Bar = { template: '<div>bar</div>' }
 
 // 2. Define some routes
 // Each route should map to a component. The "component" can
@@ -20,7 +16,7 @@ const Bar = { template: '<div>bar</div>' }
 // We'll talk about nested routes later.
 const routes = [
   { path: '/', component: Home },
-  { path: '/bar', component: Bar }
+  { path: '/game', component: Game }
 ]
 
 // 3. Create the router instance and pass the `routes` option
