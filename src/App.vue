@@ -7,8 +7,8 @@
         <router-link to="/">Go to Home</router-link>
         <router-link to="/game">Go to Game</router-link>
       </p>
-      <router-view></router-view>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
