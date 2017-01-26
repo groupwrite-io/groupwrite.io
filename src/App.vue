@@ -20,6 +20,8 @@
 
   var socketlib = require('socket.io-client')
   var socket = socketlib('http://localhost:3000/')
+  var VueRouter = require('vue-router')
+  var router = new VueRouter()
 
   export default {
     name: 'app',
@@ -40,17 +42,26 @@
         self.players = state.players
       }
 
-      // Get initial state
-      var request = require('superagent')
-      request.get('/api/state', (err, res) => {
-        assert(!err)
-        assert(res.status === 200)
+      // State management
+      (function () {
+        // Get initial state
+        var request = require('superagent')
+        request.get('/api/state', (err, res) => {
+          assert(!err)
+          assert(res.status === 200)
 
-        updateState(res.body)
-      })
+          updateState(res.body)
+        })
 
-      // Update on change
-      socket.on('server:state', updateState)
+        // Update on change
+        socket.on('server:state', updateState)
+      })()
+
+      // Routes
+      // If we're not on the admin page, reload --> home
+      if (!window.location.href.endsWith('admin')) {
+        router.replace('/')
+      }
     }
   }
 </script>

@@ -16,7 +16,7 @@ router.get('/state', function (req, res, next) {
 
 // GET /error
 router.get('/error', function (req, res, next) {
-  assert.fail('This returns an error')
+  assert.fail('This returns a 500 error')
 })
 
 // GET /clearAll
