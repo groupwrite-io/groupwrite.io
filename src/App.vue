@@ -16,8 +16,10 @@
 <script>
   import Common from './components/Common'
 
-  var socket = require('socket.io-client')()
+  var socketlib = require('socket.io-client')
+  var socket = socketlib('http://localhost:3000/')
   socket.on('server:state', function (state) {
+    console.log('Got server state ' + state)
     // TODO fix
     // pages.game.players = state.players
   })
