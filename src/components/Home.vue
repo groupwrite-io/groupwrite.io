@@ -18,7 +18,6 @@
   export default {
     name: 'home',
 
-    delimiters: ['${', '}'],
     data() {
       return {
         nickname: ''

@@ -3,7 +3,7 @@
     <h1>List of players</h1>
     <ol>
       <li v-for="player in players">
-        ${player.nickname}
+        {{player.nickname}}
       </li>
     </ol>
     <button v-on:click="quit">Quit</button>
@@ -14,7 +14,6 @@
   export default {
     name: 'game',
 
-    delimiters: ['${', '}'],
     props: ['players'],
     data() {
       return {
