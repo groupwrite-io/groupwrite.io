@@ -18,12 +18,6 @@
 
   var socketlib = require('socket.io-client')
   var socket = socketlib('http://localhost:3000/')
-  socket.on('server:state', function (state) {
-    console.log('Got server state ' + state)
-    this.players = state.players
-    // TODO fix
-    // pages.game.players = state.players
-  })
 
   export default {
     name: 'app',
@@ -34,6 +28,13 @@
       return {
         players: []
       }
+    },
+    created: function () {
+      var self = this
+      socket.on('server:state', function (state) {
+        console.log(`Got server state (updated num players from ${self.players.length} to ${state.players.length})`)
+        self.players = state.players
+      })
     }
   }
 </script>
