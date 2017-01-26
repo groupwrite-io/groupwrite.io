@@ -9,7 +9,7 @@
         <router-link to="/admin">Admin</router-link>
       </p>
     </div>
-    <router-view :players="players"></router-view>
+    <router-view :players="players" :global="global"></router-view>
   </div>
 </template>
 
@@ -31,8 +31,15 @@
     },
     data: function () {
       return {
-        players: []
+        players: [],
+        myNickname2: null,
+        global: {
+          myNickname: '1111111111'
+        }
       }
+    },
+    ready: function () {
+      this.$root.global.myNickname = '22222222222'
     },
     created: function () {
       var self = this

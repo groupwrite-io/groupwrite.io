@@ -5,7 +5,7 @@
 
       <p>Pick a username</p>
       <form onsubmit="return false">
-<input id="choosenickname" placeholder="Anonymous" v-model="nickname" autofocus/>
+<input id="choosenickname" placeholder="Anonymous" v-model="sharedState.myNickname" autofocus/>
 <button id="write-btn" v-on:click="login">Write!</button>
 </form>
 </div>
@@ -14,21 +14,26 @@
 <script>
   var VueRouter = require('vue-router')
   var router = new VueRouter()
+  import store from './store'
 
   export default {
     name: 'home',
 
     data() {
       return {
-        nickname: ''
+        sharedState: store.state
       }
     },
-
+    created: function () {
+      this.sharedState.myNickname = ''
+    },
     methods: {
       login: function () {
+        console.log(`Player selected nickname ${this.sharedState.myNickname}`)
+
         var request = require('superagent')
         request.post('/api/login', {
-          nickname: this.nickname
+          nickname: this.sharedState.myNickname
         }, function (err, state) {
           // TODO handle login failure
           if (err) {
@@ -38,8 +43,8 @@
           }
         })
 
-        this.$emit('nickname-selected', this.nickname)
-        console.log('home emitted nickname-selected event')
+        // debugger
+        // this.$root.global.myNickname = this.nickname
       }
     }
   }

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>List of players</h1>
+    <h1>Welcome {{sharedState.myNickname}}</h1>
+    <h2>List of players</h2>
     <ol>
       <li v-for="player in players">
         {{player.nickname}}
@@ -12,12 +13,15 @@
 
 <script>
   import assert from 'assert'
+  import store from './store'
+
   export default {
     name: 'game',
 
     props: ['players'],
     data() {
       return {
+        sharedState: store.state
       }
     },
     methods: {
@@ -26,7 +30,7 @@
         debugger
         console.log(`${this.nickname} sending quit message`)
         request.post('/api/quit', {
-          nickname: this.nickname
+          nickname: this.sharedState.myNickname
         }, function (err, state) {
           if (err) {
             debugger
