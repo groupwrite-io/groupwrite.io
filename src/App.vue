@@ -16,6 +16,7 @@
 <script>
   import Common from './components/Common'
   import Game from './components/game'
+  import assert from 'assert'
 
   var socketlib = require('socket.io-client')
   var socket = socketlib('http://localhost:3000/')
@@ -33,10 +34,23 @@
     },
     created: function () {
       var self = this
-      socket.on('server:state', function (state) {
+      function updateState(state) {
+        assert(state)
         console.log(`Got server state (updated num players from ${self.players.length} to ${state.players.length})`)
         self.players = state.players
+      }
+
+      // Get initial state
+      var request = require('superagent')
+      request.get('/api/state', (err, res) => {
+        assert(!err)
+        assert(res.status === 200)
+
+        updateState(res.body)
       })
+
+      // Update on change
+      socket.on('server:state', updateState)
     }
   }
 </script>

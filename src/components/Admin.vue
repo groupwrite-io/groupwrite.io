@@ -10,6 +10,7 @@
 
 <script>
   import Game from './game.vue'
+  import assert from 'assert'
 
   export default {
     name: 'admin',
@@ -21,12 +22,10 @@
     methods: {
       clearAll: function () {
         var request = require('superagent')
-        request.post('/api/clearAll', function (result) {
-          if (result === true) {
-            window.alert('Cleared!')
-          } else {
-            window.alert('Error')
-          }
+        request.post('/api/clearAll', function (err, result) {
+          assert(!err)
+          assert(result.status === 200)
+          window.alert('Cleared!')
         })
       }
     }
