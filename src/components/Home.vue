@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="center">
+    <div class="center home">
       <h1>write.io</h1>
 
       <p>Pick a username</p>
