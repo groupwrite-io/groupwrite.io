@@ -11,6 +11,7 @@
 </template>
 
 <script>
+  import assert from 'assert'
   export default {
     name: 'game',
 
@@ -22,10 +23,15 @@
     methods: {
       quit: function () {
         var request = require('superagent')
+        debugger
+        console.log(`${this.nickname} sending quit message`)
         request.post('/api/quit', {
           nickname: this.nickname
-        }, function (state) {
-          // TODO handle quit error
+        }, function (err, state) {
+          if (err) {
+            debugger
+            assert.fail(`/ quit error ${err.status} - ${err.message} \r\n ${err.stack}`)
+          }
         })
         // TODO navigate Home
       }

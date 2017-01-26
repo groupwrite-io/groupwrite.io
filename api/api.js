@@ -40,7 +40,7 @@ router.post('/login', function (req, res, next) {
 // POST /quit
 router.post('/quit', function (req, res, next) {
   // remove me from the list of players
-  var myindex = State.players.findIndex(function (element) {
+  var myindex = State.state.players.findIndex(function (element) {
     return element.nickname === req.body.nickname
   })
   console.assert(myindex !== -1, 'Failed to find current player')
