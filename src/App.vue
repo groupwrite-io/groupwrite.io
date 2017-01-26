@@ -9,12 +9,13 @@
         <router-link to="/admin">Admin</router-link>
       </p>
     </div>
-    <router-view></router-view>
+    <router-view :players="players"></router-view>
   </div>
 </template>
 
 <script>
   import Common from './components/Common'
+  import Game from './components/game'
 
   var socketlib = require('socket.io-client')
   var socket = socketlib('http://localhost:3000/')
@@ -22,7 +23,8 @@
   export default {
     name: 'app',
     components: {
-      Common
+      Common,
+      Game
     },
     data: function () {
       return {
