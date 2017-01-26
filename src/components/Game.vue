@@ -11,17 +11,13 @@
 </template>
 
 <script>
-  import Home from './home.vue'
-
   export default {
     name: 'game',
 
     delimiters: ['${', '}'],
+    props: ['players'],
     data() {
       return {
-        seen: false,
-        players: [],
-        nickname: null
       }
     },
     methods: {
@@ -32,8 +28,7 @@
         }, function (state) {
           // TODO handle quit error
         })
-        this.seen = false
-        Home.seen = true
+        // TODO navigate Home
       }
     }
   }

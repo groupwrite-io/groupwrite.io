@@ -15,6 +15,19 @@
     name: 'admin',
     components: {
       Game
+    },
+
+    methods: {
+      clearAll: function () {
+        var request = require('superagent')
+        request.post('/api/clearAll', function (result) {
+          if (result === true) {
+            window.alert('Cleared!')
+          } else {
+            window.alert('Error')
+          }
+        })
+      }
     }
   }
 </script>

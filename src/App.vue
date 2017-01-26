@@ -20,6 +20,7 @@
   var socket = socketlib('http://localhost:3000/')
   socket.on('server:state', function (state) {
     console.log('Got server state ' + state)
+    this.players = state.players
     // TODO fix
     // pages.game.players = state.players
   })
@@ -28,6 +29,11 @@
     name: 'app',
     components: {
       Common
+    },
+    data: function () {
+      return {
+        players: []
+      }
     }
   }
 </script>
