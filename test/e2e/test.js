@@ -8,7 +8,10 @@ var Nightmare = require('nightmare');
 require('../../build/dev-server')
 require('../../api/server');
 
+console.log("~~~~ Webpack & API servers up, starting e2e tests ~~~~")
+
 var url = 'http://localhost:8080';
+
 
 describe('Start page', function () {
   this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
