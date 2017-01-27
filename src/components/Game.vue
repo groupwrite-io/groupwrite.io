@@ -4,12 +4,7 @@
     <form>
       <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" ></textarea>
     </form>
-    <h2>List of players</h2>
-    <ol>
-      <li v-for="player in players">
-        {{player.nickname}}
-      </li>
-    </ol>
+    <player-list :players="players"></player-list>
     <button v-on:click="quit">Quit</button>
   </div>
 </template>
@@ -17,10 +12,13 @@
 <script>
   import assert from 'assert'
   import store from './store'
+  import PlayerList from './PlayerList.vue'
 
   export default {
-    name: 'game',
-
+    name: 'Game',
+    components: {
+      PlayerList
+    },
     props: ['players'],
     data() {
       return {
