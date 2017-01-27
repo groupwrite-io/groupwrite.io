@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="game">
     <h1>Welcome {{sharedState.myNickname}}</h1>
     <form>
       <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" ></textarea>
