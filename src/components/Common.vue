@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'common',
+    name: 'Common',
     data() {
       return {
         msg: 'write.io'

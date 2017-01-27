@@ -1,12 +1,10 @@
 <template>
   <div class="game">
     <h1>Welcome {{sharedState.myNickname}}</h1>
-    <h2>List of players</h2>
-    <ol>
-      <li v-for="player in sharedState.players">
-        {{player.nickname}}
-      </li>
-    </ol>
+    <form>
+      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" ></textarea>
+    </form>
+    <player-list :players="players"></player-list>
     <button v-on:click="quit">Quit</button>
   </div>
 </template>
@@ -14,10 +12,13 @@
 <script>
   import assert from 'assert'
   import store from './store'
+  import PlayerList from './PlayerList.vue'
 
   export default {
-    name: 'game',
-
+    name: 'Game',
+    components: {
+      PlayerList
+    },
     data() {
       return {
         sharedState: store.state
@@ -38,6 +39,9 @@
         })
         // TODO navigate Home
       }
+    },
+    mounted: function () {
+      document.getElementById('mytext').focus()
     }
   }
 </script>

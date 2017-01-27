@@ -1,7 +1,6 @@
 <template>
   <div id="admin">
-    <game></game>
-
+    <player-list></player-list>
     <div id="admin-page">
       <button v-on:click="clearAll">Clear All !</button>
     </div>
@@ -9,13 +8,13 @@
 </template>
 
 <script>
-  import Game from './Game.vue'
+  import PlayerList from './PlayerList.vue'
   import assert from 'assert'
 
   export default {
-    name: 'admin',
+    name: 'Admin',
     components: {
-      Game
+      PlayerList
     },
     methods: {
       clearAll: function () {
@@ -27,5 +26,6 @@
         })
       }
     }
+
   }
 </script>
