@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="game">
     <h1>Welcome {{sharedState.myNickname}}</h1>
     <h2>List of players</h2>
     <ol>
