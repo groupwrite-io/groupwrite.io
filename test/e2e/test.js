@@ -24,17 +24,18 @@ describe('Start page', function () {
   });
 });
 
-describe.skip('Game page', function () {
+describe('Game page', function () {
   this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
 
   it("should contain the 'List of Players'", function (done) {
-    new Nightmare()
+    new Nightmare(/*{ show: true }*/)
       .goto(url)
       .type('#choosenickname', 'ripper234')
       .click('#write-btn')
       .evaluate(function () {
-        return document.querySelectorAll('game h1')[0].innerHTML;
+        return document.querySelectorAll('div.game')[0].innerHTML;
       }).run(function (err, result) {
+        err.should.null();
         result.should.equal("List of players");
         done();
       });
@@ -47,8 +48,9 @@ describe.skip('Game page', function () {
       .type('#choosenickname', username)
       .click('#write-btn')
       .evaluate(function () {
-        return document.querySelectorAll('#game-page')[0].innerHTML;
+        return document.querySelectorAll('div.game')[0].innerHTML;
       }).run(function (err, result) {
+        err.should.null();
         result.should.containEql(username);
         done();
       });

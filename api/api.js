@@ -29,11 +29,10 @@ router.post('/clearAll', function (req, res, next) {
 // POST /login
 router.post('/login', function (req, res, next) {
   var nickname = req.body.nickname
-  State.state.players.push({
-    nickname
-  })
-  console.log("Added " + nickname + " to player array of length " + State.state.players.length)
+  State.state.players.push({ nickname })
+  console.log("Player logged in: Added " + nickname + " to player array of length " + State.state.players.length)
   server.io.emit('server:state', State.state)
+
   res.send(true)
 })
 
