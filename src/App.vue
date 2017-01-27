@@ -31,15 +31,8 @@
     },
     data: function () {
       return {
-        players: [],
-        myNickname2: null,
-        global: {
-          myNickname: '1111111111'
-        }
+        players: []
       }
-    },
-    ready: function () {
-      this.$root.global.myNickname = '22222222222'
     },
     created: function () {
       var self = this
