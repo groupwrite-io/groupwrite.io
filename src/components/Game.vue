@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>Welcome {{sharedState.myNickname}}</h1>
+    <form>
+      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" ></textarea>
+    </form>
     <h2>List of players</h2>
     <ol>
       <li v-for="player in players">
@@ -39,6 +42,9 @@
         })
         // TODO navigate Home
       }
+    },
+    mounted: function () {
+      document.getElementById('mytext').focus()
     }
   }
 </script>
