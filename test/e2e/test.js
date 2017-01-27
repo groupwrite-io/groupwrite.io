@@ -1,7 +1,6 @@
 process.env.NODE_ENV = 'testing'
 
 var should = require('should');
-var assert = require('assert');
 var Nightmare = require('nightmare');
 
 // Web tests
@@ -21,7 +20,8 @@ describe('Start page', function () {
       .goto(url)
       .evaluate(function () {
         return document.querySelectorAll('div.home').length;
-      }).run(function (err, result) {
+      })
+      .run(function (err, result) {
         result.should.equal(1);
         done();
       });
@@ -39,8 +39,8 @@ describe('Game page', function () {
       .wait('div.game')
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
-      }).run(function (err, result) {
-        assert(!err);
+      })
+      .run(function (err, result) {
         result.should.containEql("List of players");
         done();
       });
@@ -55,9 +55,37 @@ describe('Game page', function () {
       .wait('div.game')
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
-      }).run(function (err, result) {
-        assert(!err);
+      })
+      .run(function (err, result) {
         result.should.containEql(username);
+        done();
+      });
+  });
+
+  it("should return to home page when quit button is pressed", function (done) {
+    var username = 'sinbad';
+    new Nightmare()
+      .goto(url)
+      .type('#choosenickname', username)
+      .click('#write-btn')
+      .wait('div.game')
+
+      .evaluate(function () {
+        return document.querySelectorAll('#write-btn').length;
+      })
+      .run(function (err, result) {
+        // No 'write' buttons found
+        result.should.eql(0);
+        done();
+      })
+      .click('#quit-btn')
+      .wait('div.home')
+      .evaluate(function () {
+        return document.querySelectorAll('#write-btn').length;
+      })
+      .run(function (err, result) {
+        // After quitting, we should have a write button
+        result.should.eql(1);
         done();
       });
   });
