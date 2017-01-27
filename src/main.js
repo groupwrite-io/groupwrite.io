@@ -2,9 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import Home from './components/home.vue'
-import Game from './components/game.vue'
-import Admin from './components/admin.vue'
+import Home from './components/Home.vue'
+import Game from './components/Game.vue'
+import Admin from './components/Admin.vue'
 
 import VueRouter from 'vue-router'
 

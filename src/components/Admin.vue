@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import Game from './game.vue'
+  import Game from './Game.vue'
   import assert from 'assert'
 
   export default {
