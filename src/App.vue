@@ -15,7 +15,7 @@
 
 <script>
   import Common from './components/Common'
-  import Game from './components/game'
+  import Game from './components/Game'
   import assert from 'assert'
 
   var socketlib = require('socket.io-client')
