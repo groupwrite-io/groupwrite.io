@@ -3,7 +3,7 @@
     <h1>Welcome {{sharedState.myNickname}}</h1>
     <h2>List of players</h2>
     <ol>
-      <li v-for="player in players">
+      <li v-for="player in sharedState.players">
         {{player.nickname}}
       </li>
     </ol>
@@ -18,7 +18,6 @@
   export default {
     name: 'game',
 
-    props: ['players'],
     data() {
       return {
         sharedState: store.state

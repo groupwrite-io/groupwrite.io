@@ -1,6 +1,6 @@
 <template>
   <div id="admin">
-    <game :players="players"></game>
+    <game></game>
 
     <div id="admin-page">
       <button v-on:click="clearAll">Clear All !</button>
@@ -17,8 +17,6 @@
     components: {
       Game
     },
-    props: ['players'],
-
     methods: {
       clearAll: function () {
         var request = require('superagent')

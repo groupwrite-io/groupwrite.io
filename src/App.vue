@@ -9,13 +9,14 @@
         <router-link to="/admin">Admin</router-link>
       </p>
     </div>
-    <router-view :players="players" :global="global"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   import Common from './components/Common'
   import Game from './components/Game'
+  import store from './components/store'
   import assert from 'assert'
 
   var socketlib = require('socket.io-client')
@@ -31,15 +32,15 @@
     },
     data: function () {
       return {
-        players: []
+        sharedState: store.state
       }
     },
     created: function () {
       var self = this
       function updateState(state) {
         assert(state)
-        console.log(`Got server state (updated num players from ${self.players.length} to ${state.players.length})`)
-        self.players = state.players
+        console.log(`Got server state (updated num players from ${self.sharedState.length} to ${state.players.length})`)
+        self.sharedState.players = state.players
       }
 
       // State management
