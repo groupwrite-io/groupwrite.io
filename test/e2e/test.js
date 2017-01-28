@@ -35,19 +35,6 @@ function loginPlayer(username) {
     .wait('div.game')
 }
 
-// Sample test to test concurrency in Nightmare
-// TODO - delete this test
-describe('MyTest', function () {
-  this.timeout(20000);
-  it('should work concurrently', function (done) {
-    loginPlayer('1stuser').run(() => {})
-    loginPlayer('2nduser').run(() => {})
-    loginPlayer('3rduser').run(function (err, result) {
-      done();
-    })
-  })
-});
-
 describe('Start page', function () {
   this.timeout(testTimeout);
 
@@ -68,8 +55,8 @@ describe('Game page', function () {
   this.timeout(testTimeout);
 
   it("should contain the 'List of Players'", function (done) {
-    loginPlayer('john').run();
-    loginPlayer('doe').run();
+    loginPlayer('john').run(() => { });
+    loginPlayer('doe').run(() => { });
     loginPlayer('sinbad')
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
@@ -82,8 +69,8 @@ describe('Game page', function () {
 
   it("should contain the current user's name", function (done) {
     var players = ['sinbad', 'ali', 'baba'];
-    loginPlayer(players[0]).run();
-    loginPlayer(players[1]).run();
+    loginPlayer(players[0]).run(() => { });
+    loginPlayer(players[1]).run(() => { });
     loginPlayer(players[2])
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
@@ -99,8 +86,8 @@ describe('Game page', function () {
   });
 
   it("should return to home page when quit button is pressed", function (done) {
-    loginPlayer('ali').run();
-    loginPlayer('baba').run();
+    loginPlayer('ali').run(() => { });
+    loginPlayer('baba').run(() => { });
     loginPlayer('sinbad')
       // TODO http://stackoverflow.com/questions/41907654/how-to-assert-at-multiple-points-during-execution-of-a-nightmare-test
       // .evaluate(function () {
