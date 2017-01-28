@@ -22,17 +22,17 @@ var testTimeout = 20000
 function newNightmare() {
   return new Nightmare(
     {
-      show: false
+      show: true
     }
   )
 }
 
-function loginPlayer(username) {
-  return newNightmare()
+Nightmare.prototype.loginPlayer = function (username) {
+  return this
     .goto(url)
     .type('#choosenickname', username)
     .click('#write-btn')
-    .wait('div.game')
+    .wait('div.queue')
 }
 
 describe('Start page', function () {
@@ -55,9 +55,9 @@ describe('Game page', function () {
   this.timeout(testTimeout);
 
   it("should contain the 'List of Players'", function (done) {
-    loginPlayer('john').run(() => { });
-    loginPlayer('doe').run(() => { });
-    loginPlayer('sinbad')
+    newNightmare().loginPlayer('john').run(() => { });
+    newNightmare().loginPlayer('doe').run(() => { });
+    newNightmare().loginPlayer('sinbad')
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
       })
@@ -69,9 +69,9 @@ describe('Game page', function () {
 
   it("should contain the current user's name", function (done) {
     var players = ['sinbad', 'ali', 'baba'];
-    loginPlayer(players[0]).run(() => { });
-    loginPlayer(players[1]).run(() => { });
-    loginPlayer(players[2])
+    newNightmare().loginPlayer(players[0]).run(() => { });
+    newNightmare().loginPlayer(players[1]).run(() => { });
+    newNightmare().loginPlayer(players[2])
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
       })
@@ -86,9 +86,9 @@ describe('Game page', function () {
   });
 
   it("should return to home page when quit button is pressed", function (done) {
-    loginPlayer('ali').run(() => { });
-    loginPlayer('baba').run(() => { });
-    var nightmare = loginPlayer('sinbad')
+    newNightmare().loginPlayer('ali').run(() => { });
+    newNightmare().loginPlayer('baba').run(() => { });
+    var nightmare = newNightmare().loginPlayer('sinbad')
     nightmare
       .evaluate(function () {
         return document.querySelectorAll('#write-btn').length;
@@ -96,7 +96,8 @@ describe('Game page', function () {
       .then(function (result) {
         // No 'write' buttons found
         result.should.eql(0);
-      }).then(function () {
+      })
+      .then(function () {
         return nightmare
           .click('#quit-btn')
           .wait('div.home')
@@ -110,4 +111,48 @@ describe('Game page', function () {
         done();
       });
   });
+
+  describe('Queue page', function () {
+    this.timeout(testTimeout);
+
+    // TODO Delete this
+    // http://stackoverflow.com/questions/41914166/mocha-nightmare-test-failing-but-still-waiting-for-timeout
+    it("should fail before timeout", function (done) {
+      var nightmare = new Nightmare({ show: true })
+        .goto(url)
+        .type('#choosenickname', 'sinbad')
+        .click('#write-btn')
+        .wait('div.queue')
+        .goto(url)
+        .evaluate(function () {
+        })
+        .then(function (result) {
+          throw "Fail" // This point is reached, and I expect the test to fail immediately at this point
+        })
+    })
+
+    xit("should not kick a player out if they disconnect", function (done) {
+      var nightmare = newNightmare().loginPlayer('sinbad')
+      nightmare
+        .evaluate(function () {
+          return document.querySelectorAll('.waiting')[0].innerHTML;
+        })
+        .then(function (result) {
+          // 1 player logged in
+          result.should.containEql("Waiting for players 1/3");
+        })
+        .then(function () {
+          return nightmare
+            .loginPlayer('ali')
+            .evaluate(function () {
+              return document.querySelectorAll('.waiting')[0].innerHTML;
+            })
+        })
+        .then(function (result) {
+          // We left the page, so we should not see our shadow in the queue!
+          result.should.containEql("Waiting for players 1/3");
+          done();
+        })
+    });
+  })
 });

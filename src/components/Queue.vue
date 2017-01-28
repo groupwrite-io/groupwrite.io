@@ -1,6 +1,6 @@
 <template>
   <div class='queue'>
-    <h1>[{{sharedState.myNickname}}] Waiting for players {{sharedState.players.length}}/{{consts.maxPlayers}}</h1>
+    <h1 class="waiting">[{{sharedState.myNickname}}] Waiting for players {{sharedState.players.length}}/{{consts.maxPlayers}}</h1>
     <h2>We'll play a gong when the game start (turn up your spakers)</h2>
     <quit-button></quit-button>
   </div>
