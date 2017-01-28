@@ -5,6 +5,7 @@
 
       <p>
         <router-link to="/">Home</router-link>
+        <router-link to="/queue">Queue</router-link>
         <router-link to="/game">Game</router-link>
         <router-link to="/admin">Admin</router-link>
       </p>
@@ -15,7 +16,6 @@
 
 <script>
   import Common from './components/Common'
-  import Game from './components/Game'
   import store from './components/store'
   import assert from 'assert'
 
@@ -27,8 +27,7 @@
   export default {
     name: 'app',
     components: {
-      Common,
-      Game
+      Common
     },
     data: function () {
       return {

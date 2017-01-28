@@ -5,6 +5,7 @@ import App from './App'
 import Home from './components/Home.vue'
 import Game from './components/Game.vue'
 import Admin from './components/Admin.vue'
+import Queue from './components/Queue.vue'
 
 import VueRouter from 'vue-router'
 
@@ -18,7 +19,8 @@ Vue.use(VueRouter)
 const routes = [
   { path: '/', component: Home },
   { path: '/game', component: Game },
-  { path: '/admin', component: Admin }
+  { path: '/admin', component: Admin },
+  { path: '/queue', component: Queue }
 ]
 
 // 3. Create the router instance and pass the `routes` option
