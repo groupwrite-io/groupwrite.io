@@ -48,7 +48,7 @@
           let state = res.body
           assert(state)
 
-          console.log(`Got server state (updated num players from ${self.sharedState.length} to ${state.players.length})`)
+          console.log(`Got server state (updated num players from ${self.sharedState.players.length} to ${state.players.length})`)
           self.sharedState.players = state.players
 
           assert(state.players.length <= self.consts.maxPlayers)
