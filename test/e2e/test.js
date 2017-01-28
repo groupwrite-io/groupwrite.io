@@ -9,7 +9,6 @@ require('../../api/server');
 
 console.log("~~~~ Webpack & API servers up, starting e2e tests ~~~~")
 
-var url = 'http://localhost:8080';
 function newNightmare() {
   return new Nightmare(
     {
@@ -17,9 +16,12 @@ function newNightmare() {
     }
   )
 }
+var testTimeout = 20000
+
+var url = 'http://localhost:8080';
 
 describe('Start page', function () {
-  this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
+  this.timeout(testTimeout); // Set timeout to 15 seconds, instead of the original 2 seconds
 
   it('should show login form when loaded', function (done) {
     newNightmare()
@@ -35,7 +37,7 @@ describe('Start page', function () {
 });
 
 describe('Game page', function () {
-  this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
+  this.timeout(testTimeout); // Set timeout to 15 seconds, instead of the original 2 seconds
 
   it("should contain the 'List of Players'", function (done) {
     var username = 'sinbad';

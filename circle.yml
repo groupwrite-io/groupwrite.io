@@ -1,3 +1,9 @@
 machine:
   node:
     version: 6.1.0
+
+test:
+  override:
+    - mocha test /e2e -u bdd -R spec --reporter mocha-junit-reporter:
+        environment:
+          MOCHA_FILE: $CIRCLE_TEST_REPORTS/junit/test-results.xml
