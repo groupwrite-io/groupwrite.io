@@ -4,8 +4,11 @@ var should = require('should');
 var Nightmare = require('nightmare');
 
 // Set different ports so we can run tests while dev server is running
-process.env.API_PORT = 3001
 process.env.WEB_PORT = 8081
+// TODO - this is still the standard socket.io port, not sure how to change it on the client
+// http://stackoverflow.com/questions/41908504/vue-how-to-use-a-different-socket-io-port-in-tests
+process.env.API_PORT = 3000
+
 
 // Web tests
 require('../../build/dev-server')
@@ -21,8 +24,7 @@ function newNightmare() {
   )
 }
 var testTimeout = 20000
-var port = 8080
-var url = `http://localhost:${port}`;
+var url = `http://localhost:${process.env.WEB_PORT}`;
 
 describe('Start page', function () {
   this.timeout(testTimeout); // Set timeout to 15 seconds, instead of the original 2 seconds
