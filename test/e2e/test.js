@@ -40,8 +40,8 @@ function loginPlayer(username) {
 describe('MyTest', function () {
   this.timeout(20000);
   it('should work concurrently', function (done) {
-    loginPlayer('1stuser').run()
-    loginPlayer('2nduser').run()
+    loginPlayer('1stuser').run(() => {})
+    loginPlayer('2nduser').run(() => {})
     loginPlayer('3rduser').run(function (err, result) {
       done();
     })
