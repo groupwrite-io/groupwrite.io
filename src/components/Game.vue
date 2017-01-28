@@ -2,10 +2,10 @@
   <div class="game">
     <h1>Welcome {{sharedState.myNickname}}</h1>
     <form>
-      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" ></textarea>
+      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here"></textarea>
     </form>
     <player-list :players="players"></player-list>
-    <button v-on:click="quit">Quit</button>
+    <button id='quit-btn' v-on:click="quit">Quit</button>
   </div>
 </template>
 
@@ -13,6 +13,9 @@
   import assert from 'assert'
   import store from './store'
   import PlayerList from './PlayerList.vue'
+
+  var VueRouter = require('vue-router')
+  var router = new VueRouter()
 
   export default {
     name: 'Game',
@@ -37,7 +40,9 @@
             assert.fail(`/ quit error ${err.status} - ${err.message} \r\n ${err.stack}`)
           }
         })
-        // TODO navigate Home
+
+        // Navigate back home
+        router.replace('/')
       }
     },
     mounted: function () {
