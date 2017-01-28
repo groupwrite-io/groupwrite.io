@@ -78,6 +78,14 @@ State.getStateByPlayerId = function (playerId) {
   }
 }
 
+State.getAdminState = function () {
+  return {
+    games: State.games,
+    players: State.players,
+    queue: State.queue
+  }
+}
+
 State.clearAll()
 
 module.exports = State;

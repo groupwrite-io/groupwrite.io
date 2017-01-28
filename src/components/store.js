@@ -1,6 +1,8 @@
 export default {
   state: {
-    players: []
+    players: [],
+    adminState: {
+    }
   },
   consts: {
     maxPlayers: 3

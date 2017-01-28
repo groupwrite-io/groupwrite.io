@@ -25,6 +25,10 @@
   var VueRouter = require('vue-router')
   var router = new VueRouter()
 
+  function getAdminKey() {
+    return window.localStorage.getItem('writeio-admin-key')
+  }
+
   export default {
     name: 'app',
     components: {
@@ -41,26 +45,37 @@
 
       // Update on change
       socket.on('server:state', function () {
-        if (!self.sharedState.playerId) {
-          // We only ask for state if we're logged in
-          return
-        }
-        request.get('/api/state', { playerId: self.sharedState.playerId }, (err, res) => {
-          assert(!err)
-          assert(res.status === 200)
+        // We only ask for state if we're logged in or admin
+        if (self.sharedState.playerId) {
+          request.get('/api/state', { playerId: self.sharedState.playerId }, (err, res) => {
+            assert(!err)
+            assert(res.status === 200)
 
-          let state = res.body
-          assert(state)
+            let state = res.body
+            assert(state)
 
-          console.log(`Got server state (updated num players from ${self.sharedState.players.length} to ${state.players.length})`)
-          self.sharedState.players = state.players
+            console.log(`Got server state (updated num players from ${self.sharedState.players.length} to ${state.players.length})`)
+            self.sharedState.players = state.players
 
-          assert(state.players.length <= self.consts.maxPlayers)
-          // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
-          if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
-            router.replace('/game')
+            assert(state.players.length <= self.consts.maxPlayers)
+            // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
+            if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
+              router.replace('/game')
+            }
+          })
+        } else {
+          debugger
+          let adminKey = getAdminKey()
+          if (adminKey) {
+            console.log(`Admin getting state with key ${adminKey}`)
+            request.get('/api/adminState', { adminKey }, (err, res) => {
+              assert(!err)
+              assert(res.status === 200)
+
+              self.sharedState.adminState = res.body
+            })
           }
-        })
+        }
       })
 
       // Routes

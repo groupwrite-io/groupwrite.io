@@ -27,13 +27,6 @@ router.post('/error', function () {
   assert.fail('This returns a 500 error')
 })
 
-// GET /clearAll
-router.post('/clearAll', function (req, res, next) {
-  State.clearAll()
-  server.io.emit('server:state')
-  res.send(true)
-})
-
 // POST /login
 router.post('/login', function (req, res, next) {
   var nickname = req.body.nickname
@@ -51,5 +44,29 @@ router.post('/quit', function (req, res, next) {
   server.io.emit('server:state')
   res.send(true)
 })
+
+/////// Admin //////
+
+var adminKey = 'nalkFaoKsjd78' // TODO move this to somewhere secret & change the value (e.g. use git-secret)
+
+// GET /adminState
+router.get('/adminState', function (req, res, next) {
+  if (adminKey !== req.query.adminKey) {
+    res.status(401).send('Trying to access admin functions without proper key')
+    return
+  }
+
+  res.send(State.getAdminState())
+})
+
+// POST /clearAll
+router.post('/clearAll', function (req, res, next) {
+  // TODO - only admin should be able to do this (see above)
+  State.clearAll()
+  server.io.emit('server:state')
+  res.send(true)
+})
+
+
 
 module.exports = router
