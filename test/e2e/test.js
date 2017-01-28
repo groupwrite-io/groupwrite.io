@@ -32,7 +32,6 @@ Nightmare.prototype.loginPlayer = function (username) {
     .goto(url)
     .type('#choosenickname', username)
     .click('#write-btn')
-    .wait('div.queue')
 }
 
 describe('Start page', function () {
@@ -58,6 +57,7 @@ describe('Game page', function () {
     newNightmare().loginPlayer('john').run(() => { });
     newNightmare().loginPlayer('doe').run(() => { });
     newNightmare().loginPlayer('sinbad')
+      .wait('div.game')
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
       })
@@ -72,6 +72,7 @@ describe('Game page', function () {
     newNightmare().loginPlayer(players[0]).run(() => { });
     newNightmare().loginPlayer(players[1]).run(() => { });
     newNightmare().loginPlayer(players[2])
+      .wait('div.game')
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
       })
@@ -90,6 +91,7 @@ describe('Game page', function () {
     newNightmare().loginPlayer('baba').run(() => { });
     var nightmare = newNightmare().loginPlayer('sinbad')
     nightmare
+      .wait('div.game')
       .evaluate(function () {
         return document.querySelectorAll('#write-btn').length;
       })
@@ -117,7 +119,7 @@ describe('Game page', function () {
 
     // TODO Delete this
     // http://stackoverflow.com/questions/41914166/mocha-nightmare-test-failing-but-still-waiting-for-timeout
-    it("should fail before timeout", function (done) {
+    xit("should fail before timeout", function (done) {
       var nightmare = new Nightmare({ show: true })
         .goto(url)
         .type('#choosenickname', 'sinbad')
@@ -132,8 +134,10 @@ describe('Game page', function () {
     })
 
     xit("should not kick a player out if they disconnect", function (done) {
-      var nightmare = newNightmare().loginPlayer('sinbad')
+      var nightmare = newNightmare()
       nightmare
+        .loginPlayer('sinbad')
+        .wait('div.queue')
         .evaluate(function () {
           return document.querySelectorAll('.waiting')[0].innerHTML;
         })
@@ -144,6 +148,7 @@ describe('Game page', function () {
         .then(function () {
           return nightmare
             .loginPlayer('ali')
+            .wait('div.queue')
             .evaluate(function () {
               return document.querySelectorAll('.waiting')[0].innerHTML;
             })
