@@ -39,7 +39,8 @@
           if (err) {
             console.log(err)
           } else {
-            router.replace('/game')
+            debugger
+            router.replace('/queue')
           }
         })
 

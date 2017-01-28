@@ -31,7 +31,8 @@
     },
     data: function () {
       return {
-        sharedState: store.state
+        sharedState: store.state,
+        consts: store.consts
       }
     },
     created: function () {
@@ -40,6 +41,12 @@
         assert(state)
         console.log(`Got server state (updated num players from ${self.sharedState.length} to ${state.players.length})`)
         self.sharedState.players = state.players
+
+        assert(state.players.length <= self.consts.maxPlayers)
+        // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
+        if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
+          router.replace('/game')
+        }
       }
 
       // State management
