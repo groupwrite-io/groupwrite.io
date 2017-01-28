@@ -9,12 +9,12 @@ var bodyParser = require('body-parser');
 var api = require('./api');
 var app = express();
 
-var exphbs = require('express3-handlebars');
+var exphbs = require('express-handlebars');
 
 // TODO Delete
 // Register handlebars templates
 app.engine('handlebars', exphbs({
-//  defaultLayout: 'main'
+  //  defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
