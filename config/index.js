@@ -1,5 +1,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
+var port = process.env.WEB_PORT || 8080
+var apiPort = 3000
 
 module.exports = {
   build: {
@@ -18,13 +20,14 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port,
+    apiPort,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       // proxy all requests starting with /api to jsonplaceholder
       '/api': {
-        target: 'http://localhost:3000/',
+        target: `http://localhost:${apiPort}/`,
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
