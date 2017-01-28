@@ -26,6 +26,7 @@
     },
     created: function () {
       this.sharedState.myNickname = ''
+      this.sharedState.players = []
     },
     methods: {
       login: function () {
