@@ -41,6 +41,10 @@
 
       // Update on change
       socket.on('server:state', function () {
+        if (!self.sharedState.playerId) {
+          // We only ask for state if we're logged in
+          return
+        }
         request.get('/api/state', { playerId: self.sharedState.playerId }, (err, res) => {
           assert(!err)
           assert(res.status === 200)
