@@ -16,18 +16,40 @@ require('../../api/server');
 
 console.log("~~~~ Webpack & API servers up, starting e2e tests ~~~~")
 
+var url = `http://localhost:${process.env.WEB_PORT}`;
+var testTimeout = 20000
+
 function newNightmare() {
   return new Nightmare(
     {
-      show: false
+      show: true // TODO
     }
   )
 }
-var testTimeout = 20000
-var url = `http://localhost:${process.env.WEB_PORT}`;
+
+function loginPlayer(username) {
+  return newNightmare()
+    .goto(url)
+    .type('#choosenickname', username)
+    .click('#write-btn')
+    .wait('div.game')
+}
+
+// Sample test to test concurrency in Nightmare
+// TODO - delete this test
+describe('MyTest', function () {
+  this.timeout(20000);
+  it('should work concurrently', function (done) {
+    loginPlayer('1stuser').run()
+    loginPlayer('2nduser').run()
+    loginPlayer('3rduser').run(function (err, result) {
+      done();
+    })
+  })
+});
 
 describe('Start page', function () {
-  this.timeout(testTimeout); // Set timeout to 15 seconds, instead of the original 2 seconds
+  this.timeout(testTimeout);
 
   it('should show login form when loaded', function (done) {
     newNightmare()
@@ -43,15 +65,12 @@ describe('Start page', function () {
 });
 
 describe('Game page', function () {
-  this.timeout(testTimeout); // Set timeout to 15 seconds, instead of the original 2 seconds
+  this.timeout(testTimeout);
 
   it("should contain the 'List of Players'", function (done) {
-    var username = 'sinbad';
-    newNightmare()
-      .goto(url)
-      .type('#choosenickname', username)
-      .click('#write-btn')
-      .wait('div.game')
+    loginPlayer('john').run();
+    loginPlayer('doe').run();
+    loginPlayer('sinbad')
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
       })
@@ -62,30 +81,27 @@ describe('Game page', function () {
   });
 
   it("should contain the current user's name", function (done) {
-    var username = 'sinbad';
-    newNightmare()
-      .goto(url)
-      .type('#choosenickname', username)
-      .click('#write-btn')
-      .wait('div.game')
+    var players = ['sinbad', 'ali', 'baba'];
+    loginPlayer(players[0]).run();
+    loginPlayer(players[1]).run();
+    loginPlayer(players[2])
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
       })
       .end()
       .then(function (result) {
-        result.should.containEql(username);
+        // Check for all players
+        result.should.containEql(players[0]);
+        result.should.containEql(players[1]);
+        result.should.containEql(players[2]);
         done();
       });
   });
 
   it("should return to home page when quit button is pressed", function (done) {
-    var username = 'sinbad';
-    newNightmare()
-      .goto(url)
-      .type('#choosenickname', username)
-      .click('#write-btn')
-      .wait('div.game')
-
+    loginPlayer('ali').run();
+    loginPlayer('baba').run();
+    loginPlayer('sinbad')
       // TODO http://stackoverflow.com/questions/41907654/how-to-assert-at-multiple-points-during-execution-of-a-nightmare-test
       // .evaluate(function () {
       //   return document.querySelectorAll('#write-btn').length;
