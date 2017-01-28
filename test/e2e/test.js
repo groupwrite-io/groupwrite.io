@@ -22,7 +22,7 @@ var testTimeout = 20000
 function newNightmare() {
   return new Nightmare(
     {
-      show: true // TODO
+      show: false
     }
   )
 }
@@ -88,19 +88,21 @@ describe('Game page', function () {
   it("should return to home page when quit button is pressed", function (done) {
     loginPlayer('ali').run(() => { });
     loginPlayer('baba').run(() => { });
-    loginPlayer('sinbad')
-      // TODO http://stackoverflow.com/questions/41907654/how-to-assert-at-multiple-points-during-execution-of-a-nightmare-test
-      // .evaluate(function () {
-      //   return document.querySelectorAll('#write-btn').length;
-      // })
-      // .then(function (result) {
-      //   // No 'write' buttons found
-      //   result.should.eql(0);
-      // })
-      .click('#quit-btn')
-      .wait('div.home')
+    var nightmare = loginPlayer('sinbad')
+    nightmare
       .evaluate(function () {
         return document.querySelectorAll('#write-btn').length;
+      })
+      .then(function (result) {
+        // No 'write' buttons found
+        result.should.eql(0);
+      }).then(function () {
+        return nightmare
+          .click('#quit-btn')
+          .wait('div.home')
+          .evaluate(function () {
+            return document.querySelectorAll('#write-btn').length;
+          })
       })
       .then(function (result) {
         // After quitting, we should have a write button
