@@ -28,6 +28,9 @@
     },
     mounted: function () {
       document.getElementById('mytext').focus()
+
+      var audio = new window.Audio('./static/ding.ogg')
+      audio.play()
     }
   }
 </script>

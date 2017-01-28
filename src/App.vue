@@ -64,7 +64,6 @@
             }
           })
         } else {
-          debugger
           let adminKey = getAdminKey()
           if (adminKey) {
             console.log(`Admin getting state with key ${adminKey}`)
