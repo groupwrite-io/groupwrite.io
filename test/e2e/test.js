@@ -10,13 +10,19 @@ require('../../api/server');
 console.log("~~~~ Webpack & API servers up, starting e2e tests ~~~~")
 
 var url = 'http://localhost:8080';
-
+function newNightmare() {
+  return new Nightmare(
+    {
+      show: false
+    }
+  )
+}
 
 describe('Start page', function () {
   this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
 
   it('should show login form when loaded', function (done) {
-    new Nightmare()
+    newNightmare()
       .goto(url)
       .evaluate(function () {
         return document.querySelectorAll('div.home').length;
@@ -32,9 +38,10 @@ describe('Game page', function () {
   this.timeout(15000); // Set timeout to 15 seconds, instead of the original 2 seconds
 
   it("should contain the 'List of Players'", function (done) {
-    new Nightmare()
+    var username = 'sinbad';
+    newNightmare()
       .goto(url)
-      .type('#choosenickname', 'ripper234')
+      .type('#choosenickname', username)
       .click('#write-btn')
       .wait('div.game')
       .evaluate(function () {
@@ -48,7 +55,7 @@ describe('Game page', function () {
 
   it("should contain the current user's name", function (done) {
     var username = 'sinbad';
-    new Nightmare()
+    newNightmare()
       .goto(url)
       .type('#choosenickname', username)
       .click('#write-btn')
@@ -65,7 +72,7 @@ describe('Game page', function () {
 
   it("should return to home page when quit button is pressed", function (done) {
     var username = 'sinbad';
-    new Nightmare({ show: true })
+    newNightmare()
       .goto(url)
       .type('#choosenickname', username)
       .click('#write-btn')
