@@ -43,8 +43,7 @@
     created: function () {
       var self = this
 
-      // Update on change
-      socket.on('server:state', function () {
+      function updateState() {
         // We only ask for state if we're logged in or admin
         if (self.sharedState.playerId) {
           request.get('/api/state', { playerId: self.sharedState.playerId }, (err, res) => {
@@ -75,6 +74,13 @@
             })
           }
         }
+      }
+
+      updateState()
+
+      // Update on change when server state changes
+      socket.on('server:state', function () {
+        updateState()
       })
 
       // Routes
