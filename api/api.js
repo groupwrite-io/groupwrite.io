@@ -11,40 +11,44 @@ router.get('/', function (req, res, next) {
 
 // GET /state
 router.get('/state', function (req, res, next) {
-  res.json(State.state)
+  if (!req.query.playerId) {
+    res.status(500).send('Missing playerId')
+    return
+  }
+  var state = State.getStateByPlayerId(req.query.playerId)
+  res.json(state)
 })
 
-// GET /error
-router.get('/error', function (req, res, next) {
+// GET & POST /error (for testing)
+router.get('/error', function () {
+  assert.fail('This returns a 500 error')
+})
+router.post('/error', function () {
   assert.fail('This returns a 500 error')
 })
 
 // GET /clearAll
 router.post('/clearAll', function (req, res, next) {
   State.clearAll()
-  server.io.emit('server:state', State.state)
+  server.io.emit('server:state')
   res.send(true)
 })
 
 // POST /login
 router.post('/login', function (req, res, next) {
   var nickname = req.body.nickname
-  State.state.players.push({ nickname })
-  console.log("Player logged in: Added " + nickname + " to player array of length " + State.state.players.length)
-  server.io.emit('server:state', State.state)
+  var id = req.body.id
 
+  State.addPlayer({ nickname, id })
+
+  server.io.emit('server:state')
   res.send(true)
 })
 
 // POST /quit
 router.post('/quit', function (req, res, next) {
-  // remove me from the list of players
-  var myindex = State.state.players.findIndex(function (element) {
-    return element.nickname === req.body.nickname
-  })
-  console.assert(myindex !== -1, 'Failed to find current player')
-  State.state.players.splice(myindex, 1)
-  server.io.emit('server:state', State.state)
+  State.removePlayer(req.body.id)
+  server.io.emit('server:state')
   res.send(true)
 })
 

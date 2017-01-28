@@ -19,17 +19,14 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-var State = require('./state');
-
 var io = require('socket.io')(server);
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
   console.log('a user connected');
-  var myindex = State.state.players.findIndex(function (element) {
-    socket.on('disconnect', function () {
-      console.log('user disconnected');
-      // TODO handle user quitting
-    });
+
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
+    // TODO handle user quitting
   });
 });
 console.log("Successfully Started socket.io");

@@ -21,7 +21,7 @@
         var request = require('superagent')
         console.log(`${this.nickname} sending quit message`)
         request.post('/api/quit', {
-          nickname: this.sharedState.myNickname
+          nickname: this.sharedState.playerId
         }, function (err, state) {
           if (err) {
             assert.fail(`/ quit error ${err.status} - ${err.message} \r\n ${err.stack}`)

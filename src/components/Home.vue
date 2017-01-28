@@ -29,17 +29,19 @@
     },
     methods: {
       login: function () {
-        console.log(`Player selected nickname ${this.sharedState.myNickname}`)
+        const uuidV4 = require('uuid/v4')
+        this.sharedState.playerId = uuidV4()
+        console.log(`New player (${this.sharedState.myNickname}, ${this.sharedState.playerId})`)
 
         var request = require('superagent')
         request.post('/api/login', {
+          id: this.sharedState.playerId,
           nickname: this.sharedState.myNickname
         }, function (err, state) {
           // TODO handle login failure
           if (err) {
             console.log(err)
           } else {
-            debugger
             router.replace('/queue')
           }
         })

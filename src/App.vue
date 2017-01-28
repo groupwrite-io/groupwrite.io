@@ -19,6 +19,7 @@
   import store from './components/store'
   import assert from 'assert'
 
+  var request = require('superagent')
   var socketlib = require('socket.io-client')
   var socket = socketlib('http://localhost:3000/')
   var VueRouter = require('vue-router')
@@ -37,32 +38,26 @@
     },
     created: function () {
       var self = this
-      function updateState(state) {
-        assert(state)
-        console.log(`Got server state (updated num players from ${self.sharedState.length} to ${state.players.length})`)
-        self.sharedState.players = state.players
 
-        assert(state.players.length <= self.consts.maxPlayers)
-        // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
-        if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
-          router.replace('/game')
-        }
-      }
-
-      // State management
-      (function () {
-        // Get initial state
-        var request = require('superagent')
-        request.get('/api/state', (err, res) => {
+      // Update on change
+      socket.on('server:state', function () {
+        request.get('/api/state', { playerId: self.sharedState.playerId }, (err, res) => {
           assert(!err)
           assert(res.status === 200)
 
-          updateState(res.body)
-        })
+          let state = res.body
+          assert(state)
 
-        // Update on change
-        socket.on('server:state', updateState)
-      })()
+          console.log(`Got server state (updated num players from ${self.sharedState.length} to ${state.players.length})`)
+          self.sharedState.players = state.players
+
+          assert(state.players.length <= self.consts.maxPlayers)
+          // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
+          if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
+            router.replace('/game')
+          }
+        })
+      })
 
       // Routes
       // If we're not on the admin page, reload --> home
