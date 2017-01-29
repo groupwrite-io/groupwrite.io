@@ -107,4 +107,10 @@
 a {
   margin-right: 10px;
 }
+.center {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    position: absolute;
+}
 </style>
