@@ -6,6 +6,7 @@
     </form>
     <player-list></player-list>
     <quit-button></quit-button>
+    <audio src="../assets/ding.ogg"></audio>
   </div>
 </template>
 
@@ -29,8 +30,7 @@
     mounted: function () {
       document.getElementById('mytext').focus()
 
-      var audio = new window.Audio('./static/ding.ogg')
-      audio.play()
+      // TODO audio.play()
     }
   }
 </script>
