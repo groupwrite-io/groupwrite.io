@@ -122,10 +122,6 @@ describe('Game page', function () {
     xit("should fail before timeout", function (done) {
       var nightmare = new Nightmare({ show: true })
         .goto(url)
-        .type('#choosenickname', 'sinbad')
-        .click('#write-btn')
-        .wait('div.queue')
-        .goto(url)
         .evaluate(function () {
         })
         .then(function (result) {
@@ -133,7 +129,7 @@ describe('Game page', function () {
         })
     })
 
-    xit("should not kick a player out if they disconnect", function (done) {
+    xit("should kick a player out if they disconnect", function (done) {
       var nightmare = newNightmare()
       nightmare
         .loginPlayer('sinbad')
