@@ -1,21 +1,19 @@
 <template>
   <div id="app">
     <div class="debug">
-      <common></common>
-
-      <p>
-        <router-link to="/">Home</router-link>
-        <router-link to="/queue">Queue</router-link>
-        <router-link to="/game">Game</router-link>
-        <router-link to="/admin">Admin</router-link>
-      </p>
+      <h1>debug toolbar</h1>
     </div>
-    <router-view></router-view>
+    <p>
+      <router-link to="/">Home</router-link>
+      <router-link to="/queue">Queue</router-link>
+      <router-link to="/game">Game</router-link>
+      <router-link to="/admin">Admin</router-link>
+    </p>
+  <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Common from './components/Common'
   import store from './components/store'
   import assert from 'assert'
 
@@ -32,7 +30,7 @@
   export default {
     name: 'app',
     components: {
-      Common
+      // Add any custom components here
     },
     data: function () {
       return {
@@ -107,4 +105,11 @@
 a {
   margin-right: 10px;
 }
+.center {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    position: absolute;
+}
+
 </style>
