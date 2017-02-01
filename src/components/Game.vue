@@ -1,8 +1,9 @@
 <template>
   <div class="game">
     <h1>Welcome {{sharedState.myNickname}}</h1>
+    <p> {{suggestionText}}</p>
     <form>
-      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here"></textarea>
+      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="suggestionText"></textarea>
     </form>
     <player-list></player-list>
     <quit-button></quit-button>
@@ -23,7 +24,8 @@
     },
     data() {
       return {
-        sharedState: store.state
+        sharedState: store.state,
+        suggestionText: ''
       }
     },
     mounted: function () {
