@@ -129,7 +129,7 @@ describe('Game page', function () {
         })
     })
 
-    xit("should kick a player out if they disconnect", function (done) {
+    it("should kick a player out if they disconnect", function (done) {
       var nightmare = newNightmare()
       nightmare
         .loginPlayer('sinbad')

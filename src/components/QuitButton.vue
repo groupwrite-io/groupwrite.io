@@ -19,7 +19,7 @@
     methods: {
       quit: function () {
         var request = require('superagent')
-        console.log(`${this.nickname} sending quit message`)
+        console.log(`${this.sharedState.myNickname} sending quit message`)
         request.post('/api/quit', {
           nickname: this.sharedState.playerId
         }, function (err, state) {

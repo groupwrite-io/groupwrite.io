@@ -36,7 +36,7 @@
 
         var request = require('superagent')
         request.post('/api/login', {
-          id: this.sharedState.playerId,
+          playerId: this.sharedState.playerId,
           nickname: this.sharedState.myNickname
         }, function (err, state) {
           // TODO handle login failure
