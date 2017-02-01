@@ -2,17 +2,11 @@
  * Module dependencies.
  */
 
-var app = require('./app');
+var app = require('../build/dev-server.js')
 var debug = require('debug')('writing.io:server');
 var http = require('http');
 var assert = require('assert')
-
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.API_PORT || '3000');
-app.set('port', port);
+var opn = require('opn')
 
 /**
  * Create HTTP server.
@@ -50,8 +44,21 @@ console.log("Successfully Started socket.io");
 /**
  * Listen on provided port, on all network interfaces.
  */
+var port = app.get('port')
+server.listen(port, function (err) {
+  if (err) {
+    console.log(err)
+    return
+  }
 
-server.listen(port);
+  // when env is testing, don't need open it
+  if (process.env.NODE_ENV !== 'testing') {
+    var uri = 'http://localhost:' + port
+    opn(uri)
+  }
+})
+console.log(`Server listening on port ${port}`)
+
 server.on('error', onError);
 server.on('listening', onListening);
 
