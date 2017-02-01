@@ -1,4 +1,5 @@
 var uuid = require('uuid/v4')
+var values = require('object.values');
 
 var maxPlayersInGame = 3
 var State = {}
@@ -48,6 +49,8 @@ State.removePlayer = function (playerId) {
 
   var player = State.players[playerId]
   delete State[playerId]
+
+  State.queue = State.queue.filter((qPlayerId) => qPlayerId !== playerId)
   console.log(`Player quit: ${player.nickname}, ${player.id}`)
 }
 
@@ -56,7 +59,6 @@ State.getStateByPlayerId = function (playerId) {
   let filteredState = {}
 
   // Find current game for the player
-  var values = require('object.values');
   let game =
     values(State.games).find((g) => g.playerIds.includes(playerId))
 

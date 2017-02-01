@@ -33,6 +33,10 @@ router.post('/login', function (req, res, next) {
   var nickname = req.body.nickname
   var playerId = req.body.playerId
 
+  // if (req.session.playerId) {
+  //   res.status(401).send("Are you already using this account? If you got this in error, email help@write.io")
+  //   return
+  // }
   req.session.playerId = req.body.playerId
   State.addPlayer({ id: playerId, nickname })
 
@@ -42,7 +46,7 @@ router.post('/login', function (req, res, next) {
 
 // POST /quit
 router.post('/quit', function (req, res, next) {
-  State.removePlayer(req.body.id)
+  State.removePlayer(req.body.playerId)
   server.io.emit('server:state')
   res.send(true)
 })

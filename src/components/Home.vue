@@ -41,7 +41,7 @@
         }, function (err, state) {
           // TODO handle login failure
           if (err) {
-            console.log(err)
+            window.alert(err + '\r\n' + state.text)
           } else {
             router.replace('/queue')
           }
