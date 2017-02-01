@@ -29,6 +29,18 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(cookieParser());
+
+// Session
+var session = require("express-session")({
+  // TODO move secret to config file
+  // TODO change to a real secret (using git-secret)
+  secret: "my-secret",
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 365 * 24 * 3600 * 1000 }
+});
+app.session = session
+app.use(session)
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(expressWinston.logger({

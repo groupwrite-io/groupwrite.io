@@ -5,6 +5,7 @@
 var app = require('./app');
 var debug = require('debug')('writing.io:server');
 var http = require('http');
+var assert = require('assert')
 
 /**
  * Get port from environment and store in Express.
@@ -20,13 +21,26 @@ app.set('port', port);
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
+var State = require('./state')
+
+assert(app.session)
+var sharedsession = require("express-socket.io-session");
+io.use(sharedsession(app.session, {
+  autoSave: true
+}));
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
   console.log('a user connected');
 
   socket.on('disconnect', function () {
-    console.log('user disconnected');
-    // TODO handle user quitting
+    if (socket.handshake.session.playerId) {
+      var playerId = socket.handshake.session.playerId
+      var nickname = socket.handshake.session.nickname
+      console.log(`socket disconnected, playerId=${playerId}, nickname=${nickname}`);
+      State.removePlayer(playerId)
+    } else {
+      console.log('socket disconnected');
+    }
   });
 });
 console.log("Successfully Started socket.io");

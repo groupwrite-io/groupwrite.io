@@ -3,6 +3,7 @@ var router = express.Router()
 var State = require('./state')
 var server = require('./server')
 var assert = require('assert')
+var session = require('express-session')
 
 // GET /state
 router.get('/', function (req, res, next) {
@@ -30,9 +31,10 @@ router.post('/error', function () {
 // POST /login
 router.post('/login', function (req, res, next) {
   var nickname = req.body.nickname
-  var id = req.body.id
+  var playerId = req.body.playerId
 
-  State.addPlayer({ nickname, id })
+  req.session.playerId = req.body.playerId
+  State.addPlayer({ id: playerId, nickname })
 
   server.io.emit('server:state')
   res.send(true)
