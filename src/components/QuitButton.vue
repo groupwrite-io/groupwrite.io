@@ -20,16 +20,17 @@
       quit: function () {
         var request = require('superagent')
         console.log(`${this.sharedState.myNickname} sending quit message`)
-        request.post('/api/quit', {
-          playerId: this.sharedState.playerId
-        }, function (err, state) {
-          if (err) {
-            assert.fail(`/ quit error ${err.status} - ${err.message} \r\n ${err.stack}`)
-          }
+        request.post('/api/quit')
+          .set('Accept', 'application/json')
+          .send({ playerId: this.sharedState.playerId })
+          .end((err, state) => {
+            if (err) {
+              assert.fail(`/ quit error ${err.status} - ${err.message} \r\n ${err.stack}`)
+            }
 
-          // Navigate back home
-          router.replace('/')
-        })
+            // Navigate back home
+            router.replace('/')
+          })
       }
     }
   }

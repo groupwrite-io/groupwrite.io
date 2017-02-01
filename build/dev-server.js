@@ -39,8 +39,7 @@ compiler.plugin('compilation', function (compilation) {
 })
 
 // handle fallback for HTML5 history API
-// TODO - Check if this is needed. This fails our API endpoints - https://github.com/bripkens/connect-history-api-fallback/issues/33
-// app.use(require('connect-history-api-fallback')())
+app.use(require('connect-history-api-fallback')())
 
 // serve webpack bundle output
 app.use(devMiddleware)

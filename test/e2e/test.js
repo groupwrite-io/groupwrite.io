@@ -21,7 +21,7 @@ var testTimeout = 20000
 function newNightmare() {
   return new Nightmare(
     {
-      show: true
+      show: false
     }
   )
 }

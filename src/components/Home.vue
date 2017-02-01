@@ -35,17 +35,18 @@
         console.log(`New player (${this.sharedState.myNickname}, ${this.sharedState.playerId})`)
 
         var request = require('superagent')
-        request.post('/api/login', {
-          playerId: this.sharedState.playerId,
-          nickname: this.sharedState.myNickname
-        }, function (err, state) {
-          // TODO handle login failure
-          if (err) {
-            window.alert(err + '\r\n' + state.text)
-          } else {
-            router.replace('/queue')
-          }
-        })
+        request.post('/api/login')
+          .set('Accept', 'application/json')
+          .send({ playerId: this.sharedState.playerId })
+          .send({ nickname: this.sharedState.myNickname })
+          .end((err, state) => {
+            // TODO handle login failure
+            if (err) {
+              window.alert(err + '\r\n' + state.text)
+            } else {
+              router.replace('/queue')
+            }
+          })
 
         // debugger
         // this.$root.global.myNickname = this.nickname
