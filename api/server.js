@@ -28,6 +28,7 @@ var sharedsession = require("express-socket.io-session");
 io.use(sharedsession(app.session, {
   autoSave: true
 }));
+
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
   console.log('a user connected');
@@ -38,6 +39,7 @@ io.on('connection', function (socket) {
       var nickname = socket.handshake.session.nickname
       console.log(`socket disconnected, playerId=${playerId}, nickname=${nickname}`);
       State.removePlayer(playerId)
+      io.emit('server:state')
     } else {
       console.log('socket disconnected');
     }
