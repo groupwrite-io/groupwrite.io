@@ -39,25 +39,19 @@ compiler.plugin('compilation', function (compilation) {
 })
 
 // handle fallback for HTML5 history API
-app.use(require('connect-history-api-fallback')())
+// TODO - Check if this is needed. This fails our API endpoints - https://github.com/bripkens/connect-history-api-fallback/issues/33
+// app.use(require('connect-history-api-fallback')())
 
 // serve webpack bundle output
-// TODO RonRon app.use(devMiddleware)
+app.use(devMiddleware)
 
 // enable hot-reload and state-preserving
 // compilation error display
-// TODO RonRon app.use(hotMiddleware)
+app.use(hotMiddleware)
 
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
-
-// serve API endpoints
-api = express.Router()
-api.get('/', function (req, res, next) {
-  res.send('write.io API server')
-})
-app.use('/api', api)
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -103,7 +97,6 @@ app.set("view options", {
   layout: true
 });
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -122,6 +115,9 @@ var session = require("express-session")({
 app.session = session
 app.use(session)
 app.use(express.static(path.join(__dirname, 'public')));
+
+// serve API endpoints
+app.use('/api', api)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

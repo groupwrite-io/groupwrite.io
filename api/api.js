@@ -30,9 +30,18 @@ router.post('/error', function () {
 
 // POST /login
 router.post('/login', function (req, res, next) {
+
   var nickname = req.body.nickname
   var playerId = req.body.playerId
 
+  if (!nickname) {
+    res.status(401).send("You must choose a nickname")
+    return
+  }
+  if (!playerId) {
+    res.status(401).send("You must choose a playerId")
+    return
+  }
   // if (req.session.playerId) {
   //   res.status(401).send("Are you already using this account? If you got this in error, email help@write.io")
   //   return

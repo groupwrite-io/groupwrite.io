@@ -1,0 +1,23 @@
+
+> write.io@1.0.0 dev C:\work\write.io
+> node api/server.js
+
+Starting socket.io
+Successfully Started socket.io
+Server listening on port 8080
+c DONE  Compiled successfully in 3777ms
+
+c WAIT  Compiling...
+
+c DONE  Compiled successfully in 880ms
+
+a user connected
+socket disconnected
+a user connected
+socket disconnected
+a user connected
+c WAIT  Compiling...
+
+c DONE  Compiled successfully in 171ms
+
+Terminate batch job (Y/N)? 

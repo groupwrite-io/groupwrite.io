@@ -9,7 +9,7 @@
       <router-link to="/game">Game</router-link>
       <router-link to="/admin">Admin</router-link>
     </p>
-  <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -19,7 +19,7 @@
 
   var request = require('superagent')
   var socketlib = require('socket.io-client')
-  var socket = socketlib('http://localhost:3000/')
+  var socket = socketlib()
   var VueRouter = require('vue-router')
   var router = new VueRouter()
 
