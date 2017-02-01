@@ -11,7 +11,6 @@ process.env.API_PORT = 3000
 
 
 // Web tests
-require('../../build/dev-server')
 require('../../api/server');
 
 console.log("~~~~ Webpack & API servers up, starting e2e tests ~~~~")
