@@ -25,10 +25,11 @@ io.use(sharedsession(app.session, {
 
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
-  console.log('a user connected');
+  var session = socket.handshake.session
+
+  console.log(`a user connected, sessionId=${session.id}`);
 
   socket.on('disconnect', function () {
-    var session = socket.handshake.session
     if (session.playerId) {
       var playerId = session.playerId
       var nickname = session.nickname

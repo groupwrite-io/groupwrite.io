@@ -39,7 +39,7 @@ compiler.plugin('compilation', function (compilation) {
 })
 
 // handle fallback for HTML5 history API
-app.use(require('connect-history-api-fallback')())
+// app.use(require('connect-history-api-fallback')())
 
 // serve webpack bundle output
 app.use(devMiddleware)
@@ -47,18 +47,6 @@ app.use(devMiddleware)
 // enable hot-reload and state-preserving
 // compilation error display
 app.use(hotMiddleware)
-
-// serve pure static assets
-var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
-app.use(staticPath, express.static('./static'))
-
-// default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
-app.set('port', port)
-var uri = 'http://localhost:' + port
-devMiddleware.waitUntilValid(function () {
-  console.log('> Listening at ' + uri + '\n')
-})
 
 // Loggers
 app.use(expressWinston.logger({
@@ -84,6 +72,18 @@ app.use(expressWinston.errorLogger({
     })
   ]
 }));
+
+// serve pure static assets
+var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+app.use(staticPath, express.static('./static'))
+
+// default port where dev server listens for incoming traffic
+var port = process.env.PORT || config.dev.port
+app.set('port', port)
+var uri = 'http://localhost:' + port
+devMiddleware.waitUntilValid(function () {
+  console.log('> Listening at ' + uri + '\n')
+})
 
 // Register handlebars templates
 var exphbs = require('express-handlebars');
@@ -131,6 +131,7 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
+  console.error(err.stack)
   res.status(err.status || 500);
   res.render('error');
 });

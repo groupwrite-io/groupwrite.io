@@ -54,6 +54,15 @@ State.removePlayer = function (playerId) {
   console.log(`Player quit: ${player.nickname}, ${player.id}`)
 }
 
+State.getPlayerById = function (playerId) {
+  if (!State.players[playerId]) {
+    console.log(`No player found with ID ${playerId}`)
+    return
+  }
+
+  return State.players[playerId]
+}
+
 // Returns the state as seen by a particular player
 State.getStateByPlayerId = function (playerId) {
   let filteredState = {}

@@ -20,6 +20,29 @@ router.get('/state', function (req, res, next) {
   res.json(state)
 })
 
+router.get('/checkLoggedin', function (req, res, next) {
+  var result
+  var playerId = req.session.playerId
+  if (!playerId) {
+    res.json({ loggedIn: false })
+    return
+  }
+
+  var player = State.getPlayerById(playerId)
+  if (!player) {
+    res.json({
+      loggedIn: false,
+      playerId
+    })
+    return;
+  }
+  res.json({
+    loggedIn: true,
+    playerId,
+    nickname: player.nickname
+  })
+})
+
 // GET & POST /error (for testing)
 router.get('/error', function () {
   assert.fail('This returns a 500 error')
@@ -43,13 +66,15 @@ router.post('/login', function (req, res, next) {
     return
   }
   // if (req.session.playerId) {
-  //   res.status(401).send("Are you already using this account? If you got this in error, email help@write.io")
+  //   res.status(401).send("Are you already using this account? If you got this in error, email help@write.io") // TODO fix email
   //   return
   // }
-  req.session.playerId = req.body.playerId
+  req.session.playerId = playerId
+  console.log(`/login Saved playerId ${playerId} on session ${req.session.id}`)
   State.addPlayer({ id: playerId, nickname })
 
   server.io.emit('server:state')
+
   res.send(true)
 })
 
@@ -57,6 +82,9 @@ router.post('/login', function (req, res, next) {
 router.post('/quit', function (req, res, next) {
   State.removePlayer(req.body.playerId)
   server.io.emit('server:state')
+
+  var session = req.session
+  session.destroy()
   res.send(true)
 })
 
