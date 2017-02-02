@@ -28,14 +28,15 @@ io.on('connection', function (socket) {
   console.log('a user connected');
 
   socket.on('disconnect', function () {
-    if (socket.handshake.session.playerId) {
-      var playerId = socket.handshake.session.playerId
-      var nickname = socket.handshake.session.nickname
-      console.log(`socket disconnected, playerId=${playerId}, nickname=${nickname}`);
+    var session = socket.handshake.session
+    if (session.playerId) {
+      var playerId = session.playerId
+      var nickname = session.nickname
+      console.log(`socket disconnected, sessionId=${session.id}, playerId=${playerId}, nickname=${nickname}`);
       State.removePlayer(playerId)
       io.emit('server:state')
     } else {
-      console.log('socket disconnected');
+      console.log(`socket disconnected, sessionId=${session.id}`);
     }
   });
 });
