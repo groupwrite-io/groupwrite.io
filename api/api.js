@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var State = require('./state')
-var server = require('./server')
+var server = require('../build/server')
 var assert = require('assert')
 var session = require('express-session')
 

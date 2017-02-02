@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-var app = require('../build/dev-server.js')
+var app = require('./dev-server.js')
 var debug = require('debug')('writing.io:server');
 var http = require('http');
 var assert = require('assert')
@@ -15,7 +15,7 @@ var opn = require('opn')
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
-var State = require('./state')
+var State = require('../api/state')
 
 assert(app.session)
 var sharedsession = require("express-socket.io-session");

@@ -5,14 +5,12 @@
   "author": "Ron Gross <chiefninjaofficer@gmail.com>",
   "private": true,
   "scripts": {
-    "start": "concurrently --kill-others \"npm run dev\" \"npm run api\"",
-    "dev": "nodemon api/server.js",
+    "start": "nodemon build/server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "mocha test/e2e -u bdd -R spec",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "api": "nodemon --exec npm run babel-node ./api/server.js",
     "babel-node": "babel-node --presets=es2015"
   },
   "dependencies": {
