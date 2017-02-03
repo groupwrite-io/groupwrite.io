@@ -21,6 +21,7 @@ The end result is a collaboratively created story.
 * Express
 * Vue
 * Socket.io
+* Webpack
 
 ### How do I get set up? ###
 
