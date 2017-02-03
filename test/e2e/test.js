@@ -116,18 +116,7 @@ describe('Game page', function () {
   describe('Queue page', function () {
     this.timeout(testTimeout);
 
-    // TODO Delete this
-    // http://stackoverflow.com/questions/41914166/mocha-nightmare-test-failing-but-still-waiting-for-timeout
-    xit("should fail before timeout", function (done) {
-      var nightmare = new Nightmare({ show: true })
-        .goto(url)
-        .evaluate(function () {
-        })
-        .then(function (result) {
-          throw "Fail" // This point is reached, and I expect the test to fail immediately at this point
-        })
-    })
-
+    // https://github.com/write-io/write.io/issues/24
     xit("should kick a player out if they disconnect", function (done) {
       var nightmare = newNightmare()
       nightmare
@@ -153,6 +142,7 @@ describe('Game page', function () {
           result.should.containEql("Waiting for players 1/3");
           done();
         })
+        .catch(done)
     });
   })
 });
