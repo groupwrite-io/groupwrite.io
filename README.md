@@ -17,11 +17,17 @@ The end result is a collaboratively created story.
 ### Dependencies / Tech Stack ###
 
 * git
-* Node
-* Express
-* Vue
-* Socket.io
-* Webpack
+* [Node](https://nodejs.org)
+* [Express](http://expressjs.com/) web server
+* [Vue](https://vuejs.org/) frontend framework
+* [Socket.io](http://socket.io/) for realtime communications / websockets
+* [Webpack](https://webpack.github.io/) for bundling everything up
+* [Babel](https://babeljs.io/) / [ES2016](http://es6-features.org/) for modern Javascript
+* [eslint](http://eslint.org/) for quality control
+* [mocha](https://mochajs.org/) for testing, [Nightmare](http://www.nightmarejs.org/) for web testing
+* [CircleCI](circleci.com/gh/write-io/write.io/) for Continous Integration & Deployment
+* [Slack](https://www.hamsterpad.com/chat/writeio) for communications
+* [Medium](https://medium.com/write-io) for blogging
 
 ### How do I get set up? ###
 
