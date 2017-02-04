@@ -45,7 +45,8 @@ describe('Start page', function () {
       .run(function (err, result) {
         result.should.equal(1);
         done();
-      });
+      })
+      .catch(done);
   });
 });
 
@@ -63,7 +64,8 @@ describe('Game page', function () {
       .run(function (err, result) {
         result.should.containEql("List of players");
         done();
-      });
+      })
+      .catch(done);
   });
 
   it("should contain the current user's name", function (done) {
@@ -82,7 +84,8 @@ describe('Game page', function () {
         result.should.containEql(players[1]);
         result.should.containEql(players[2]);
         done();
-      });
+      })
+      .catch(done);
   });
 
   it("should return to home page when quit button is pressed", function (done) {
@@ -110,7 +113,8 @@ describe('Game page', function () {
         // After quitting, we should have a write button
         result.should.eql(1);
         done();
-      });
+      })
+      .catch(done);
   });
 
   describe('Queue page', function () {
