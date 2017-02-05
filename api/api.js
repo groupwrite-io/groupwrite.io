@@ -32,7 +32,8 @@ router.post('/login', function (req, res, next) {
   var nickname = req.body.nickname
   var id = req.body.id
 
-  State.addPlayer({ nickname, id })
+  var player = { nickname, id }
+  State.addPlayer(player)
 
   server.io.emit('server:state')
   res.send(true)
@@ -42,6 +43,16 @@ router.post('/login', function (req, res, next) {
 router.post('/quit', function (req, res, next) {
   State.removePlayer(req.body.id)
   server.io.emit('server:state')
+  res.send(true)
+})
+
+// POST /suggest
+router.post('/suggest', function (req, res, next) {
+  var playerId = req.body.playerId
+  var suggestion = req.body.suggestion
+  var player = State.getPlayerById(playerId)
+  console.log('suggestion: ' + suggestion)
+  player.suggestion = suggestion
   res.send(true)
 })
 
