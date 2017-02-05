@@ -5,10 +5,6 @@ var Nightmare = require('nightmare');
 
 // Set different ports so we can run tests while dev server is running
 process.env.WEB_PORT = 8081
-// TODO - this is still the standard socket.io port, not sure how to change it on the client
-// http://stackoverflow.com/questions/41908504/vue-how-to-use-a-different-socket-io-port-in-tests
-process.env.API_PORT = 3000
-
 
 // Web tests
 require('../../build/server');
@@ -16,14 +12,12 @@ require('../../build/server');
 console.log("~~~~ Webpack & API servers up, starting e2e tests ~~~~")
 
 var url = `http://localhost:${process.env.WEB_PORT}`;
-var testTimeout = 20000
+var testTimeout = 30000
 
 function newNightmare() {
-  return new Nightmare(
-    {
-      show: false
-    }
-  )
+  return new Nightmare({
+    show: false
+  })
 }
 
 Nightmare.prototype.loginPlayer = function (username) {
@@ -54,8 +48,8 @@ describe('Game page', function () {
   this.timeout(testTimeout);
 
   it("should contain the 'List of Players'", function (done) {
-    newNightmare().loginPlayer('john').run(() => { });
-    newNightmare().loginPlayer('doe').run(() => { });
+    newNightmare().loginPlayer('john').run(() => {});
+    newNightmare().loginPlayer('doe').run(() => {});
     newNightmare().loginPlayer('sinbad')
       .wait('div.game')
       .evaluate(function () {
@@ -70,8 +64,8 @@ describe('Game page', function () {
 
   it("should contain the current user's name", function (done) {
     var players = ['sinbad', 'ali', 'baba'];
-    newNightmare().loginPlayer(players[0]).run(() => { });
-    newNightmare().loginPlayer(players[1]).run(() => { });
+    newNightmare().loginPlayer(players[0]).run(() => {});
+    newNightmare().loginPlayer(players[1]).run(() => {});
     newNightmare().loginPlayer(players[2])
       .wait('div.game')
       .evaluate(function () {
@@ -89,8 +83,8 @@ describe('Game page', function () {
   });
 
   it("should return to home page when quit button is pressed", function (done) {
-    newNightmare().loginPlayer('ali').run(() => { });
-    newNightmare().loginPlayer('baba').run(() => { });
+    newNightmare().loginPlayer('ali').run(() => {});
+    newNightmare().loginPlayer('baba').run(() => {});
     var nightmare = newNightmare().loginPlayer('sinbad')
     nightmare
       .wait('div.game')

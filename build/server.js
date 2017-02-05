@@ -41,7 +41,7 @@ io.on('connection', function (socket) {
     }
   });
 });
-console.log("Successfully Started socket.io");
+console.log('Successfully Started socket.io');
 
 /**
  * Listen on provided port, on all network interfaces.
