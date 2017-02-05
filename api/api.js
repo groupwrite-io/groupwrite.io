@@ -92,9 +92,18 @@ router.post('/quit', function (req, res, next) {
 router.post('/suggest', function (req, res, next) {
   var playerId = req.body.playerId
   var suggestion = req.body.suggestion
+  if (!playerId) {
+    res.status(422).send("Missing playerId")
+    return
+  }
   var player = State.getPlayerById(playerId)
-  console.log('suggestion: ' + suggestion)
+  if (player == null) {
+    res.status(422).send(`Missing player for playerId ${playerId}`)
+    return
+  }
+  // console.log('suggestion: ' + suggestion)
   player.suggestion = suggestion
+  server.io.emit('server:state')
   res.send(true)
 })
 

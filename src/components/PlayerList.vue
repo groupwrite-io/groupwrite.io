@@ -7,9 +7,9 @@
           <div class="nickname">
             {{player.nickname}}
           </div>
-          <p class="suggestion">
-            This is the text this player suggests
-          </p>
+          <div class="suggestion">
+            {{player.suggestion}}
+          </div>
           <div class="vote-button">
           </div>
         </div>
@@ -35,24 +35,27 @@
 </script>
 
 <style>
-  ol.nonelist {list-style-type: none;}
-
+  ol.nonelist {
+    list-style-type: none;
+  }
+  
   .playerList li {
-    display:inline-block;
+    display: inline-block;
     width: 500px
   }
-
+  
   .displayblock {
-    display:block;
+    display: block;
   }
-
+  
   .vote-button {
     background-image: url('../assets/heart-icon.png');
     width: 32px;
     height: 32px;
-    cursor:pointer;
+    cursor: pointer;
   }
-  .vote-button:hover{
+  
+  .vote-button:hover {
     background-image: url('../assets/heart-icon-hover.png');
   }
 </style>
