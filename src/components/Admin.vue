@@ -36,11 +36,13 @@
     methods: {
       clearAll: function () {
         var request = require('superagent')
-        request.post('/api/clearAll', function (err, result) {
-          assert(!err)
-          assert(result.status === 200)
-          window.alert('Cleared!')
-        })
+        request.post('/api/clearAll')
+          .set('Accept', 'application/json')
+          .end((err, result) => {
+            assert(!err)
+            assert(result.status === 200)
+            window.alert('Cleared!')
+          })
       }
     }
 

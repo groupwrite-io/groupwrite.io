@@ -11,8 +11,7 @@ process.env.API_PORT = 3000
 
 
 // Web tests
-require('../../build/dev-server')
-require('../../api/server');
+require('../../build/server');
 
 console.log("~~~~ Webpack & API servers up, starting e2e tests ~~~~")
 
@@ -22,7 +21,7 @@ var testTimeout = 20000
 function newNightmare() {
   return new Nightmare(
     {
-      show: true
+      show: false
     }
   )
 }
@@ -46,7 +45,8 @@ describe('Start page', function () {
       .run(function (err, result) {
         result.should.equal(1);
         done();
-      });
+      })
+      .catch(done);
   });
 });
 
@@ -64,7 +64,8 @@ describe('Game page', function () {
       .run(function (err, result) {
         result.should.containEql("List of players");
         done();
-      });
+      })
+      .catch(done);
   });
 
   it("should contain the current user's name", function (done) {
@@ -83,7 +84,8 @@ describe('Game page', function () {
         result.should.containEql(players[1]);
         result.should.containEql(players[2]);
         done();
-      });
+      })
+      .catch(done);
   });
 
   it("should return to home page when quit button is pressed", function (done) {
@@ -111,29 +113,15 @@ describe('Game page', function () {
         // After quitting, we should have a write button
         result.should.eql(1);
         done();
-      });
+      })
+      .catch(done);
   });
 
   describe('Queue page', function () {
     this.timeout(testTimeout);
 
-    // TODO Delete this
-    // http://stackoverflow.com/questions/41914166/mocha-nightmare-test-failing-but-still-waiting-for-timeout
-    xit("should fail before timeout", function (done) {
-      var nightmare = new Nightmare({ show: true })
-        .goto(url)
-        .type('#choosenickname', 'sinbad')
-        .click('#write-btn')
-        .wait('div.queue')
-        .goto(url)
-        .evaluate(function () {
-        })
-        .then(function (result) {
-          throw "Fail" // This point is reached, and I expect the test to fail immediately at this point
-        })
-    })
-
-    xit("should not kick a player out if they disconnect", function (done) {
+    // https://github.com/write-io/write.io/issues/24
+    xit("should kick a player out if they disconnect", function (done) {
       var nightmare = newNightmare()
       nightmare
         .loginPlayer('sinbad')
@@ -158,6 +146,7 @@ describe('Game page', function () {
           result.should.containEql("Waiting for players 1/3");
           done();
         })
+        .catch(done)
     });
   })
 });

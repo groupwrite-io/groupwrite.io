@@ -1,8 +1,9 @@
 var express = require('express')
 var router = express.Router()
 var State = require('./state')
-var server = require('./server')
+var server = require('../build/server')
 var assert = require('assert')
+var session = require('express-session')
 
 // GET /state
 router.get('/', function (req, res, next) {
@@ -19,6 +20,29 @@ router.get('/state', function (req, res, next) {
   res.json(state)
 })
 
+router.get('/checkLoggedin', function (req, res, next) {
+  var result
+  var playerId = req.session.playerId
+  if (!playerId) {
+    res.json({ loggedIn: false })
+    return
+  }
+
+  var player = State.getPlayerById(playerId)
+  if (!player) {
+    res.json({
+      loggedIn: false,
+      playerId
+    })
+    return;
+  }
+  res.json({
+    loggedIn: true,
+    playerId,
+    nickname: player.nickname
+  })
+})
+
 // GET & POST /error (for testing)
 router.get('/error', function () {
   assert.fail('This returns a 500 error')
@@ -29,20 +53,38 @@ router.post('/error', function () {
 
 // POST /login
 router.post('/login', function (req, res, next) {
-  var nickname = req.body.nickname
-  var id = req.body.id
 
-  var player = { nickname, id }
-  State.addPlayer(player)
+  var nickname = req.body.nickname
+  var playerId = req.body.playerId
+
+  if (!nickname) {
+    res.status(401).send("You must choose a nickname")
+    return
+  }
+  if (!playerId) {
+    res.status(401).send("You must choose a playerId")
+    return
+  }
+  // if (req.session.playerId) {
+  //   res.status(401).send("Are you already using this account? If you got this in error, email help@write.io") // TODO fix email
+  //   return
+  // }
+  req.session.playerId = playerId
+  console.log(`/login Saved playerId ${playerId} on session ${req.session.id}`)
+  State.addPlayer({ id: playerId, nickname })
 
   server.io.emit('server:state')
+
   res.send(true)
 })
 
 // POST /quit
 router.post('/quit', function (req, res, next) {
-  State.removePlayer(req.body.id)
+  State.removePlayer(req.body.playerId)
   server.io.emit('server:state')
+
+  var session = req.session
+  session.destroy()
   res.send(true)
 })
 

@@ -4,8 +4,16 @@
     <ol class="nonelist">
       <li v-for="player in sharedState.players">
         <div v-if="player.nickname != sharedState.myNickname">
-          {{player.nickname}}
+          <div class="nickname">
+            {{player.nickname}}
+          </div>
+          <p class="suggestion">
+            This is the text this player suggests
+          </p>
+          <div class="vote-button">
+          </div>
         </div>
+        <div class="displayblock"></div>
       </li>
     </ol>
   </div>
@@ -23,8 +31,28 @@
       }
     }
   }
+
 </script>
 
 <style>
   ol.nonelist {list-style-type: none;}
+
+  .playerList li {
+    display:inline-block;
+    width: 500px
+  }
+
+  .displayblock {
+    display:block;
+  }
+
+  .vote-button {
+    background-image: url('../assets/heart-icon.png');
+    width: 32px;
+    height: 32px;
+    cursor:pointer;
+  }
+  .vote-button:hover{
+    background-image: url('../assets/heart-icon-hover.png');
+  }
 </style>

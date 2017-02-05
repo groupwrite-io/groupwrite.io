@@ -2,16 +2,11 @@
  * Module dependencies.
  */
 
-var app = require('./app');
+var app = require('./dev-server.js')
 var debug = require('debug')('writing.io:server');
 var http = require('http');
-
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.API_PORT || '3000');
-app.set('port', port);
+var assert = require('assert')
+var opn = require('opn')
 
 /**
  * Create HTTP server.
@@ -20,13 +15,30 @@ app.set('port', port);
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
+var State = require('../api/state')
+
+assert(app.session)
+var sharedsession = require("express-socket.io-session");
+io.use(sharedsession(app.session, {
+  autoSave: true
+}));
+
 console.log("Starting socket.io");
 io.on('connection', function (socket) {
-  console.log('a user connected');
+  var session = socket.handshake.session
+
+  console.log(`a user connected, sessionId=${session.id}`);
 
   socket.on('disconnect', function () {
-    console.log('user disconnected');
-    // TODO handle user quitting
+    if (session.playerId) {
+      var playerId = session.playerId
+      var nickname = session.nickname
+      console.log(`socket disconnected, sessionId=${session.id}, playerId=${playerId}, nickname=${nickname}`);
+      State.removePlayer(playerId)
+      io.emit('server:state')
+    } else {
+      console.log(`socket disconnected, sessionId=${session.id}`);
+    }
   });
 });
 console.log("Successfully Started socket.io");
@@ -34,8 +46,21 @@ console.log("Successfully Started socket.io");
 /**
  * Listen on provided port, on all network interfaces.
  */
+var port = app.get('port')
+server.listen(port, function (err) {
+  if (err) {
+    console.log(err)
+    return
+  }
 
-server.listen(port);
+  // when env is testing, don't need open it
+  if (process.env.NODE_ENV !== 'testing') {
+    var uri = 'http://localhost:' + port
+    opn(uri)
+  }
+})
+console.log(`Server listening on port ${port}`)
+
 server.on('error', onError);
 server.on('listening', onListening);
 
