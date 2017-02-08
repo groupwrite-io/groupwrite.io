@@ -10,7 +10,7 @@
           <div class="suggestion">
             {{player.suggestion}}
           </div>
-          <div class="vote-button">
+          <div class="vote-button" :data-playerid="player.id" v-on:click="vote($event)">
           </div>
         </div>
         <div class="displayblock"></div>
@@ -18,9 +18,10 @@
     </ol>
   </div>
 </template>
-
 <script>
   import store from './store'
+  import assert from 'assert'
+  var request = require('superagent')
 
   export default {
     name: 'PlayerList',
@@ -29,11 +30,24 @@
       return {
         sharedState: store.state
       }
+    },
+    methods: {
+      vote: function (event) {
+        var voterId = this.sharedState.playerId
+        var votedForId = event.target.dataset.playerid
+        debugger
+        request.post('/api/vote', {
+          voterId,
+          votedForId
+        }, function (err, result) {
+          assert(!err)
+          console.log('Player ' + voterId + ' voted for player ' + votedForId)
+        })
+      }
     }
   }
 
 </script>
-
 <style>
   ol.nonelist {
     list-style-type: none;
@@ -58,4 +72,5 @@
   .vote-button:hover {
     background-image: url('../assets/heart-icon-hover.png');
   }
+
 </style>

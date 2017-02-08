@@ -10,12 +10,12 @@
     <quit-button></quit-button>
   </div>
 </template>
-
 <script>
-  // import assert from 'assert'
+  import assert from 'assert'
   import store from './store'
   import PlayerList from './PlayerList.vue'
   import QuitButton from './QuitButton'
+  var request = require('superagent')
 
   export default {
     name: 'Game',
@@ -32,7 +32,6 @@
     methods: {
       syncText: function () {
         // console.log(`player entered text ${this.suggestionText}`)
-        var request = require('superagent')
         console.log(this.sharedState.playerId)
         request.post('/api/suggest', {
           // TODO delete when we have session
@@ -40,9 +39,7 @@
           suggestion: this.suggestionText
         }, function (err, state) {
           // TODO handle login failure
-          if (err) {
-            console.log(err)
-          }
+          assert(!err)
         })
       }
     },
@@ -55,7 +52,7 @@
   }
 
 </script>
-
 <style>
+
 
 </style>

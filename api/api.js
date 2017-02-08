@@ -24,7 +24,9 @@ router.get('/checkLoggedin', function (req, res, next) {
   var result
   var playerId = req.session.playerId
   if (!playerId) {
-    res.json({ loggedIn: false })
+    res.json({
+      loggedIn: false
+    })
     return
   }
 
@@ -71,7 +73,10 @@ router.post('/login', function (req, res, next) {
   // }
   req.session.playerId = playerId
   console.log(`/login Saved playerId ${playerId} on session ${req.session.id}`)
-  State.addPlayer({ id: playerId, nickname })
+  State.addPlayer({
+    id: playerId,
+    nickname
+  })
 
   server.io.emit('server:state')
 
@@ -103,6 +108,30 @@ router.post('/suggest', function (req, res, next) {
   }
   // console.log('suggestion: ' + suggestion)
   player.suggestion = suggestion
+  server.io.emit('server:state')
+  res.send(true)
+})
+
+// POST /vote
+router.post('/vote', function (req, res, next) {
+  var voterId = req.body.voterId
+  var votedForId = req.body.votedForId
+  if (!voterId || !votedForId) {
+    res.status(422).send("Missing voterId or votedForId")
+    return
+  }
+  var player = State.getPlayerById(voterId)
+  if (player == null) {
+    res.status(422).send(`Missing player for playerId ${playerId}`)
+    return
+  }
+
+  // This is information only the server should see
+  // (Players do not see who other players vote for)
+  // Currently they get the entire server state.
+  // Someone could write a modified client that displays votes
+  // TODO Security - only store votes on server, don't send to client
+  player.votedForId = votedForId
   server.io.emit('server:state')
   res.send(true)
 })
