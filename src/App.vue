@@ -12,7 +12,6 @@
     <router-view></router-view>
   </div>
 </template>
-
 <script>
   import store from './components/store'
   import assert from 'assert'
@@ -41,42 +40,54 @@
     created: function () {
       var self = this
 
+      function updateStateForPlayer(playerId) {
+        request.get('/api/state')
+          .set('Accept', 'application/json')
+          .query({
+            playerId
+          })
+          .end((err, res) => {
+            assert(!err)
+            assert(res.status === 200)
+
+            let state = res.body
+            assert(state)
+
+            console.log(
+              `Got server state (updated num players from ${self.sharedState.players.length} to ${state.players.length})`
+            )
+            self.sharedState.players = state.players
+
+            assert(state.players.length <= self.consts.maxPlayers)
+            // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
+            if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
+              router.replace('/game')
+            }
+          })
+      }
+
+      function updateAdminState() {
+        let adminKey = getAdminKey()
+        if (!adminKey) {
+          return
+        }
+
+a        f e R request.get('/api/adminState')
+          .set('Accept', 'application/json').query({
+            adminKey
+          }).end((err, res) => {
+            assert(!err)
+            assert(res.status === 200)
+            self.sharedState.adminState = res.body
+          })
+      }
+
       function updateState() {
         // We only ask for state if we're logged in or admin
         if (self.sharedState.playerId) {
-          request.get('/api/state')
-            .set('Accept', 'application/json')
-            .query({ playerId: self.sharedState.playerId })
-            .end((err, res) => {
-              assert(!err)
-              assert(res.status === 200)
-
-              let state = res.body
-              assert(state)
-
-              console.log(`Got server state (updated num players from ${self.sharedState.players.length} to ${state.players.length})`)
-              self.sharedState.players = state.players
-
-              assert(state.players.length <= self.consts.maxPlayers)
-              // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
-              if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
-                router.replace('/game')
-              }
-            })
+          updateStateForPlayer(self.sharedState.playerId)
         } else {
-          let adminKey = getAdminKey()
-          if (adminKey) {
-            console.log(`Admin getting state with key ${adminKey}`)
-            request.get('/api/adminState')
-              .set('Accept', 'application/json')
-              .query({ adminKey })
-              .end((err, res) => {
-                assert(!err)
-                assert(res.status === 200)
-
-                self.sharedState.adminState = res.body
-              })
-          }
+          updateAdminState()
         }
       }
 
@@ -96,7 +107,6 @@
   }
 
 </script>
-
 <style>
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -106,19 +116,20 @@
     color: #2c3e50;
     margin-top: 60px;
   }
-  
+
   .debug {
     background-color: lightgray
   }
-  
+
   a {
     margin-right: 10px;
   }
-  
+
   .center {
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
     position: absolute;
   }
+
 </style>
