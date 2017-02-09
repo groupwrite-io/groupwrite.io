@@ -53,10 +53,20 @@
             let state = res.body
             assert(state)
 
-            console.log(
+            console.log(V
               `Got server state (updated num players from ${self.sharedState.players.length} to ${state.players.length})`
             )
             self.sharedState.players = state.players
+
+            // Populate iVotedFor boolean
+            debugger
+            let myPlayer = self.sharedState.players.find(player => player.id === self.sharedState.playerId)
+            if (myPlayer) {
+              self.sharedState.players = self.sharedState.players.map(player => {
+                player.iVotedFor = (player.id === myPlayer.votedForId)
+                return player
+              })
+            }
 
             assert(state.players.length <= self.consts.maxPlayers)
             // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
@@ -72,7 +82,7 @@
           return
         }
 
-a        f e R request.get('/api/adminState')
+        request.get('/api/adminState')
           .set('Accept', 'application/json').query({
             adminKey
           }).end((err, res) => {

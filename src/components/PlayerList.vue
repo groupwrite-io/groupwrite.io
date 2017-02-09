@@ -10,7 +10,14 @@
           <div class="suggestion">
             {{player.suggestion}}
           </div>
-          <div class="vote-button" :data-playerid="player.id" v-on:click="vote($event)">
+          <!-- TODO - Refactor double vote button -->
+          <div v-if="!player.iVotedFor">
+            <div class="vote-button" :data-playerid="player.id" v-on:click="vote($event)">
+            </div>
+          </div>
+          <div v-if="player.iVotedFor">
+            <div class="vote-button vote-button-active" :data-playerid="player.id" v-on:click="vote($event)">
+            </div>
           </div>
         </div>
         <div class="displayblock"></div>
@@ -70,6 +77,11 @@
   }
   
   .vote-button:hover {
+    background-image: url('../assets/heart-icon-hover.png');
+  }
+  
+  .vote-button-active {
+    /* TODO: Use different style for active and hover */
     background-image: url('../assets/heart-icon-hover.png');
   }
 
