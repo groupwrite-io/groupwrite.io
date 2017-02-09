@@ -53,7 +53,7 @@
             let state = res.body
             assert(state)
 
-            console.log(V
+            console.log(
               `Got server state (updated num players from ${self.sharedState.players.length} to ${state.players.length})`
             )
             self.sharedState.players = state.players
