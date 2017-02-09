@@ -4,7 +4,6 @@
     <p> {{suggestionText}}</p>
     <form>
       <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="suggestionText" v-on:keyup="syncText"></textarea>
-      <!-- <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="suggestionText"></textarea>-->
     </form>
     <player-list></player-list>
     <quit-button></quit-button>
