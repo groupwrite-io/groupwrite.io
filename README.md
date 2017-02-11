@@ -1,6 +1,7 @@
 # README #
 
 [![CircleCI](https://circleci.com/gh/write-io/write.io.svg?style=svg)](https://circleci.com/gh/write-io/write.io)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/680/badge)](https://bestpractices.coreinfrastructure.org/projects/680)
 
 **write.io** (codename) is a collaborative writing game. You connect to the server (via browser, no install needed). The server then quickly matches you with a few fellow players to form a new writing group. All members of the writing group are online now, and start collaborating on writing a new story. The game works in rounds: in each round, players suggest different continuations to the current, ongoing story.
 
