@@ -41,7 +41,8 @@ The end result is a collaboratively created story.
 ### Contribution guidelines ###
 
 * We're having weekly coding sessions in Tel Aviv, usually on Thursday evening or Friday noonish. You're welcome to join!
-* Start by looking at some of our [Starter Tasks](https://github.com/write-io/write.io/labels/starter-task)
+* Start by looking at some of our [starter tasks](https://github.com/write-io/write.io/labels/starter-task), [high-priority](https://github.com/write-io/write.io/issues?q=is%3Aissue+is%3Aopen+label%3Apriority-high) and [medium-priority](https://github.com/write-io/write.io/issues?q=is%3Aissue+is%3Aopen+label%3Apriority-medium) tasks.
+
 
 TBD:
 * Writing tests
