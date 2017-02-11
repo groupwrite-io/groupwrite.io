@@ -2,13 +2,13 @@
   <div id="app">
     <div class="debug">
       <h1>debug toolbar</h1>
+      <p>
+        <router-link to="/">Home</router-link>
+        <router-link to="/queue">Queue</router-link>
+        <router-link to="/game">Game</router-link>
+        <router-link to="/admin">Admin</router-link>
+      </p>
     </div>
-    <p>
-      <router-link to="/">Home</router-link>
-      <router-link to="/queue">Queue</router-link>
-      <router-link to="/game">Game</router-link>
-      <router-link to="/admin">Admin</router-link>
-    </p>
     <router-view></router-view>
   </div>
 </template>
