@@ -59,30 +59,34 @@
   ol.nonelist {
     list-style-type: none;
   }
-  
+
   .playerList li {
     display: inline-block;
     width: 500px
   }
-  
+
   .displayblock {
     display: block;
   }
-  
+
   .vote-button {
     background-image: url('../assets/heart-icon.png');
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
-  
+
   .vote-button:hover {
     background-image: url('../assets/heart-icon-hover.png');
   }
-  
+
   .vote-button-active {
     /* TODO: Use different style for active and hover */
     background-image: url('../assets/heart-icon-hover.png');
+  }
+
+  .nickname {
+    font-weight: bold;
   }
 
 </style>
