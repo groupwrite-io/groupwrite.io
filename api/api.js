@@ -138,7 +138,7 @@ router.post('/vote', function (req, res, next) {
 
 /////// Admin //////
 
-var adminKey = 'nalkFaoKsjd78' // TODO move this to somewhere secret & change the value (e.g. use git-secret)
+var adminKey = 'nalkFaoKsjd78' // TODO Security move this to somewhere secret & change the value (e.g. use git-secret)
 
 // GET /adminState
 router.get('/adminState', function (req, res, next) {

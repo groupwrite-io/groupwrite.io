@@ -105,7 +105,7 @@ app.use(cookieParser());
 // Session
 var session = require("express-session")({
   // TODO move secret to config file
-  // TODO change to a real secret (using git-secret)
+  // TODO Security change to a real secret (using git-secret)
   secret: "my-secret",
   resave: true,
   saveUninitialized: true,
