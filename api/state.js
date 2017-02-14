@@ -98,11 +98,11 @@ State.getAdminState = function () {
 }
 
 State.getPlayerById = function (playerId) {
-   if (!State.players[playerId]) {
-     console.log(`No player found with ID ${playerId}`)
-     return null
-   }
-   return State.players[playerId]
+  if (!State.players[playerId]) {
+    console.log(`No player found with ID ${playerId}`)
+    return null
+  }
+  return State.players[playerId]
 }
 
 State.clearAll()

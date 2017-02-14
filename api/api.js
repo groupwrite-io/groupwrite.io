@@ -24,7 +24,9 @@ router.get('/checkLoggedin', function (req, res, next) {
   var result
   var playerId = req.session.playerId
   if (!playerId) {
-    res.json({ loggedIn: false })
+    res.json({
+      loggedIn: false
+    })
     return
   }
 
@@ -71,7 +73,10 @@ router.post('/login', function (req, res, next) {
   // }
   req.session.playerId = playerId
   console.log(`/login Saved playerId ${playerId} on session ${req.session.id}`)
-  State.addPlayer({ id: playerId, nickname })
+  State.addPlayer({
+    id: playerId,
+    nickname
+  })
 
   server.io.emit('server:state')
 
