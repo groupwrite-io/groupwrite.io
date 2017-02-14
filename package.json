@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon build/server.js",
+    "startprod": "node build/server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "mocha test/e2e -u bdd -R spec",
