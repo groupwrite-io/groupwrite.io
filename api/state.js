@@ -1,7 +1,7 @@
 var uuid = require('uuid/v4')
 var values = require('object.values');
 
-var maxPlayersInGame = 3
+var maxPlayersInGame = 3 // TODO Config
 var State = {}
 
 State.clearAll = function () {
