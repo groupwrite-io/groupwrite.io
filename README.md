@@ -10,7 +10,7 @@ Every player sees in real time what every other player is writing, and can vote 
 The end result is a collaboratively created story.
 
 * [Follow Our Blog](https://medium.com/groupwrite-io) for updates
-* [Current Tasks](https://github.com/ripper234/groupwrite.io/projects/1)
+* [Current Tasks](https://github.com/groupwrite.io/groupwrite.io/projects/1)
 * [Slack](https://www.hamsterpad.com/chat/writeio)
 * [A sample story created with groupwrite.io](https://www.facebook.com/ripper234/posts/10153753024424159)
 * [Give us a :star:](https://github.com/groupwrite-io/groupwrite.io)
