@@ -3,7 +3,7 @@
     <h2>List of players</h2>
     <ol class="nonelist">
       <li v-for="player in sharedState.players">
-        <div v-if="player.nickname != sharedState.myNickname">
+        <div v-if="player.nickname != sharedState.myNickname" class="playerbox">
           <div class="nickname">
             {{player.nickname}}
           </div>
@@ -13,12 +13,10 @@
           <div class="vote-button">
           </div>
         </div>
-        <div class="displayblock"></div>
       </li>
     </ol>
   </div>
 </template>
-
 <script>
   import store from './store'
 
@@ -33,28 +31,32 @@
   }
 
 </script>
-
 <style>
   ol.nonelist {
     list-style-type: none;
   }
-  
-  .playerList li {
+
+  .playerbox {
     display: inline-block;
     width: 500px
   }
-  
+
+  .nickname {
+    font-weight: strong;
+    color: blue;
+  }
+
   .displayblock {
     display: block;
   }
-  
+
   .vote-button {
     background-image: url('../assets/heart-icon.png');
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
-  
+
   .vote-button:hover {
     background-image: url('../assets/heart-icon-hover.png');
   }
