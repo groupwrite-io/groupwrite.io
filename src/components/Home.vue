@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="center home">
-      <h1>write.io</h1>
+      <h1>groupwrite.io</h1>
 
       <p>Pick a username</p>
       <form onsubmit="return false">

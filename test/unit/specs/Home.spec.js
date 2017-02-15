@@ -8,6 +8,6 @@ describe('Home.vue', () => {
       render: (h) => h(Home)
     })
     expect(vm.$el.querySelector('.home h1').textContent)
-      .to.equal('write.io')
+      .to.equal('groupwrite.io')
   })
 })

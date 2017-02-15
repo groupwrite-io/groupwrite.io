@@ -47,7 +47,7 @@ describe('Start page', function () {
 describe('Game page', function () {
   this.timeout(testTimeout);
 
-  it("should contain the 'List of Players'", function (done) {
+  it("should contain the 'Players'", function (done) {
     newNightmare().loginPlayer('john').run(() => {});
     newNightmare().loginPlayer('doe').run(() => {});
     newNightmare().loginPlayer('sinbad')
@@ -56,7 +56,7 @@ describe('Game page', function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
       })
       .run(function (err, result) {
-        result.should.containEql("List of players");
+        result.should.containEql("Players");
         done();
       })
       .catch(done);
@@ -114,7 +114,7 @@ describe('Game page', function () {
   describe('Queue page', function () {
     this.timeout(testTimeout);
 
-    // https://github.com/write-io/write.io/issues/24
+    // https://github.com/write-io/groupwrite.io/issues/24
     xit("should kick a player out if they disconnect", function (done) {
       var nightmare = newNightmare()
       nightmare
