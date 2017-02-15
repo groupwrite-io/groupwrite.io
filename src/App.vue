@@ -24,7 +24,6 @@
   var router = new VueRouter()
 
   function getAdminKey() {
-    console.log('now')
     return window.localStorage.getItem('writeio-admin-key')
   }
 
