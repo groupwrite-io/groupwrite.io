@@ -70,7 +70,7 @@ For any questions, contact Ron Gross (chiefninjaofficer@gmail.com, +972-52-65588
 npm install
 
 # serve with hot reload at localhost:8080
-npm run dev
+npm start
 
 # build for production with minification
 npm run build
