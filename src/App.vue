@@ -106,15 +106,15 @@
     color: #2c3e50;
     margin-top: 60px;
   }
-  
+
   .debug {
     background-color: lightgray
   }
-  
+
   a {
     margin-right: 10px;
   }
-  
+
   .center {
     top: 50%;
     left: 50%;
