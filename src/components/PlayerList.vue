@@ -42,16 +42,6 @@
     list-style-type: none;
   }
 
-  .playerListItem {
-    // display: block;
-    //width: 500px;
-    //border: 2px solid gray;
-  }
-.playerbox {
-    display: inline-block;
-    width: 500px;
-    border: 1px dashed;
-  }
   .nickname {
     display: inline-block;
     text-align: center;
