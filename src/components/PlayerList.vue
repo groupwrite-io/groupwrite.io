@@ -40,7 +40,9 @@
 
   ol.nonelist {
     list-style-type: none;
-  }
+    position: absolute;
+    left: 0px;
+    }
 
   .nickname {
     display: inline-block;
