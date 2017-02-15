@@ -16,7 +16,7 @@ var testTimeout = 30000
 
 function newNightmare() {
   return new Nightmare({
-    show: false
+    show: true
   })
 }
 
@@ -48,8 +48,8 @@ describe('Game page', function () {
   this.timeout(testTimeout);
 
   it("should contain the 'Players'", function (done) {
-    newNightmare().loginPlayer('john').run(() => {});
-    newNightmare().loginPlayer('doe').run(() => {});
+    newNightmare().loginPlayer('john').run(() => { });
+    newNightmare().loginPlayer('doe').run(() => { });
     newNightmare().loginPlayer('sinbad')
       .wait('div.game')
       .evaluate(function () {
@@ -64,8 +64,8 @@ describe('Game page', function () {
 
   it("should contain the current user's name", function (done) {
     var players = ['sinbad', 'ali', 'baba'];
-    newNightmare().loginPlayer(players[0]).run(() => {});
-    newNightmare().loginPlayer(players[1]).run(() => {});
+    newNightmare().loginPlayer(players[0]).run(() => { });
+    newNightmare().loginPlayer(players[1]).run(() => { });
     newNightmare().loginPlayer(players[2])
       .wait('div.game')
       .evaluate(function () {
@@ -83,8 +83,8 @@ describe('Game page', function () {
   });
 
   it("should return to home page when quit button is pressed", function (done) {
-    newNightmare().loginPlayer('ali').run(() => {});
-    newNightmare().loginPlayer('baba').run(() => {});
+    newNightmare().loginPlayer('ali').run(() => { });
+    newNightmare().loginPlayer('baba').run(() => { });
     var nightmare = newNightmare().loginPlayer('sinbad')
     nightmare
       .wait('div.game')
@@ -114,9 +114,11 @@ describe('Game page', function () {
   xit("should select a player's suggestion if its get a majority vote", function (done) {
     var suggestion = "Dolly was a little lamb";
     var players = ['sinbad', 'ali', 'baba'];
-    var p1 = newNightmare().loginPlayer(players[0]).run(() => {});
-    var p2 = newNightmare().loginPlayer(players[1]).run(() => {});
-    var p3 = newNightmare().loginPlayer(players[2])
+    var p1 = newNightmare().loginPlayer(players[0]).run(() => { });
+    var p2 = newNightmare().loginPlayer(players[1]).run(() => { });
+    var p3 = newNightmare();
+
+    p3.loginPlayer(players[2])
       .wait('div.game')
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
@@ -127,26 +129,29 @@ describe('Game page', function () {
         result.should.containEql(players[0]);
         result.should.containEql(players[1]);
         result.should.containEql(players[2]);
-        done();
       })
       .then(function () {
         p1.type('.suggestion', suggestion)
+          .wait('#story')
           .evaluate(function () {
-            return document.querySelectorAll('#story')
+            return document.querySelectorAll('#story')[0].innerHTML
           })
           .end()
           .then(function (result) {
             result.should.not.containEql(suggestion)
           })
-        p2.click(".vote-button[0]").run();
-        p3.click(".vote-button[0]").run();
-        p1.evaluate(function () {
-            return document.querySelectorAll('#story')
+        p2.click(".vote-button[0]").run(() => { });
+        p3.click(".vote-button[0]").run(() => { });
+        p1.wait('#story div')
+          .evaluate(function () {
+            return document.querySelectorAll('#story')[0].innerHTML
           })
           .end()
           .then(function (result) {
-            result.should.containEql(sugestion)
+            result.should.containEql(suggestion)
+            done()
           })
+          .catch(done)
       })
       .catch(done);
   });
