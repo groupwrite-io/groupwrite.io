@@ -48,7 +48,7 @@
           risus aliquam, luctus lorem efficitur, suscipit risus. Morbi luctus nisi sed aliquam placerat. Pellentesque nec
           posuere leo.</p>
 
-          </h2>The End</h2>
+        </h2>The End</h2>
       </div>
     </div>
   </div>
@@ -98,5 +98,16 @@
 
 </script>
 <style>
+  #center {
+    width: 300px;
+    display: inline-block;
+  }
 
+  #right {
+    width: 500px;
+    display: inline-block;
+    position: fixed;
+    margin-right: 50px;
+    margin-left: 50px;
+  }
 </style>
