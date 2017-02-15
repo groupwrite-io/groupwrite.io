@@ -1,6 +1,6 @@
 <template>
   <div class="playerList">
-    <h2>List of players</h2>
+    <h2>Players</h2>
     <ol class="nonelist">
       <li v-for="player in sharedState.players">
         <div v-if="player.nickname != sharedState.myNickname" class="playerbox">
