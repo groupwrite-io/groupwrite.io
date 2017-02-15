@@ -102,7 +102,7 @@
     width: 300px;
     display: inline-block;
   }
-
+  
   #right {
     width: 500px;
     display: inline-block;
