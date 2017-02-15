@@ -2,7 +2,7 @@
   <div class='queue center'>
     <h1>{{sharedState.myNickname}}</h1>
     <h1 class="waiting">Waiting for players {{sharedState.players.length}}/{{consts.maxPlayers}}...</h1>
-    <h2>We'll play a gong when the game start (turn up your spakers)</h2>
+    <h2>A gong will play when the game starts (turn up your speakers)</h2>
     <quit-button></quit-button>
   </div>
 </template>
