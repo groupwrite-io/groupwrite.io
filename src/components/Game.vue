@@ -3,13 +3,11 @@
     <h1>Welcome {{sharedState.myNickname}}</h1>
     <form>
       <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="suggestionText" v-on:keyup="syncText"></textarea>
-      <!-- <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="suggestionText"></textarea>-->
     </form>
     <player-list></player-list>
     <quit-button></quit-button>
   </div>
 </template>
-
 <script>
   // import assert from 'assert'
   import store from './store'
@@ -54,7 +52,7 @@
   }
 
 </script>
-
 <style>
+
 
 </style>
