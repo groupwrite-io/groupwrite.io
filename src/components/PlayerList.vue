@@ -35,28 +35,28 @@
   ol.nonelist {
     list-style-type: none;
   }
-
+  
   .playerbox {
     display: inline-block;
     width: 500px
   }
-
+  
   .nickname {
     font-weight: strong;
     color: blue;
   }
-
+  
   .displayblock {
     display: block;
   }
-
+  
   .vote-button {
     background-image: url('../assets/heart-icon.png');
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
-
+  
   .vote-button:hover {
     background-image: url('../assets/heart-icon-hover.png');
   }
