@@ -47,7 +47,9 @@
   .nickname {
     display: inline-block;
     text-align: center;
-    width: 100px;
+    position: absolute;
+    left: 10px;
+    width: 75px;
     height: 50px;
     background: #f5f5f0;
   }
