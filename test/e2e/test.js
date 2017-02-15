@@ -114,7 +114,7 @@ describe('Game page', function () {
   describe('Queue page', function () {
     this.timeout(testTimeout);
 
-    // https://github.com/write-io/write.io/issues/24
+    // https://github.com/write-io/groupwrite.io/issues/24
     xit("should kick a player out if they disconnect", function (done) {
       var nightmare = newNightmare()
       nightmare

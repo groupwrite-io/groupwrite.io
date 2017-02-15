@@ -7,7 +7,7 @@ var session = require('express-session')
 
 // GET /state
 router.get('/', function (req, res, next) {
-  res.send('write.io API server')
+  res.send('groupwrite.io API server')
 })
 
 // GET /state
@@ -68,7 +68,7 @@ router.post('/login', function (req, res, next) {
     return
   }
   // if (req.session.playerId) {
-  //   res.status(401).send("Are you already using this account? If you got this in error, email help@write.io") // TODO fix email
+  //   res.status(401).send("Are you already using this account? If you got this in error, email help@groupwrite.io") // TODO fix email
   //   return
   // }
   req.session.playerId = playerId
