@@ -111,36 +111,76 @@ describe('Game page', function () {
       .catch(done);
   });
 
-  describe('Queue page', function () {
-    this.timeout(testTimeout);
+  xit("should select a player's suggestion if its get a majority vote", function (done) {
+    var suggestion = "Dolly was a little lamb";
+    var players = ['sinbad', 'ali', 'baba'];
+    var p1 = newNightmare().loginPlayer(players[0]).run(() => {});
+    var p2 = newNightmare().loginPlayer(players[1]).run(() => {});
+    var p3 = newNightmare().loginPlayer(players[2])
+      .wait('div.game')
+      .evaluate(function () {
+        return document.querySelectorAll('div.game')[0].innerHTML;
+      })
+      .end()
+      .then(function (result) {
+        // Check for all players
+        result.should.containEql(players[0]);
+        result.should.containEql(players[1]);
+        result.should.containEql(players[2]);
+        done();
+      })
+      .then(function () {
+        p1.type('.suggestion', suggestion)
+          .evaluate(function () {
+            return document.querySelectorAll('#story')
+          })
+          .end()
+          .then(function (result) {
+            result.should.not.containEql(suggestion)
+          })
+        p2.click(".vote-button[0]").run();
+        p3.click(".vote-button[0]").run();
+        p1.evaluate(function () {
+            return document.querySelectorAll('#story')
+          })
+          .end()
+          .then(function (result) {
+            result.should.containEql(sugestion)
+          })
+      })
+      .catch(done);
+  });
+})
 
-    // https://github.com/write-io/groupwrite.io/issues/24
-    xit("should kick a player out if they disconnect", function (done) {
-      var nightmare = newNightmare()
-      nightmare
-        .loginPlayer('sinbad')
-        .wait('div.queue')
-        .evaluate(function () {
-          return document.querySelectorAll('.waiting')[0].innerHTML;
-        })
-        .then(function (result) {
-          // 1 player logged in
-          result.should.containEql("Waiting for players 1/3");
-        })
-        .then(function () {
-          return nightmare
-            .loginPlayer('ali')
-            .wait('div.queue')
-            .evaluate(function () {
-              return document.querySelectorAll('.waiting')[0].innerHTML;
-            })
-        })
-        .then(function (result) {
-          // We left the page, so we should not see our shadow in the queue!
-          result.should.containEql("Waiting for players 1/3");
-          done();
-        })
-        .catch(done)
-    });
-  })
-});
+describe('Queue page', function () {
+  this.timeout(testTimeout);
+
+  // https://github.com/write-io/groupwrite.io/issues/24
+  xit("should kick a player out if they disconnect", function (done) {
+    var nightmare = newNightmare()
+    nightmare
+      .loginPlayer('sinbad')
+      .wait('div.queue')
+      .evaluate(function () {
+        return document.querySelectorAll('.waiting')[0].innerHTML;
+      })
+      .then(function (result) {
+        // 1 player logged in
+        result.should.containEql("Waiting for players 1/3");
+      })
+      .then(function () {
+        return nightmare
+          .loginPlayer('ali')
+          .wait('div.queue')
+          .evaluate(function () {
+            return document.querySelectorAll('.waiting')[0].innerHTML;
+          })
+      })
+      .then(function (result) {
+        // We left the page, so we should not see our shadow in the queue!
+        result.should.containEql("Waiting for players 1/3");
+        done();
+      })
+      .catch(done)
+  });
+})
