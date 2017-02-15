@@ -1,5 +1,5 @@
 <template>
-  <div class="game">
+  <div class="game  col-md-6">
     <h1>Welcome {{sharedState.myNickname}}</h1>
     <form>
       <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="suggestionText" v-on:keyup="syncText"></textarea>
@@ -54,60 +54,59 @@
   </div>
 </template>
 <script>
-  // import assert from 'assert'
-  import store from './store'
-  import PlayerList from './PlayerList.vue'
-  import QuitButton from './QuitButton'
+    // import assert from 'assert'
+    import store from './store'
+    import PlayerList from './PlayerList.vue'
+    import QuitButton from './QuitButton'
 
-  export default {
-    name: 'Game',
-    components: {
-      PlayerList,
-      QuitButton
-    },
-    data() {
-      return {
-        sharedState: store.state,
-        suggestionText: ''
-      }
-    },
-    methods: {
-      syncText: function () {
-        // console.log(`player entered text ${this.suggestionText}`)
-        var request = require('superagent')
-        console.log(this.sharedState.playerId)
-        request.post('/api/suggest', {
-          // TODO delete when we have session
-          playerId: this.sharedState.playerId,
-          suggestion: this.suggestionText
-        }, function (err, state) {
-          // TODO handle login failure
-          if (err) {
-            console.log(err)
-          }
-        })
-      }
-    },
-    mounted: function () {
-      document.getElementById('mytext').focus()
+    export default {
+        name: 'Game',
+        components: {
+            PlayerList,
+            QuitButton
+        },
+        data() {
+            return {
+                sharedState: store.state,
+                suggestionText: ''
+            }
+        },
+        methods: {
+            syncText: function() {
+                // console.log(`player entered text ${this.suggestionText}`)
+                var request = require('superagent')
+                console.log(this.sharedState.playerId)
+                request.post('/api/suggest', {
+                    // TODO delete when we have session
+                    playerId: this.sharedState.playerId,
+                    suggestion: this.suggestionText
+                }, function(err, state) {
+                    // TODO handle login failure
+                    if (err) {
+                        console.log(err)
+                    }
+                })
+            }
+        },
+        mounted: function() {
+            document.getElementById('mytext').focus()
 
-      var audio = new window.Audio('./static/ding.ogg')
-      audio.play()
+            var audio = new window.Audio('./static/ding.ogg')
+            audio.play()
+        }
     }
-  }
-
 </script>
 <style>
-  #center {
-    width: 300px;
-    display: inline-block;
-  }
-  
-  #right {
-    width: 500px;
-    display: inline-block;
-    position: fixed;
-    margin-right: 50px;
-    margin-left: 50px;
-  }
+    #center {
+        width: 300px;
+        display: inline-block;
+    }
+    
+    #right {
+        width: 500px;
+        display: inline-block;
+        position: fixed;
+        margin-right: 50px;
+        margin-left: 50px;
+    }
 </style>
