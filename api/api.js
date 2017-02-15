@@ -4,6 +4,7 @@ var State = require('./state')
 var server = require('../build/server')
 var assert = require('assert')
 var session = require('express-session')
+var config = require('../config/server.config')
 
 // GET /state
 router.get('/', function (req, res, next) {
@@ -114,11 +115,9 @@ router.post('/suggest', function (req, res, next) {
 
 /////// Admin //////
 
-var adminKey = 'nalkFaoKsjd78' // TODO Config move this to somewhere secret & change the value (e.g. use git-secret)
-
 // GET /adminState
 router.get('/adminState', function (req, res, next) {
-  if (adminKey !== req.query.adminKey) {
+  if (config.adminKey !== req.query.adminKey) {
     res.status(401).send('Trying to access admin functions without proper key')
     return
   }
@@ -133,7 +132,5 @@ router.post('/clearAll', function (req, res, next) {
   server.io.emit('server:state')
   res.send(true)
 })
-
-
 
 module.exports = router

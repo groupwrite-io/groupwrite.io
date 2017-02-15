@@ -1,7 +1,7 @@
 var uuid = require('uuid/v4')
 var values = require('object.values');
+var config = require('../config/server.config');
 
-var maxPlayersInGame = 3 // TODO Config
 var State = {}
 
 State.clearAll = function () {
@@ -23,7 +23,7 @@ State.addPlayer = function (player) {
   State.queue.push(player.id)
 
   // Create new game if needed
-  if (State.queue.length === maxPlayersInGame) {
+  if (State.queue.length === config.MAX_PLAYERS_IN_GAME) {
     var id = uuid()
     var game = {
       startTime: Date.now(),
@@ -43,7 +43,7 @@ State.addPlayer = function (player) {
 
 State.removePlayer = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(`No player found with ID ${playerId}`)
+    console.log(config.noPlayerFoundMessage(playerId))
     return
   }
 
@@ -56,7 +56,7 @@ State.removePlayer = function (playerId) {
 
 State.getPlayerById = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(`No player found with ID ${playerId}`)
+    console.log(config.noPlayerFoundMessage(playerId))
     return
   }
 
@@ -99,7 +99,7 @@ State.getAdminState = function () {
 
 State.getPlayerById = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(`No player found with ID ${playerId}`)
+    console.log(config.noPlayerFoundMessage(playerId))
     return null
   }
   return State.players[playerId]
