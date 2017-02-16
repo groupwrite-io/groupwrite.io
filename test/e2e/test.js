@@ -16,7 +16,9 @@ var testTimeout = 30000
 
 function newNightmare() {
   return new Nightmare({
-    show: true
+    show: false,
+    waitTimeout: testTimeout,
+    executionTimeout: testTimeout
   })
 }
 
@@ -130,25 +132,72 @@ describe('Game page', function () {
         result.should.containEql(players[2]);
       })
       .then(function () {
-        p1.type('.suggestion', suggestion)
+        p3.type('.suggestion', suggestion)
           .wait('#story')
           .evaluate(function () {
-            return document.querySelectorAll('#story')[0].innerHTML
+            return {
+              mytext: document.querySelector('#mytext').value,
+              story: document.querySelectorAll('#story')[0].innerHTML
+            }
           })
           .then(function (result) {
-            result.should.not.containEql(suggestion)
+            result.mytext.should.containEql(suggestion)
+            result.story.should.not.containEql(suggestion)
           })
-        p2.click(".vote-button[0]").run(() => { });
-        p3.click(".vote-button[0]").run(() => { });
-        p1.wait('#story div')
-          .evaluate(function () {
-            return document.querySelectorAll('#story')[0].innerHTML
+          .then(function () {
+            p1.wait('.vote-button') // TODO Refactor
+              .evaluate(() => {
+                var suggestions = document.querySelectorAll('.suggestion')
+                // debugger
+                console.log("Starting iteration")
+
+                suggestions.forEach(s => {
+                  if (s.innerHTML.trim() === "Dolly was a little lamb") {
+                    var parent = s.parentNode;
+                    var voteButton = parent.querySelector('.vote-button')
+                    var event = document.createEvent('MouseEvent');
+                    event.initEvent('click', true, true);
+
+                    console.log("Clicking p1")
+                    voteButton.dispatchEvent(event);
+                  } else {
+                    console.log("Didn't find it in: " + s.innerHTML.trim())
+                  }
+                })
+                console.log("Done iterating")
+              }).run(() => { });
+            p2.wait('.vote-button') // TODO Refactor
+              .evaluate(() => {
+                var suggestions = document.querySelectorAll('.suggestion')
+                // debugger
+                console.log("Starting iteration")
+
+                suggestions.forEach(s => {
+                  if (s.innerHTML.trim() === "Dolly was a little lamb") {
+                    var parent = s.parentNode;
+                    var voteButton = parent.querySelector('.vote-button')
+                    var event = document.createEvent('MouseEvent');
+                    event.initEvent('click', true, true);
+
+                    console.log("Clicking p2")
+                    voteButton.dispatchEvent(event);
+                  } else {
+                    console.log("Didn't find it in: " + s.innerHTML.trim())
+                  }
+                })
+                console.log("Done iterating")
+              }).run(() => { });
+            p3.wait('#story-html div')
+              .evaluate(function () {
+                return document.querySelectorAll('#story-html')[0].innerHTML
+              })
+              .then(function (result) {
+                debugger
+                result.should.containEql(suggestion)
+                done()
+              })
+              .catch(done)
           })
-          .then(function (result) {
-            result.should.containEql(suggestion)
-            done()
-          })
-          .catch(done)
       })
       .catch(done);
   });
