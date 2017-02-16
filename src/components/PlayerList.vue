@@ -41,7 +41,6 @@
       vote: function (event) {
         var voterId = this.sharedState.playerId
         var votedForId = event.target.dataset.playerid
-        debugger
 
         if (event.target.classList.contains('vote-button-active')) {
           request.post('/api/removevote', { voterId }, function (err, result) {

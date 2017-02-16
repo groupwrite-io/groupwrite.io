@@ -108,7 +108,7 @@ router.post('/suggest', function (req, res, next) {
     return
   }
   // console.log('suggestion: ' + suggestion)
-  player.suggestion = suggestion
+  player.suggestion = suggestion // TODO move this to State file/class (don't access 'private' var from outside)
   server.io.emit('server:state')
   res.send(true)
 })
@@ -151,6 +151,8 @@ router.post('/vote', function (req, res, next) {
   // Someone could write a modified client that displays votes
   // TODO Security - only store votes on server, don't send to client
   player.votedForId = votedForId
+
+  State.updateStory(player)
   server.io.emit('server:state')
   res.send(true)
 })

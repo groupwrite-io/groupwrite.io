@@ -1,5 +1,5 @@
 <template>
-  <div id="app" >
+  <div id="app">
     <div class="debug" v-if="isAdmin">
       <h1>debug toolbar</h1>
       <p>
@@ -30,6 +30,16 @@
     return !!getAdminKey()
   }
 
+  // Format the story as HTML
+  function formatStory(story) {
+    // TODO Security - make sure this is escaped & tested for XSS
+    let result = ''
+    story.forEach(contribution => {
+      result += `<div>${contribution.text}</div>`
+    })
+    return result
+  }
+
   export default {
     name: 'app',
     components: {
@@ -54,7 +64,6 @@
           .end((err, res) => {
             assert(!err)
             assert(res.status === 200)
-
             let state = res.body
             assert(state)
 
@@ -62,9 +71,11 @@
               `Got server state (updated num players from ${self.sharedState.players.length} to ${state.players.length})`
             )
             self.sharedState.players = state.players
+            if (state.game) {
+              self.sharedState.storyHtml = formatStory(state.game.story)
+            }
 
             // Populate iVotedFor boolean
-            debugger
             let myPlayer = self.sharedState.players.find(player => player.id === self.sharedState.playerId)
             if (myPlayer) {
               self.sharedState.players = self.sharedState.players.map(player => {
@@ -146,5 +157,4 @@
     transform: translate3d(-50%, -50%, 0);
     position: absolute;
   }
-
 </style>

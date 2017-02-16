@@ -28,8 +28,8 @@ State.addPlayer = function (player) {
     var game = {
       startTime: Date.now(),
       id,
-      playerIds: State.queue
-
+      playerIds: State.queue,
+      story: []
     }
     State.games[game.id] = game
     console.log(`Created game ${State.gameToStr(game)}`)
@@ -103,6 +103,68 @@ State.getPlayerById = function (playerId) {
     return null
   }
   return State.players[playerId]
+}
+
+State.findRoundWinner = function (game) {
+  let votesForPlayer = {}
+  let targetVotes = Math.floor(config.MAX_PLAYERS_IN_GAME / 2) + 1
+
+  // Tally votes
+  for (let playerId of game.playerIds) {
+    let player = State.players[playerId]
+    if (player.votedForId) {
+      if (votesForPlayer[player.votedForId]) {
+        votesForPlayer[player.votedForId]++
+        if (votesForPlayer[player.votedForId] >= targetVotes) {
+          return State.players[player.votedForId]
+        }
+      } else {
+        votesForPlayer[player.votedForId] = 1
+      }
+    }
+  }
+
+  return null
+}
+
+State.findGameByPlayerId = function (playerId) {
+  for (let gameId in State.games) {
+    let game = State.games[gameId]
+    if (game.playerIds.includes(playerId)) {
+      return game
+    }
+  }
+
+  return null
+}
+
+/**
+ * Update the current story by votes (and in the future, check if a player has finalized their suggestion)
+ */
+State.updateStory = function (player) {
+  let game = State.findGameByPlayerId(player.id)
+  if (!game) {
+    console.log(`No current game for player ${player.Id}`)
+    return
+  }
+
+  // Check if a player has majority vote
+  let roundWinner = State.findRoundWinner(game);
+  if (!roundWinner) {
+    return
+  }
+
+  console.log(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
+  let contribution = {
+    playerId: roundWinner.id,
+    text: roundWinner.suggestion
+  }
+  game.story.push(contribution)
+
+  // Clear votes
+  for (let playerId of game.playerIds) {
+    State.players[playerId].votedForId = null
+  }
 }
 
 State.clearAll()
