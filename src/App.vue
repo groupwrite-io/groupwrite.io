@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
-    <div class="debug">
+  <div id="app" >
+    <div class="debug" v-if="isAdmin">
       <h1>debug toolbar</h1>
-    </div>
     <p>
       <router-link to="/">Home</router-link>
       <router-link to="/queue">Queue</router-link>
       <router-link to="/game">Game</router-link>
       <router-link to="/admin">Admin</router-link>
     </p>
+   </div>
     <router-view></router-view>
   </div>
 </template>
@@ -27,6 +27,10 @@
     return window.localStorage.getItem('writeio-admin-key')
   }
 
+  function isAdmin() {
+    return !!getAdminKey()
+  }
+
   export default {
     name: 'app',
     components: {
@@ -35,7 +39,8 @@
     data: function () {
       return {
         sharedState: store.state,
-        consts: store.consts
+        consts: store.consts,
+        isAdmin: isAdmin()
       }
     },
     created: function () {
@@ -64,8 +69,8 @@
               }
             })
         } else {
-          let adminKey = getAdminKey()
-          if (adminKey) {
+          if (isAdmin()) {
+            let adminKey = getAdminKey()
             console.log(`Admin getting state with key ${adminKey}`)
             request.get('/api/adminState')
               .set('Accept', 'application/json')
@@ -106,15 +111,15 @@
     color: #2c3e50;
     margin-top: 60px;
   }
-  
+
   .debug {
     background-color: lightgray
   }
-  
+
   a {
     margin-right: 10px;
   }
-  
+
   .center {
     top: 50%;
     left: 50%;

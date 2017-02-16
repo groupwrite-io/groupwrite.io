@@ -6,11 +6,10 @@ import Home from './components/Home.vue'
 import Game from './components/Game.vue'
 import Admin from './components/Admin.vue'
 import Queue from './components/Queue.vue'
-
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-
 // 2. Define some routes
 // Each route should map to a component. The "component" can
 // either be an actual component constructor created via
