@@ -16,7 +16,7 @@ var testTimeout = 30000
 
 function newNightmare() {
   return new Nightmare({
-    show: false
+    show: true
   })
 }
 
@@ -111,9 +111,9 @@ describe('Game page', function () {
       .catch(done);
   });
 
-  xit("should select a player's suggestion if its get a majority vote", function (done) {
+  it("should select a player's suggestion if its get a majority vote", function (done) {
     var suggestion = "Dolly was a little lamb";
-    var players = ['sinbad', 'ali', 'baba'];
+    var players = ['player1', 'player2', 'player3'];
     var p1 = newNightmare().loginPlayer(players[0]).run(() => { });
     var p2 = newNightmare().loginPlayer(players[1]).run(() => { });
     var p3 = newNightmare();
@@ -123,7 +123,6 @@ describe('Game page', function () {
       .evaluate(function () {
         return document.querySelectorAll('div.game')[0].innerHTML;
       })
-      .end()
       .then(function (result) {
         // Check for all players
         result.should.containEql(players[0]);
@@ -136,7 +135,6 @@ describe('Game page', function () {
           .evaluate(function () {
             return document.querySelectorAll('#story')[0].innerHTML
           })
-          .end()
           .then(function (result) {
             result.should.not.containEql(suggestion)
           })
@@ -146,7 +144,6 @@ describe('Game page', function () {
           .evaluate(function () {
             return document.querySelectorAll('#story')[0].innerHTML
           })
-          .end()
           .then(function (result) {
             result.should.containEql(suggestion)
             done()
