@@ -14,7 +14,7 @@ The end result is a collaboratively created story.
 * [Slack](https://www.hamsterpad.com/chat/writeio)
 * [A sample story created with groupwrite.io](https://www.facebook.com/ripper234/posts/10153753024424159)
 * [Give us a :star:](https://github.com/groupwrite-io/groupwrite.io)
-
+* [staging.groupwrite.io](http://staging.groupwrite.io) - continously deployed from ```master```
 ### Dependencies / Tech Stack ###
 
 * git
