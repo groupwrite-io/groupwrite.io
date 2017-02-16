@@ -95,4 +95,16 @@
 
 </script>
 <style>
+  #center {
+    width: 300px;
+    display: inline-block;
+  }
+
+  #right {
+    width: 500px;
+    display: inline-block;
+    position: fixed;
+    margin-right: 50px;
+    margin-left: 50px;
+  }
 </style>
