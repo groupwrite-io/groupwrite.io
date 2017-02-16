@@ -145,13 +145,13 @@ State.updateStory = function (player) {
   let game = State.findGameByPlayerId(player.id)
   if (!game) {
     console.log(`No current game for player ${player.Id}`)
-    return
+    return false
   }
 
   // Check if a player has majority vote
   let roundWinner = State.findRoundWinner(game);
   if (!roundWinner) {
-    return
+    return false
   }
 
   console.log(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
@@ -168,6 +168,7 @@ State.updateStory = function (player) {
 
   // Clear winner's suggestion
   State.players[roundWinner.id].suggestion = ''
+  return true
 }
 
 State.clearAll()

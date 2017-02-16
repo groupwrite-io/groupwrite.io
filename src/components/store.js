@@ -3,7 +3,8 @@ export default {
     players: [],
     adminState: {
     },
-    storyHtml: ''
+    storyHtml: '',
+    suggestionText: ''
   },
   consts: {
     maxPlayers: 3

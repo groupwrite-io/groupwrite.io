@@ -152,8 +152,11 @@ router.post('/vote', function (req, res, next) {
   // TODO Security - only store votes on server, don't send to client
   player.votedForId = votedForId
 
-  State.updateStory(player)
-  server.io.emit('server:state')
+  if (State.updateStory(player)) {
+    server.io.emit('server:round-over')
+  } else {
+    server.io.emit('server:state')
+  }
   res.send(true)
 })
 

@@ -55,8 +55,8 @@
     created: function () {
       var self = this
 
-      function updateStateForPlayer(playerId) {
-        request.get('/api/state')
+      function updateStateForPlayer(playerId, callback) {
+        return request.get('/api/state')
           .set('Accept', 'application/json')
           .query({
             playerId
@@ -72,6 +72,7 @@
             )
             self.sharedState.players = state.players
             if (state.game) {
+              self.sharedState.story = state.game.story
               self.sharedState.storyHtml = formatStory(state.game.story)
             }
 
@@ -89,31 +90,39 @@
             if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
               router.replace('/game')
             }
+
+            if (callback) {
+              callback()
+            }
           })
       }
 
-      function updateAdminState() {
+      function updateAdminState(callback) {
         let adminKey = getAdminKey()
         if (!adminKey) {
           return
         }
 
-        request.get('/api/adminState')
+        return request.get('/api/adminState')
           .set('Accept', 'application/json').query({
             adminKey
           }).end((err, res) => {
             assert(!err)
             assert(res.status === 200)
             self.sharedState.adminState = res.body
+            if (callback) {
+              callback()
+            }
           })
       }
 
-      function updateState() {
+      // Returns future
+      function updateState(callback) {
         // We only ask for state if we're logged in or admin
         if (self.sharedState.playerId) {
-          updateStateForPlayer(self.sharedState.playerId)
+          return updateStateForPlayer(self.sharedState.playerId, callback)
         } else {
-          updateAdminState()
+          return updateAdminState(callback)
         }
       }
 
@@ -122,6 +131,20 @@
       // Update on change when server state changes
       socket.on('server:state', function () {
         updateState()
+      })
+      socket.on('server:round-over', function () {
+        updateState(() => {
+          console.log('Round over')
+          // If I won the last round, clear my suggestion box
+          if (self.sharedState.story && self.sharedState.story.length > 0) {
+            var lastRound = self.sharedState.story[self.sharedState.story.length - 1]
+            if (lastRound.playerId === self.sharedState.playerId) {
+              console.log('I won last round!')
+              // TODO Animate
+              self.sharedState.suggestionText = ''
+            }
+          }
+        })
       })
 
       // Routes

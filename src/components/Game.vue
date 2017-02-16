@@ -2,7 +2,7 @@
   <div class="game">
     <h1>Welcome {{sharedState.myNickname}}</h1>
     <form>
-      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="suggestionText" v-on:keyup="syncText"></textarea>
+      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="sharedState.suggestionText" v-on:keyup="syncText"></textarea>
     </form>
     <div id='center'>
       <player-list></player-list>
@@ -32,8 +32,7 @@
     },
     data() {
       return {
-        sharedState: store.state,
-        suggestionText: ''
+        sharedState: store.state
       }
     },
     methods: {
@@ -43,7 +42,7 @@
         request.post('/api/suggest', {
           // TODO delete when we have session
           playerId: this.sharedState.playerId,
-          suggestion: this.suggestionText
+          suggestion: this.sharedState.suggestionText
         }, function (err, state) {
           // TODO handle login failure
           assert(!err)
@@ -64,7 +63,7 @@
     width: 300px;
     display: inline-block;
   }
-  
+
   #right {
     width: 500px;
     display: inline-block;
