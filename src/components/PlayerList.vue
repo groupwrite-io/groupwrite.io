@@ -81,8 +81,8 @@
 
   .suggestion {
     display: inline-block;
-    width: 300px;
-    height: 50px;
+    width: 325px;
+    height: 90px;
     text-align: left;
     word-wrap: break-word;
     border: 2px solid gray;
@@ -94,7 +94,6 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    position: absolute;
   }
 
   .vote-button:hover {

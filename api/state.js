@@ -165,6 +165,9 @@ State.updateStory = function (player) {
   for (let playerId of game.playerIds) {
     State.players[playerId].votedForId = null
   }
+
+  // Clear winner's suggestion
+  State.players[roundWinner.id].suggestion = ''
 }
 
 State.clearAll()
