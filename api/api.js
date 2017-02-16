@@ -113,6 +113,24 @@ router.post('/suggest', function (req, res, next) {
   res.send(true)
 })
 
+// POST /removeVote
+router.post('/removevote', function (req, res, next) {
+  var voterId = req.body.voterId
+  if (!voterId) {
+    res.status(422).send("Missing voterId or votedForId")
+    return
+  }
+  var player = State.getPlayerById(voterId)
+  if (player == null) {
+    res.status(422).send(`Missing player for playerId ${playerId}`)
+    return
+  }
+
+  player.votedForId = null
+  server.io.emit('server:state')
+  res.send(true)
+})
+
 // POST /vote
 router.post('/vote', function (req, res, next) {
   var voterId = req.body.voterId

@@ -42,23 +42,30 @@
         var voterId = this.sharedState.playerId
         var votedForId = event.target.dataset.playerid
         debugger
-        request.post('/api/vote', {
-          voterId,
-          votedForId
-        }, function (err, result) {
-          assert(!err)
-          console.log('Player ' + voterId + ' voted for player ' + votedForId)
-        })
+
+        if (event.target.classList.contains('vote-button-active')) {
+          request.post('/api/removevote', { voterId }, function (err, result) {
+            assert(!err)
+            console.log(`Player ${voterId} removed voted`)
+          })
+        } else {
+          request.post('/api/vote', {
+            voterId,
+            votedForId
+          }, function (err, result) {
+            assert(!err)
+            console.log(`Player ${voterId} + voted for player ${votedForId}`)
+          })
+        }
       }
     }
   }
 
 </script>
 <style>
-
   body {
-      margin: 0;
-      padding: 0;
+    margin: 0;
+    padding: 0;
   }
 
   ol.nonelist {
@@ -80,7 +87,6 @@
     text-align: left;
     word-wrap: break-word;
     border: 2px solid gray;
-
   }
 
   .vote-button {
@@ -97,8 +103,8 @@
   }
 
   .displayblock {
-      display: block;
-    }
+    display: block;
+  }
 
   .vote-button-active {
     /* TODO: Use different style for active and hover */
@@ -108,5 +114,4 @@
   .nickname {
     font-weight: bold;
   }
-
 </style>
