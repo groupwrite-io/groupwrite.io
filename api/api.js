@@ -113,6 +113,30 @@ router.post('/suggest', function (req, res, next) {
   res.send(true)
 })
 
+// POST /vote
+router.post('/vote', function (req, res, next) {
+  var voterId = req.body.voterId
+  var votedForId = req.body.votedForId
+  if (!voterId || !votedForId) {
+    res.status(422).send("Missing voterId or votedForId")
+    return
+  }
+  var player = State.getPlayerById(voterId)
+  if (player == null) {
+    res.status(422).send(`Missing player for playerId ${playerId}`)
+    return
+  }
+
+  // This is information only the server should see
+  // (Players do not see who other players vote for)
+  // Currently they get the entire server state.
+  // Someone could write a modified client that displays votes
+  // TODO Security - only store votes on server, don't send to client
+  player.votedForId = votedForId
+  server.io.emit('server:state')
+  res.send(true)
+})
+
 /////// Admin //////
 
 // GET /adminState

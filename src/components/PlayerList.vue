@@ -10,7 +10,14 @@
           <div class="suggestion">
             {{player.suggestion}}
           </div>
-          <div class="vote-button">
+          <!-- TODO - Refactor double vote button -->
+          <div v-if="!player.iVotedFor">
+            <div class="vote-button" :data-playerid="player.id" v-on:click="vote($event)">
+            </div>
+          </div>
+          <div v-if="player.iVotedFor">
+            <div class="vote-button vote-button-active" :data-playerid="player.id" v-on:click="vote($event)">
+            </div>
           </div>
         </div>
       </li>
@@ -19,6 +26,8 @@
 </template>
 <script>
   import store from './store'
+  import assert from 'assert'
+  var request = require('superagent')
 
   export default {
     name: 'PlayerList',
@@ -26,6 +35,20 @@
     data() {
       return {
         sharedState: store.state
+      }
+    },
+    methods: {
+      vote: function (event) {
+        var voterId = this.sharedState.playerId
+        var votedForId = event.target.dataset.playerid
+        debugger
+        request.post('/api/vote', {
+          voterId,
+          votedForId
+        }, function (err, result) {
+          assert(!err)
+          console.log('Player ' + voterId + ' voted for player ' + votedForId)
+        })
       }
     }
   }
@@ -76,5 +99,14 @@
   .displayblock {
       display: block;
     }
+
+  .vote-button-active {
+    /* TODO: Use different style for active and hover */
+    background-image: url('../assets/heart-icon-hover.png');
+  }
+
+  .nickname {
+    font-weight: bold;
+  }
 
 </style>
