@@ -9,14 +9,7 @@
               <div class="nickname">
                 {{player.nickname}}
               </div>
-              <!-- TODO - Refactor double vote button -->
-              <div v-if="!player.iVotedFor">
-                <div class="vote-button" :data-playerid="player.id" v-on:click="vote($event)">
-                </div>
-              </div>
-              <div v-if="player.iVotedFor">
-                <div class="vote-button vote-button-active" :data-playerid="player.id" v-on:click="vote($event)">
-                </div>
+              <div class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)">
               </div>
             </div>
           </div>
@@ -46,7 +39,7 @@
         var voterId = this.sharedState.playerId
         var votedForId = event.target.dataset.playerid
 
-        if (event.target.classList.contains('vote-button-active')) {
+        if (event.target.classList.contains('voteButtonActive')) {
           request.post('/api/removevote', { voterId }, function (err, result) {
             assert(!err)
             console.log(`Player ${voterId} removed voted`)
@@ -111,8 +104,10 @@
     cursor: pointer;
   }
   
-  .vote-button-active {
-    /* TODO: Use different style for active and hover */
+  .voteButtonActive {
+    /* Use different style for active and hover
+    https://github.com/groupwrite-io/groupwrite.io/issues/60
+    */
     background-image: url('../assets/heart-icon-hover.png');
   }
   

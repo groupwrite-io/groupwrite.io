@@ -5,10 +5,10 @@
 
       <p>Pick a username</p>
       <form onsubmit="return false">
-<input id="choosenickname" placeholder="Anonymous" v-model="sharedState.myNickname" autofocus/>
-<button id="write-btn" v-on:click="login">Write!</button>
-</form>
-</div>
+        <input id="choosenickname" placeholder="Anonymous" v-model="sharedState.myNickname" autofocus/>
+        <button id="write-btn" v-on:click="login">Write!</button>
+      </form>
+    </div>
 </template>
 
 <script>
@@ -40,7 +40,8 @@
           .send({ playerId: this.sharedState.playerId })
           .send({ nickname: this.sharedState.myNickname })
           .end((err, state) => {
-            // TODO handle login failure
+            // handle login failure
+            // https://github.com/groupwrite-io/groupwrite.io/issues/58
             if (err) {
               window.alert(err + '\r\n' + state.text)
             } else {
@@ -53,21 +54,21 @@
       }
     }
   }
+
 </script>
 
 <style>
-body {
+  body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     /* width: 121px; */
-}
-
-input {
+  }
+  
+  input {
     padding: 3px;
-}
-
-a {
+  }
+  
+  a {
     color: #00B7FF;
-}
-
+  }
 </style>

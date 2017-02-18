@@ -75,7 +75,8 @@
             }
 
             assert(state.players.length <= self.consts.maxPlayers)
-            // TODO Read current location from VueRouter here. router.history.current shows '/' for some reason
+            // Read current location from VueRouter here. router.history.current shows '/' for some reason
+            // https://github.com/groupwrite-io/groupwrite.io/issues/56
             if (state.players.length === self.consts.maxPlayers && window.location.hash.endsWith('/queue')) {
               router.replace('/game')
             }
@@ -129,8 +130,11 @@
             var lastRound = self.sharedState.story[self.sharedState.story.length - 1]
             if (lastRound.playerId === self.sharedState.playerId) {
               console.log('I won last round!')
-              // TODO Animate
+              // Clear my suggestion
               self.sharedState.suggestionText = ''
+
+              // Let's play some animation here
+              // https://github.com/groupwrite-io/groupwrite.io/issues/57
             }
           }
         })

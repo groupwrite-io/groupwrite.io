@@ -114,6 +114,9 @@ describe('Game page', function () {
   });
 
   it("should select a player's suggestion if its get a majority vote", function (done) {
+    // This test should be refactored, too much duplicate code here
+    // https://github.com/groupwrite-io/groupwrite.io/issues/61
+
     var suggestion = "Dolly was a little lamb";
     var players = ['player1', 'player2', 'player3'];
     var p1 = newNightmare().loginPlayer(players[0]).run(() => { });
@@ -145,7 +148,7 @@ describe('Game page', function () {
             result.story.should.not.containEql(suggestion)
           })
           .then(function () {
-            p1.wait('.vote-button') // TODO Refactor
+            p1.wait('.vote-button')
               .evaluate(() => {
                 var suggestions = document.querySelectorAll('.suggestion')
                 // debugger
@@ -166,7 +169,7 @@ describe('Game page', function () {
                 })
                 console.log("Done iterating")
               }).run(() => { });
-            p2.wait('.vote-button') // TODO Refactor
+            p2.wait('.vote-button')
               .evaluate(() => {
                 var suggestions = document.querySelectorAll('.suggestion')
                 // debugger

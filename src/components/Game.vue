@@ -30,7 +30,6 @@
   </div>
 </template>
 <script>
-  import assert from 'assert'
   import store from './store'
   import PlayerList from './PlayerList.vue'
   import QuitButton from './QuitButton'
@@ -49,15 +48,16 @@
     },
     methods: {
       syncText: function () {
-        // console.log(`player entered text ${this.suggestionText}`)
         console.log(this.sharedState.playerId)
         request.post('/api/suggest', {
-          // TODO delete when we have session
           playerId: this.sharedState.playerId,
           suggestion: this.sharedState.suggestionText
         }, function (err, state) {
-          // TODO handle login failure
-          assert(!err)
+          // handle error
+          // https://github.com/groupwrite-io/groupwrite.io/issues/58
+          if (err) {
+            window.alert(err + '\r\n' + state.text)
+          }
         })
       }
     },

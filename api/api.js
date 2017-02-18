@@ -69,7 +69,7 @@ router.post('/login', function (req, res, next) {
     return
   }
   // if (req.session.playerId) {
-  //   res.status(401).send("Are you already using this account? If you got this in error, email help@groupwrite.io") // TODO fix email
+  //   res.status(401).send("Are you already using this account? If you got this in error, email help@groupwrite.io")
   //   return
   // }
   req.session.playerId = playerId
@@ -107,8 +107,7 @@ router.post('/suggest', function (req, res, next) {
     res.status(422).send(`Missing player for playerId ${playerId}`)
     return
   }
-  // console.log('suggestion: ' + suggestion)
-  player.suggestion = suggestion // TODO move this to State file/class (don't access 'private' var from outside)
+  player.suggestion = suggestion
   server.io.emit('server:state')
   res.send(true)
 })
@@ -149,7 +148,7 @@ router.post('/vote', function (req, res, next) {
   // (Players do not see who other players vote for)
   // Currently they get the entire server state.
   // Someone could write a modified client that displays votes
-  // TODO Security - only store votes on server, don't send to client
+  // https://github.com/groupwrite-io/groupwrite.io/issues/53
   player.votedForId = votedForId
 
   if (State.updateStory(player)) {
@@ -164,7 +163,7 @@ router.post('/vote', function (req, res, next) {
 
 // GET /adminState
 router.get('/adminState', function (req, res, next) {
-  if (config.adminKey !== req.query.adminKey) {
+  if (config.secret.adminKey !== req.query.adminKey) {
     res.status(401).send('Trying to access admin functions without proper key')
     return
   }
@@ -174,7 +173,8 @@ router.get('/adminState', function (req, res, next) {
 
 // POST /clearAll
 router.post('/clearAll', function (req, res, next) {
-  // TODO - only admin should be able to do this (see above)
+  // Only admin should be able to do this /adminState above
+  // https://github.com/groupwrite-io/groupwrite.io/issues/55
   State.clearAll()
   server.io.emit('server:state')
   res.send(true)
