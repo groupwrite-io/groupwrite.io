@@ -18,7 +18,7 @@
           <div id='story'>
             <h1>The Story's Title</h1>
             <div id="story-html">
-              <div v-for="contribution in sharedState.story">
+              <div v-for="contribution in sharedState.story" v-bind:class="{mine: contribution.playerId === sharedState.playerId}">
                 {{contribution.text}}
               </div>
             </div>
@@ -85,6 +85,10 @@
   #story-html {
     text-align: left;
     font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+  
+  #story-html .mine {
+    font-weight: bold;
   }
   
   #story h1 {
