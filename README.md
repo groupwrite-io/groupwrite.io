@@ -23,6 +23,7 @@ The end result is a collaboratively created story.
 * [Vue](https://vuejs.org/) frontend framework
 * [Socket.io](http://socket.io/) for realtime communications / websockets
 * [Webpack](https://webpack.github.io/) for bundling everything up
+* [Bootstrap](http://getbootstrap.com/) for responsive design
 * [Babel](https://babeljs.io/) / [ES2016](http://es6-features.org/) for modern Javascript
 * [eslint](http://eslint.org/) for quality control
 * [mocha](https://mochajs.org/) for testing, [Nightmare](http://www.nightmarejs.org/) for web testing
