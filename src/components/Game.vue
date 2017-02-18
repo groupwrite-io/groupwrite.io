@@ -75,6 +75,7 @@
     border: 3px black double;
     padding: 5px;
     border-radius: 15px;
+    min-width: 320px;
   }
   
   #story-html {
