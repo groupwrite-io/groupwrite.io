@@ -1,23 +1,27 @@
 <template>
   <div class="playerList">
     <h2>Players</h2>
-    <ol class="nonelist">
+    <ol class="nonelist container">
       <li class="playerListItem" v-for="player in sharedState.players">
-        <div v-if="player.nickname != sharedState.myNickname" class="playerbox">
-          <div class="nickname">
-            {{player.nickname}}:
+        <div v-if="player.nickname != sharedState.myNickname" class='row'>
+          <div class="col-md-4">
+            <div class='playerbox'>
+              <div class="nickname">
+                {{player.nickname}}
+              </div>
+              <!-- TODO - Refactor double vote button -->
+              <div v-if="!player.iVotedFor">
+                <div class="vote-button" :data-playerid="player.id" v-on:click="vote($event)">
+                </div>
+              </div>
+              <div v-if="player.iVotedFor">
+                <div class="vote-button vote-button-active" :data-playerid="player.id" v-on:click="vote($event)">
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="suggestion">
+          <div class="suggestion col-md-8">
             {{player.suggestion}}
-          </div>
-          <!-- TODO - Refactor double vote button -->
-          <div v-if="!player.iVotedFor">
-            <div class="vote-button" :data-playerid="player.id" v-on:click="vote($event)">
-            </div>
-          </div>
-          <div v-if="player.iVotedFor">
-            <div class="vote-button vote-button-active" :data-playerid="player.id" v-on:click="vote($event)">
-            </div>
           </div>
         </div>
       </li>
@@ -66,19 +70,21 @@
     margin: 0;
     padding: 0;
   }
-
+  
   ol.nonelist {
     list-style-type: none;
+    padding: 0;
   }
-
+  
   .nickname {
     display: inline-block;
     text-align: center;
     width: 100px;
-    height: 50px;
-    background: #f5f5f0;
+    font-weight: bold;
+    word-wrap: break-word;
+    margin: 5px;
   }
-
+  
   .suggestion {
     display: inline-block;
     width: 325px;
@@ -86,8 +92,17 @@
     text-align: left;
     word-wrap: break-word;
     border: 2px solid gray;
+    padding: 5px;
   }
-
+  
+  .playerbox {
+    display: inline-block;
+    padding: 5px;
+    background: #f5f5f0;
+    vertical-align: top;
+    height: 90px;
+  }
+  
   .vote-button {
     display: inline-block;
     background-image: url('../assets/heart-icon.png');
@@ -95,21 +110,17 @@
     height: 32px;
     cursor: pointer;
   }
-
-  .vote-button:hover {
-    background-image: url('../assets/heart-icon-hover.png');
-  }
-
-  .displayblock {
-    display: block;
-  }
-
+  
   .vote-button-active {
     /* TODO: Use different style for active and hover */
     background-image: url('../assets/heart-icon-hover.png');
   }
-
-  .nickname {
-    font-weight: bold;
+  
+  .playerListItem {
+    margin-top: 20px;
+  }
+  
+  .vote-button:hover {
+    background-image: url('../assets/heart-icon-hover.png');
   }
 </style>

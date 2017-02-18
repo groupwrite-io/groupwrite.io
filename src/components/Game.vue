@@ -1,18 +1,26 @@
 <template>
   <div class="game">
-    <h1>Welcome {{sharedState.myNickname}}</h1>
-    <form>
-      <textarea rows=3 cols=50 id='mytext' placeholder="Enter your text here" v-model="sharedState.suggestionText" v-on:keyup="syncText"></textarea>
-    </form>
-    <div id='center'>
-      <player-list></player-list>
-      <quit-button></quit-button>
-    </div>
-    <div id='right'>
-      <div id='story'>
-        <h1>The Story's Title</h1>
-        <div id="story-html" v-html="sharedState.storyHtml"></div>
-        </h2>The End</h2>
+
+    <div class='container'>
+      <h1>Welcome {{sharedState.myNickname}}</h1>
+      <div class='row'>
+        <div class='col-md-6'>
+          <form>
+            <textarea rows=5 cols=55 id='mytext' placeholder="Enter your text here" v-model="sharedState.suggestionText" v-on:keyup="syncText"
+              spellcheck='true'></textarea>
+          </form>
+          <player-list></player-list>
+          <quit-button></quit-button>
+        </div>
+        <div class='col-md-2'>
+        </div>
+        <div class='col-md-4'>
+          <div id='story'>
+            <h1>The Story's Title</h1>
+            <div id="story-html" v-html="sharedState.storyHtml"></div>
+            <h2 class='theend'>The End</h2>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -59,16 +67,26 @@
 
 </script>
 <style>
-  #center {
-    width: 300px;
-    display: inline-block;
+  #mytext {
+    padding: 5px;
   }
-
-  #right {
-    width: 500px;
-    display: inline-block;
-    position: fixed;
-    margin-right: 50px;
-    margin-left: 50px;
+  
+  #story {
+    border: 3px black double;
+    padding: 5px;
+    border-radius: 15px;
+  }
+  
+  #story-html {
+    text-align: left;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+  
+  #story h1 {
+    margin-bottom: 20px
+  }
+  
+  #story h2 {
+    margin-top: 20px
   }
 </style>
