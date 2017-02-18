@@ -3,7 +3,7 @@ export default {
     players: [],
     adminState: {
     },
-    storyHtml: '',
+    story: '',
     suggestionText: ''
   },
   consts: {

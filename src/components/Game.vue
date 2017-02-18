@@ -17,7 +17,11 @@
         <div class='col-md-4'>
           <div id='story'>
             <h1>The Story's Title</h1>
-            <div id="story-html" v-html="sharedState.storyHtml"></div>
+            <div id="story-html">
+              <div v-for="contribution in sharedState.story">
+                {{contribution.text}}
+              </div>
+            </div>
             <h2 class='theend'>The End</h2>
           </div>
         </div>

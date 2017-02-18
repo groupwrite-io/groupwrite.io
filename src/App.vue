@@ -30,16 +30,6 @@
     return !!getAdminKey()
   }
 
-  // Format the story as HTML
-  function formatStory(story) {
-    // TODO Security - make sure this is escaped & tested for XSS
-    let result = ''
-    story.forEach(contribution => {
-      result += `<div>${contribution.text}</div>`
-    })
-    return result
-  }
-
   export default {
     name: 'app',
     components: {
@@ -73,7 +63,6 @@
             self.sharedState.players = state.players
             if (state.game) {
               self.sharedState.story = state.game.story
-              self.sharedState.storyHtml = formatStory(state.game.story)
             }
 
             // Populate iVotedFor boolean
@@ -180,5 +169,4 @@
     transform: translate3d(-50%, -50%, 0);
     position: absolute;
   }
-
 </style>
