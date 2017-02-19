@@ -29,7 +29,9 @@ State.addPlayer = function (player) {
       startTime: Date.now(),
       id,
       playerIds: State.queue,
-      story: []
+      story: {
+        contributions: []
+      }
     }
     State.games[game.id] = game
     console.log(`Created game ${State.gameToStr(game)}`)
@@ -159,7 +161,7 @@ State.updateStory = function (player) {
     playerId: roundWinner.id,
     text: roundWinner.suggestion
   }
-  game.story.push(contribution)
+  game.story.contributions.push(contribution)
 
   // Clear votes
   for (let playerId of game.playerIds) {

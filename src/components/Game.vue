@@ -26,11 +26,11 @@
           <div id='story'>
             <h1>The Story's Title</h1>
             <div id="story-html">
-              <div v-for="contribution in sharedState.story" v-bind:class="{mine: contribution.playerId === sharedState.playerId}">
+              <div v-for="contribution in sharedState.story.contributions" v-bind:class="{mine: contribution.playerId === sharedState.playerId, theend: contribution.text === 'The End'}">
                 {{contribution.text}}
               </div>
             </div>
-            <h2 class='theend'>The End</h2>
+            <h2 class='theend'>{{sharedState.story.theend}}</h2>
           </div>
         </div>
       </div>
@@ -107,8 +107,10 @@
     margin-bottom: 20px
   }
   
-  #story h2 {
-    margin-top: 20px
+  #story .theend {
+    margin-top: 20px;
+    font-size: 24px;
+    text-align: center;
   }
   
   .action-btn {
