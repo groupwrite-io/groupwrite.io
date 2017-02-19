@@ -6,11 +6,11 @@
       <div class='row'>
         <div class='col-md-1'>
           <div class='row'>
-            <div class="submit-btn" title='You finished typing, send in your suggestion' v-on:click="submit($event)"></div>
+            <div class="submit-btn" title='You finished typing, send in your suggestion' v-on:click="submit"></div>
               <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
-            <button class='action-btn' title='Propose an ending to the story' v-on:click='theend'>The End</button>
+            <button class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="suggestionDisabled == 1 ? true : false" v-on:keyup="syncText">The End</button>
           </div>
         </div>
         <div class='col-md-5'>
