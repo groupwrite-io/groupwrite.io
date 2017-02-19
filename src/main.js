@@ -2,10 +2,10 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import Home from './components/Home.vue'
-import Game from './components/Game.vue'
-import Admin from './components/Admin.vue'
-import Queue from './components/Queue.vue'
+import HomePage from './components/HomePage.vue'
+import GamePage from './components/GamePage.vue'
+import AdminPage from './components/AdminPage.vue'
+import QueuePage from './components/QueuePage.vue'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import VueRouter from 'vue-router'
 
@@ -16,10 +16,10 @@ Vue.use(VueRouter)
 // Vue.extend(), or just a component options object.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/', component: Home },
-  { path: '/game', component: Game },
-  { path: '/admin', component: Admin },
-  { path: '/queue', component: Queue }
+  { path: '/', component: HomePage },
+  { path: '/game', component: GamePage },
+  { path: '/admin', component: AdminPage },
+  { path: '/queue', component: QueuePage }
 ]
 
 // 3. Create the router instance and pass the `routes` option

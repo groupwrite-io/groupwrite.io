@@ -17,7 +17,7 @@
   import store from './store'
 
   export default {
-    name: 'Home',
+    name: 'HomePage',
 
     data() {
       return {

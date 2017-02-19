@@ -24,7 +24,7 @@
   import assert from 'assert'
 
   export default {
-    name: 'Admin',
+    name: 'AdminPage',
     components: {
       PlayerList
     },
@@ -47,4 +47,5 @@
     }
 
   }
+
 </script>

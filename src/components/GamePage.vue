@@ -38,7 +38,7 @@
   var request = require('superagent')
 
   export default {
-    name: 'Game',
+    name: 'GamePage',
     components: {
       PlayerList,
       QuitButton,
