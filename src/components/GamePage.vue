@@ -6,7 +6,8 @@
       <div class='row'>
         <div class='col-md-1'>
           <div class='row'>
-            <button class='action-btn' title='You finished typing, send in your suggestion'>Send</button>
+            <div class="submit-btn" title='You finished typing, send in your suggestion'></div>
+              <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id" v-on:click="submit($event)"-->
           </div>
           <div class='row'>
             <button class='action-btn' title='Propose an ending to the story' v-on:click='theend'>The End</button>
@@ -114,4 +115,12 @@
     min-width: 100px;
     min-height: 20px;
   }
+
+   .submit-btn { 
+      display: inline-block; 
+      background-image: url('../assets/submit-icon.png'); 
+      width: 32px; 
+      height: 32px; 
+      cursor: pointer;      
+ }
 </style>
