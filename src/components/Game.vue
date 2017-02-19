@@ -9,7 +9,7 @@
             <button class='action-btn' title='You finished typing, send in your suggestion'>Send</button>
           </div>
           <div class='row'>
-            <button class='action-btn' title='Propose an ending to the story'>The End</button>
+            <button class='action-btn' title='Propose an ending to the story' v-on:click='theend'>The End</button>
           </div>
         </div>
         <div class='col-md-5'>
@@ -56,7 +56,7 @@
     },
     methods: {
       syncText: function () {
-        console.log(this.sharedState.playerId)
+        console.log(`Syncing text for ${this.sharedState.playerId}`)
         request.post('/api/suggest', {
           playerId: this.sharedState.playerId,
           suggestion: this.sharedState.suggestionText
@@ -67,6 +67,10 @@
             window.alert(err + '\r\n' + state.text)
           }
         })
+      },
+      theend: function () {
+        this.sharedState.suggestionText = 'The End'
+        this.syncText()
       }
     },
     mounted: function () {
