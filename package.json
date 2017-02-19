@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "./node_modules/.bin/cross-env mode=dev ./node_modules/.bin/nodemon build/server.js",
-    "prestartprod": "decrypt config/prod.secret.config.js.enc config/prod.secret.config.js ${enc_password}",
+    "prestartprod": "npm run decrypt ${enc_password}",
     "startprod": "./node_modules/.bin/cross-env mode=prod node build/server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
