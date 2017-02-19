@@ -1,6 +1,16 @@
-module.exports = {
-  // This should be encrypted
-  // https://github.com/groupwrite-io/groupwrite.io/issues/37
-  adminKey: 'nalkFaoKsjd78',
-  sessionSecret: 'my-secret'
+const mode = process.env.mode
+
+switch (mode) {
+  case 'dev':
+    module.exports = require('./dev.secret.config')
+    break;
+
+  case 'prod':
+    module.exports = require('./prod.secret.config')
+    break;
+
+  default:
+    throw Error(`Unknown mode: ${mode}`)
 }
+
+console.log(`Secret config loaded for mode '${mode}'`)

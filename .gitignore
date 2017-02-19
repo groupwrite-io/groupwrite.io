@@ -10,3 +10,5 @@ selenium-debug.log
 *.orig
 .history
 test-results.xml
+
+config/prod.secret.config.js
