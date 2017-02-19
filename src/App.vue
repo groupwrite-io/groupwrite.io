@@ -126,8 +126,8 @@
         updateState(() => {
           console.log('Round over')
           // If I won the last round, clear my suggestion box
-          if (self.sharedState.story && self.sharedState.story.length > 0) {
-            var lastRound = self.sharedState.story[self.sharedState.story.length - 1]
+          if (self.sharedState.story && self.sharedState.story.contributions.length > 0) {
+            var lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
             if (lastRound.playerId === self.sharedState.playerId) {
               console.log('I won last round!')
               // Clear my suggestion
