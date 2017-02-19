@@ -71,7 +71,7 @@
       },
       submit: function () {
         console.log(`submitting text for ${this.sharedState.playerId}`)
-        this.suggestionDisabled = (this.suggestionDisabled + 1) % 2
+        this.suggestionDisabled = 1
         console.log(this.suggestionDisabled)
       }
     },
@@ -124,7 +124,7 @@
 
    .submit-btn { 
       display: inline-block; 
-      background-image: url('../assets/submit-icon.png'); 
+      background-image: url('../assets/send-icon.png'); 
       width: 32px; 
       height: 32px; 
       cursor: pointer;      
