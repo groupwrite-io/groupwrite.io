@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a class="github-fork-ribbon" href="https://github.com/groupwrite-io/groupwrite.io" title="Fork me on GitHub">Fork me on GitHub</a>
     <div class="center home">
       <h1>groupwrite.io</h1>
 
