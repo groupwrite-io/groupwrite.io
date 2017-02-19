@@ -29,5 +29,29 @@
 </script>
 
 <style>
-
+  #story {
+    border: 3px black double;
+    padding: 5px;
+    border-radius: 15px;
+    min-width: 320px;
+  }
+  
+  #story-html {
+    text-align: left;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+  
+  #story-html .mine {
+    font-weight: bold;
+  }
+  
+  #story h1 {
+    margin-bottom: 20px
+  }
+  
+  #story .theend {
+    margin-top: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
 </style>
