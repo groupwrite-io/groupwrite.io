@@ -23,15 +23,7 @@
         <div class='col-md-2'>
         </div>
         <div class='col-md-4'>
-          <div id='story'>
-            <h1>The Story's Title</h1>
-            <div id="story-html">
-              <div v-for="contribution in sharedState.story.contributions" v-bind:class="{mine: contribution.playerId === sharedState.playerId, theend: contribution.text === 'The End'}">
-                {{contribution.text}}
-              </div>
-            </div>
-            <h2 class='theend'>{{sharedState.story.theend}}</h2>
-          </div>
+          <story></story>
         </div>
       </div>
     </div>
@@ -41,13 +33,16 @@
   import store from './store'
   import PlayerList from './PlayerList.vue'
   import QuitButton from './QuitButton'
+  import Story from './Story'
+
   var request = require('superagent')
 
   export default {
     name: 'Game',
     components: {
       PlayerList,
-      QuitButton
+      QuitButton,
+      Story
     },
     data() {
       return {
