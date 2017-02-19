@@ -4,7 +4,7 @@ if (!process.env.NODE_ENV) process.env.NODE_ENV = JSON.parse(config.dev.env.NODE
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
-const serverConfig = require('../config/server.config')
+const secret = require('../config/secret.config')
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
@@ -104,7 +104,7 @@ app.use(cookieParser());
 
 // Session
 var session = require("express-session")({
-  secret: serverConfig.secret.sessionSecret,
+  secret: secret.sessionSecret,
   resave: true,
   saveUninitialized: true,
   cookie: { maxAge: 365 * 24 * 3600 * 1000 }

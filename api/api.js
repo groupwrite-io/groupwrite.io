@@ -4,7 +4,7 @@ var State = require('./state')
 var server = require('../build/server')
 var assert = require('assert')
 var session = require('express-session')
-var config = require('../config/server.config')
+var secret = require('../config/secret.config')
 
 // GET /state
 router.get('/', function (req, res, next) {
@@ -163,7 +163,7 @@ router.post('/vote', function (req, res, next) {
 
 // GET /adminState
 router.get('/adminState', function (req, res, next) {
-  if (config.secret.adminKey !== req.query.adminKey) {
+  if (secret.adminKey !== req.query.adminKey) {
     res.status(401).send('Trying to access admin functions without proper key')
     return
   }
