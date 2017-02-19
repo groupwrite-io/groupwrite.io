@@ -4,7 +4,15 @@
     <div class='container'>
       <h1>Welcome {{sharedState.myNickname}}</h1>
       <div class='row'>
-        <div class='col-md-6'>
+        <div class='col-md-1'>
+          <div class='row'>
+            <button class='action-btn' title='You finished typing, send in your suggestion'>Send</button>
+          </div>
+          <div class='row'>
+            <button class='action-btn' title='Propose an ending to the story'>The End</button>
+          </div>
+        </div>
+        <div class='col-md-5'>
           <form>
             <textarea rows=5 cols=55 id='mytext' placeholder="Enter your text here" v-model="sharedState.suggestionText" v-on:keyup="syncText"
               spellcheck='true'></textarea>
@@ -97,5 +105,12 @@
   
   #story h2 {
     margin-top: 20px
+  }
+  
+  .action-btn {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    min-width: 100px;
+    min-height: 20px;
   }
 </style>
