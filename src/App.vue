@@ -7,6 +7,7 @@
         <router-link to="/queue">Queue</router-link>
         <router-link to="/game">Game</router-link>
         <router-link to="/admin">Admin</router-link>
+        <router-link to="/gameover">Game Over</router-link>
       </p>
     </div>
     <router-view></router-view>
@@ -52,7 +53,11 @@
             playerId
           })
           .end((err, res) => {
-            assert(!err)
+            if (err) {
+              window.alert(`Error updating state: ${err}`)
+              return
+            }
+
             assert(res.status === 200)
             let state = res.body
             assert(state)
@@ -126,16 +131,23 @@
         updateState(() => {
           console.log('Round over')
           // If I won the last round, clear my suggestion box
-          if (self.sharedState.story && self.sharedState.story.contributions.length > 0) {
-            var lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
-            if (lastRound.playerId === self.sharedState.playerId) {
-              console.log('I won last round!')
-              // Clear my suggestion
-              self.sharedState.suggestionText = ''
+          assert(self.sharedState.story)
+          assert(self.sharedState.story.contributions.length > 0)
+          var lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
 
-              // Let's play some animation here
-              // https://github.com/groupwrite-io/groupwrite.io/issues/57
-            }
+          if (lastRound.text === 'The End') {
+            console.log('--- Game over ---')
+            router.replace('/gameover')
+            return
+          }
+
+          if (lastRound.playerId === self.sharedState.playerId) {
+            console.log('I won last round!')
+            // Clear my suggestion
+            self.sharedState.suggestionText = ''
+
+            // Let's play some animation here
+            // https://github.com/groupwrite-io/groupwrite.io/issues/57
           }
         })
       })

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import HomePage from './components/HomePage.vue'
 import GamePage from './components/GamePage.vue'
+import GameOverPage from './components/GameOverPage.vue'
 import AdminPage from './components/AdminPage.vue'
 import QueuePage from './components/QueuePage.vue'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -19,7 +20,8 @@ const routes = [
   { path: '/', component: HomePage },
   { path: '/game', component: GamePage },
   { path: '/admin', component: AdminPage },
-  { path: '/queue', component: QueuePage }
+  { path: '/queue', component: QueuePage },
+  { path: '/gameover', component: GameOverPage }
 ]
 
 // 3. Create the router instance and pass the `routes` option
