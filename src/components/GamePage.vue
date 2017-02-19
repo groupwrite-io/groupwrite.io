@@ -6,8 +6,8 @@
       <div class='row'>
         <div class='col-md-1'>
           <div class='row'>
-            <div class="submit-btn" title='You finished typing, send in your suggestion'></div>
-              <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id" v-on:click="submit($event)"-->
+            <div class="submit-btn" title='You finished typing, send in your suggestion' v-on:click="submit($event)"></div>
+              <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
             <button class='action-btn' title='Propose an ending to the story' v-on:click='theend'>The End</button>
@@ -15,7 +15,7 @@
         </div>
         <div class='col-md-5'>
           <form>
-            <textarea rows=5 cols=55 id='mytext' placeholder="Enter your text here" v-model="sharedState.suggestionText" v-on:keyup="syncText"
+            <textarea rows=5 cols=55 id='mytext' placeholder="Enter your text here" v-model="sharedState.suggestionText" :disabled="suggestionDisabled == 1 ? true : false" v-on:keyup="syncText"
               spellcheck='true'></textarea>
           </form>
           <player-list></player-list>
@@ -47,7 +47,8 @@
     },
     data() {
       return {
-        sharedState: store.state
+        sharedState: store.state,
+        suggestionDisabled: 0
       }
     },
     methods: {
@@ -67,6 +68,11 @@
       theend: function () {
         this.sharedState.suggestionText = 'The End'
         this.syncText()
+      },
+      submit: function () {
+        console.log(`submitting text for ${this.sharedState.playerId}`)
+        this.suggestionDisabled = (this.suggestionDisabled + 1) % 2
+        console.log(this.suggestionDisabled)
       }
     },
     mounted: function () {
