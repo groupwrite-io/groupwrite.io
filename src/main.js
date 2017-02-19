@@ -36,4 +36,3 @@ new Vue({
   router,
   components: { App }
 })
-

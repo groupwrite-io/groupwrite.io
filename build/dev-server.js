@@ -19,6 +19,32 @@ var bodyParser = require('body-parser');
 // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = config.dev.proxyTable
 
+var mongoose = require('mongoose')
+mongoose.Promise = global.Promise
+if (secret.mongoConnectionString === 'mongo-in-memory') {
+  console.log('Using dev mongo-in-memory')
+  const MongoInMemory = require('mongo-in-memory');
+  var mongoPort = 8000;
+  var mongoServerInstance = new MongoInMemory(mongoPort); //DEFAULT PORT is 27017 
+  mongoServerInstance.start((error, config) => {
+    if (error) {
+      console.error(error);
+    } else {
+
+      //callback when server has started successfully 
+
+      console.log("HOST " + config.host);
+      console.log("PORT " + config.port);
+
+      var mongouri = mongoServerInstance.getMongouri("groupwrite-prod");
+      mongoose.connect(mongouri)
+    }
+  })
+} else {
+  console.log('Connecting to mongoose')
+  mongoose.connect(secret.mongoConnectionString)
+}
+
 var app = express()
 var compiler = webpack(webpackConfig)
 

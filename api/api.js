@@ -5,6 +5,23 @@ var server = require('../build/server')
 var assert = require('assert')
 var session = require('express-session')
 var secret = require('../config/secret.config')
+var Story = require('./model/story')
+
+// TODO Delete this
+router.get('/createStory', function (req, res, next) {
+  var story = new Story({ contributions: [] })
+  res.status(200).send('Created story with date ' + story.date)
+  story.save().then(() => {
+
+  });
+})
+router.get('/listStories', function (req, res, next) {
+  Story.find((err, stories) => {
+    res.status(200).send(stories)
+  })
+})
+
+
 
 // GET /state
 router.get('/', function (req, res, next) {

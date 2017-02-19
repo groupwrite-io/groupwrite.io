@@ -1,4 +1,3 @@
-var uuid = require('uuid/v4')
 var values = require('object.values');
 var config = require('../config/server.config');
 

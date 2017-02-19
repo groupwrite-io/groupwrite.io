@@ -15,7 +15,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
     "babel-node": "babel-node --presets=es2016,es2015",
     "encrypt": "encrypt config/prod.secret.config.js config/prod.secret.config.js.enc",
-    "decrypt": "decrypt config/prod.secret.config.js.enc config/prod.secret.config.js ${enc_password}"
+    "decrypt": "decrypt config/prod.secret.config.js.enc config/prod.secret.config.js"
   },
   "dependencies": {
     "autoprefixer": "6.4.0",
@@ -77,6 +77,9 @@
     "lolex": "1.4.0",
     "mocha": "3.1.0",
     "mocha-junit-reporter": "1.13.0",
+    "mongo-in-memory": "0.0.5",
+    "mongodb": "2.2.24",
+    "mongoose": "4.8.3",
     "nightmare": "2.9.1",
     "nodemon": "1.11.0",
     "object.values": "1.0.4",
