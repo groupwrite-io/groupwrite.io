@@ -142,6 +142,8 @@ State.findGameByPlayerId = function (playerId) {
 
 /**
  * Update the current story by votes (and in the future, check if a player has finalized their suggestion)
+ * 
+ * Returns true if the story has been updated
  */
 State.updateStory = function (player) {
   let game = State.findGameByPlayerId(player.id)

@@ -1,5 +1,10 @@
-var State = require('./state')
-var server = require('../build/server')
+const assert = require('assert')
+const _ = require('underscore')
+
+const State = require('./state')
+const server = require('../build/server')
+const Story = require('./model/story')
+
 
 module.exports = function (router) {
   // POST /suggest
@@ -60,7 +65,19 @@ module.exports = function (router) {
     player.votedForId = votedForId
 
     if (State.updateStory(player)) {
-      server.io.emit('server:round-over')
+      let game = State.findGameByPlayerId(player.id)
+      assert(game)
+      if (_.last(game.story.contributions).text === 'The End') {
+        console.log('Game finished, saving story')
+        let story = new Story({ contributions: game.story.contributions })
+        story.save().then(() => {
+          game.story.id = story._id
+          // TODO - convert this to 'server:game-over' instead of detecting on client
+          server.io.emit('server:round-over')
+        })
+      } else {
+        server.io.emit('server:round-over')
+      }
     } else {
       server.io.emit('server:state')
     }
