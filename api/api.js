@@ -17,13 +17,5 @@ router.get('/', function (req, res, next) {
   res.send('groupwrite.io API server')
 })
 
-// GET & POST /error (for testing)
-router.get('/error', function () {
-  assert.fail('This returns a 500 error')
-})
-router.post('/error', function () {
-  assert.fail('This returns a 500 error')
-})
-
 module.exports = router
 
