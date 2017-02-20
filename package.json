@@ -79,6 +79,7 @@
     "mocha-junit-reporter": "1.13.0",
     "mongo-in-memory": "0.0.5",
     "mongodb": "2.2.24",
+    "mongodb-autoincrement": "1.0.1",
     "mongoose": "4.8.3",
     "nightmare": "2.9.1",
     "nodemon": "1.11.0",

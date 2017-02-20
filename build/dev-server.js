@@ -19,8 +19,11 @@ var bodyParser = require('body-parser');
 // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = config.dev.proxyTable
 
+var autoIncrement = require("mongodb-autoincrement");
 var mongoose = require('mongoose')
 mongoose.Promise = global.Promise
+mongoose.plugin(autoIncrement.mongoosePlugin);
+
 if (secret.mongoConnectionString === 'mongo-in-memory') {
   console.log('Using dev mongo-in-memory')
   const MongoInMemory = require('mongo-in-memory');
@@ -37,7 +40,21 @@ if (secret.mongoConnectionString === 'mongo-in-memory') {
       console.log("PORT " + config.port);
 
       var mongouri = mongoServerInstance.getMongouri("groupwrite-prod");
-      mongoose.connect(mongouri)
+      mongoose.connect(mongouri).then(() => {
+        // You cannot set initial values for auto increment fields by the module. 
+        // If you need it you can always set them directly via mongodb. 
+        // Find a record with _id 'collectionName' in the collection 'counters' and set field 'seq' to required value.
+        // console.log('Setting initial ID to 0')
+        // mongoose.connection.db.collection('counters').save(
+        //   {
+        //     '_id': 'collectionName',
+        //     'seq': 0
+        //   }
+        // )
+      }).catch((err) => {
+        console.log(err)
+        process.exit()
+      })
     }
   })
 } else {
