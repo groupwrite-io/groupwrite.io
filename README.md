@@ -15,13 +15,15 @@ The end result is a collaboratively created story.
 * [A sample story created with groupwrite.io](https://www.facebook.com/ripper234/posts/10153753024424159)
 * [Give us a :star:](https://github.com/groupwrite-io/groupwrite.io)
 * [staging.groupwrite.io](http://staging.groupwrite.io) - continously deployed from ```master```
-### Dependencies / Tech Stack ###
+
+## Dependencies / Tech Stack ##
 
 * git
 * [Node](https://nodejs.org)
 * [Express](http://expressjs.com/) web server
 * [Vue](https://vuejs.org/) frontend framework
 * [Socket.io](http://socket.io/) for realtime communications / websockets
+* [MongoDB](https://www.mongodb.com/) & [Mongoose](http://mongoosejs.com/) for data access
 * [Webpack](https://webpack.github.io/) for bundling everything up
 * [Bootstrap](http://getbootstrap.com/) for responsive design
 * [Babel](https://babeljs.io/) / [ES2016](http://es6-features.org/) for modern Javascript
@@ -31,7 +33,7 @@ The end result is a collaboratively created story.
 * [Slack](https://www.hamsterpad.com/chat/writeio) for communications
 * [Medium](https://medium.com/groupwrite-io) for blogging
 
-### How do I get set up? ###
+## How do I get set up? ##
 
 * git pull
 * npm install
@@ -39,32 +41,36 @@ The end result is a collaboratively created story.
 * [http://localhost:3000/](http://localhost:3000/)
 * (See also admin screen at [http://localhost:3000/admin](http://localhost:3000/admin))
 
-### Contribution guidelines ###
+## Contribution guidelines ##
 
 * We're having weekly coding sessions in Tel Aviv, usually on Thursday evening or Friday noonish. You're welcome to join!
 * Start by looking at some of our [starter tasks](https://github.com/groupwrite-io/groupwrite.io/labels/starter-task), [high-priority](https://github.com/groupwrite-io/groupwrite.io/issues?q=is%3Aissue+is%3Aopen+label%3Apriority-high) and [medium-priority](https://github.com/groupwrite-io/groupwrite.io/issues?q=is%3Aissue+is%3Aopen+label%3Apriority-medium) tasks.
 
 
 TBD:
+
 * Writing tests
 * Code review
 * Other guidelines
 
-### Who do I talk to? ###
+## Who do I talk to? ##
 
 For any questions, contact Ron Gross (chiefninjaofficer@gmail.com, +972-52-6558841)
 
-# Potential P.R venues / Storythons
+## Potential P.R venues / Storythons ##
 
 * http://tisch.nyu.edu/itp
 
-# OKRs for March 31 2017
-* Launch Alpha
-** Deployed server that anyone can play on
-* Produce 3 decent stories
-** Each story gets 50 page views
+## OKRs ##
 
-## Build Setup
+### OKRs for March 31 2017 ###
+
+* Launch Alpha
+  * Deployed server that anyone can play on
+* Produce 3 decent stories
+  * Each story gets 50 page views
+
+## Build Setup ##
 
 ``` bash
 # install dependencies
@@ -74,16 +80,14 @@ npm install
 npm start
 
 # build for production with minification
-npm run build
+npm run build  (TBD: Not currently used)
+
+# run all tests
+npm test
 
 # run unit tests
 npm run unit
 
 # run e2e tests
 npm run e2e
-
-# run all tests
-npm test
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
