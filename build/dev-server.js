@@ -41,6 +41,9 @@ if (secret.mongoConnectionString === 'mongo-in-memory') {
 
       var mongouri = mongoServerInstance.getMongouri("groupwrite-prod");
       mongoose.connect(mongouri).then(() => {
+        // TODO: Make IDs start with 0
+        // https://github.com/TheRoSS/mongodb-autoincrement/issues/9
+
         // You cannot set initial values for auto increment fields by the module. 
         // If you need it you can always set them directly via mongodb. 
         // Find a record with _id 'collectionName' in the collection 'counters' and set field 'seq' to required value.
@@ -161,7 +164,7 @@ app.use('/api', api)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('Not Found: ' + req.path);
   err.status = 404;
   next(err);
 });

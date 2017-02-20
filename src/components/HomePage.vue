@@ -36,7 +36,7 @@
         console.log(`New player (${this.sharedState.myNickname}, ${this.sharedState.playerId})`)
 
         var request = require('superagent')
-        request.post('/api/login')
+        request.post('/api/user/login')
           .set('Accept', 'application/json')
           .send({ playerId: this.sharedState.playerId })
           .send({ nickname: this.sharedState.myNickname })

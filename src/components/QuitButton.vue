@@ -20,12 +20,12 @@
       quit: function () {
         var request = require('superagent')
         console.log(`${this.sharedState.myNickname} sending quit message`)
-        request.post('/api/quit')
+        request.post('/api/user/quit')
           .set('Accept', 'application/json')
           .send({ playerId: this.sharedState.playerId })
           .end((err, state) => {
             if (err) {
-              assert.fail(`/ quit error ${err.status} - ${err.message} \r\n ${err.stack}`)
+              assert.fail(`/api/user/quit error ${err.status} - ${err.message} \r\n ${err.stack}`)
             }
 
             // Navigate back home
@@ -34,4 +34,5 @@
       }
     }
   }
+
 </script>

@@ -47,7 +47,7 @@
       var self = this
 
       function updateStateForPlayer(playerId, callback) {
-        return request.get('/api/state')
+        return request.get('/api/user/state')
           .set('Accept', 'application/json')
           .query({
             playerId
