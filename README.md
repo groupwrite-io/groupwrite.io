@@ -9,6 +9,8 @@ Every player sees in real time what every other player is writing, and can vote 
 
 The end result is a collaboratively created story.
 
+![Game page](https://cdn-images-1.medium.com/max/2000/1*Y25jCA9bYbC-4R5QTrr7RQ.png)
+
 * [Follow Our Blog](https://medium.com/groupwrite-io) for updates
 * [Current Tasks](https://github.com/groupwrite.io/groupwrite.io/projects/1)
 * [Slack](https://www.hamsterpad.com/chat/writeio)
