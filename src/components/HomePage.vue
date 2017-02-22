@@ -10,6 +10,9 @@
         <button id="write-btn" v-on:click="login">Write!</button>
       </form>
     </div>
+    <span id="legal-notice">
+      * By clicking the above button you specifically give us the following permission, you grant us a non-exclusive, transferable, sub-licensable, royalty-free, worldwide license to use any IP content that you post on Grouwrite.io.
+    </span>
 </template>
 
 <script>
@@ -71,5 +74,14 @@
   
   a {
     color: #00B7FF;
+  }
+
+  #legal-notice {
+    font-size: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    color: #333;
+    text-align: left;
   }
 </style>
