@@ -9,7 +9,8 @@
               <div class="nickname">
                 {{player.nickname}}
               </div>
-              <div class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)">
+              <div>
+                <button class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)" :disabled="!player.suggestionSubmitted"></button>
               </div>
             </div>
           </div>
@@ -98,7 +99,7 @@
   
   .vote-button {
     display: inline-block;
-    background-image: url('../assets/heart-icon.png');
+    background-image: url('../assets/pencil-writing.png');
     width: 32px;
     height: 32px;
     cursor: pointer;
