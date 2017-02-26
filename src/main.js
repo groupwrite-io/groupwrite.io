@@ -8,11 +8,10 @@ import GameOverPage from './components/GameOverPage.vue'
 import AdminPage from './components/AdminPage.vue'
 import QueuePage from './components/QueuePage.vue'
 import StoryPage from './components/StoryPage.vue'
-
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import VueRouter from 'vue-router'
 import request from 'superagent'
 import assert from 'assert'
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css' // Bootstrap is called via CDN in index.html
 
 Vue.use(VueRouter)
 // 2. Define some routes
