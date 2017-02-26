@@ -43,6 +43,20 @@ The end result is a collaboratively created story.
 * [http://localhost:3000/](http://localhost:3000/)
 * (See also admin screen at [http://localhost:3000/admin](http://localhost:3000/admin))
 
+### Database setup
+The default setup uses the [mongo-in-memory](https://www.npmjs.com/package/mongo-in-memory) database, which cleans on every code edit. If you want persistant data:
+
+1. [install a local MongoDB server](https://docs.mongodb.com/manual/administration/install-community/)
+2. Create database called `groupwrite-dev`
+3. Create a new local file `config/local.secret.config.js` with
+
+```js
+module.exports = {
+  // This overrides dev.secret.config.js
+  mongoConnectionString: 'mongodb://localhost:27017/groupwrite-dev'
+}
+```
+
 ## Contribution guidelines ##
 
 * We're having weekly coding sessions in Tel Aviv, usually on Thursday evening or Friday noonish. You're welcome to join!
