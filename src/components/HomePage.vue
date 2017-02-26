@@ -1,13 +1,17 @@
 <template>
   <div>
     <a class="github-fork-ribbon" href="https://github.com/groupwrite-io/groupwrite.io" title="Fork me on GitHub">Fork me on GitHub</a>
-    <div class="center home">
+    <div class="col-md-4 col-md-offset-4 home">
       <h1>groupwrite.io</h1>
 
       <p>Pick a username</p>
-      <form onsubmit="return false">
-        <input id="choosenickname" placeholder="Anonymous" v-model="sharedState.myNickname" autofocus/>
-        <button id="write-btn" v-on:click="login">Write!</button>
+      <form onsubmit="return false" class="form-inline">
+        <div class="form-group">
+          <input id="choosenickname" placeholder="Anonymous" v-model="sharedState.myNickname" class="form-control" type="text" autofocus/>
+        </div>
+        <div class="text-center">
+          <button class="btn btn-default" type="submit" id="write-btn" v-on:click="login">Write!</button>
+        </div>
       </form>
     </div>
     <span id="legal-notice">
@@ -67,11 +71,15 @@
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     /* width: 121px; */
   }
-  
+/*  
   input {
     padding: 3px;
+    border-radius: 3px;
   }
-  
+  */
+
+ 
+
   a {
     color: #00B7FF;
   }
