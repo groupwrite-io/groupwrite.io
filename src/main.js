@@ -11,6 +11,8 @@ import StoryPage from './components/StoryPage.vue'
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import VueRouter from 'vue-router'
+import request from 'superagent'
+import assert from 'assert'
 
 Vue.use(VueRouter)
 // 2. Define some routes
@@ -39,3 +41,10 @@ new Vue({
   router,
   components: { App }
 })
+
+request.get('/api/version')
+  .set('Accept', 'application/json')
+  .end((err, res) => {
+    assert(!err)
+    console.log(`GroupWrite.io version ${res.text}`)
+  })
