@@ -7,17 +7,11 @@ import GamePage from './components/GamePage.vue'
 import GameOverPage from './components/GameOverPage.vue'
 import AdminPage from './components/AdminPage.vue'
 import QueuePage from './components/QueuePage.vue'
-<<<<<<< HEAD
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-// import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
-=======
 import StoryPage from './components/StoryPage.vue'
-
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
->>>>>>> f6bd1b4e37b4687dd8c2cb30937b472745255064
 import VueRouter from 'vue-router'
 import request from 'superagent'
 import assert from 'assert'
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css' // Bootstrap is called via CDN in index.html
 
 Vue.use(VueRouter)
 // 2. Define some routes
