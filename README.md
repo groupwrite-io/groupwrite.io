@@ -46,7 +46,7 @@ The end result is a collaboratively created story.
 ### Database setup
 The default setup uses the [mongo-in-memory](https://www.npmjs.com/package/mongo-in-memory) database, which cleans on every code edit. If you want persistant data:
 
-1. [install a local MongoDB server](https://docs.mongodb.com/manual/administration/install-community/)
+1. [Install a local MongoDB server](https://docs.mongodb.com/manual/administration/install-community/)
 2. Create database called `groupwrite-dev`
 3. Create a new local file `config/local.secret.config.js` with
 
