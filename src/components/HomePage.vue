@@ -9,9 +9,9 @@
         <div class="form-group">
           <input id="choosenickname" placeholder="Anonymous" v-model="sharedState.myNickname" class="form-control" type="text" autofocus/>
         </div>
-        <div class="text-center">
-          <button class="btn btn-default" type="submit" id="write-btn" v-on:click="login">Write!</button>
-        </div>
+        <!--<div class="text-center">-->
+          <button class="btn btn-default btn-grow" type="submit" id="write-btn" v-on:click="login">Write!</button>
+        <!--</div>-->
       </form>
     </div>
     <span id="legal-notice">
@@ -71,14 +71,6 @@
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     /* width: 121px; */
   }
-/*  
-  input {
-    padding: 3px;
-    border-radius: 3px;
-  }
-  */
-
- 
 
   a {
     color: #00B7FF;
@@ -92,4 +84,12 @@
     color: #333;
     text-align: left;
   }
+
+  .home {
+    margin-top: 10%;
+  }
+
+  @media all and (max-width:768px) {
+   .btn-grow { width: 100%; display:block; }
+}  
 </style>

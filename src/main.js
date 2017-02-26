@@ -7,7 +7,8 @@ import GamePage from './components/GamePage.vue'
 import GameOverPage from './components/GameOverPage.vue'
 import AdminPage from './components/AdminPage.vue'
 import QueuePage from './components/QueuePage.vue'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+// import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
