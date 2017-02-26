@@ -112,7 +112,7 @@
      background-image: url('../assets/heart-icon.png') 
   }
 
-  .voteButtonActive {
+  .playerbox div .voteButtonActive {
     /* Use different style for active and hover
     https://github.com/groupwrite-io/groupwrite.io/issues/60
     */
