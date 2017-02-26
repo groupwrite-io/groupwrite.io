@@ -1,6 +1,6 @@
 {
   "name": "groupwrite.io",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A realtime collaborative writing game Edit",
   "author": "Ron Gross <chiefninjaofficer@gmail.com>",
   "private": true,
