@@ -1,14 +1,26 @@
+// Read standard config
+let config;
 const mode = process.env.mode
-
+console.log(`Loading secret config, mode='${mode}'`)
 switch (mode) {
   case 'prod':
-    module.exports = require('./prod.secret.config')
-    break;
+    config = require('./prod.secret.config')
 
   case 'dev':
   default:
-    module.exports = require('./dev.secret.config')
-    break;
+    config = require('./dev.secret.config')
 }
 
-console.log(`Secret config loaded for mode '${mode}'`)
+// Local file overrides if it exists 
+const fs = require('fs')
+const path = require('path')
+const localConfigFile = path.join(__dirname, '/local.secret.config.js')
+if (fs.existsSync(localConfigFile)) {
+  console.log('Overriding with local config file')
+  var localConfig = require(localConfigFile)
+  Object.assign(config, localConfig)
+} else {
+  console.log('Not overriding')
+}
+
+module.exports = config
