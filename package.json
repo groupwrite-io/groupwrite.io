@@ -66,6 +66,8 @@
     "http-proxy-middleware": "0.17.2",
     "inject-loader": "2.0.1",
     "json-loader": "0.5.4",
+    "less": "2.7.2",
+    "less-loader": "2.2.3",
     "lolex": "1.4.0",
     "mongodb": "2.2.24",
     "mongodb-autoincrement": "1.0.1",
