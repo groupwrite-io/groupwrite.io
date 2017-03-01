@@ -1,3 +1,4 @@
+const secret = require('../config/secret.config')
 var State = require('./state')
 
 module.exports = function (router) {
