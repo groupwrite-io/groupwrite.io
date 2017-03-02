@@ -73,12 +73,8 @@ TBD:
 
 For any questions, contact Ron Gross (ron.gross@gmail.com, +972-52-6558841)
 
-## Potential P.R venues / Storythons ##
-
-* http://tisch.nyu.edu/itp
-* http://rumblegames.com
-* https://itch.io/
-* http://reddit.com/r/webgames
+## Marketing ##
+See [Our Marketing Plan](https://github.com/groupwrite-io/groupwrite.io/blob/master/Marketing.md)
 
 ## OKRs ##
 
