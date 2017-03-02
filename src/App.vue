@@ -127,6 +127,24 @@
       socket.on('server:state', function () {
         updateState()
       })
+      socket.on('server:title-round-over', function () {
+        updateState(() => {
+          console.log('Story Title Picked')
+          // If I won the last round, clear my suggestion box
+          assert(self.sharedState.story)
+          assert(self.sharedState.story.title)
+          var lastRound = self.sharedState.story.title
+
+          if (lastRound.playerId === self.sharedState.playerId) {
+            console.log('I chose the title!')
+            // Clear my suggestion
+            self.sharedState.suggestionText = ''
+
+            // Let's play some animation here
+            // https://github.com/groupwrite-io/groupwrite.io/issues/57
+          }
+        })
+      })
       socket.on('server:round-over', function () {
         updateState(() => {
           console.log('Round over')
@@ -151,7 +169,6 @@
           }
         })
       })
-
       // Routes
       // If we're not on the admin page or a story page, reload --> home
       if (!window.location.href.endsWith('admin') &&

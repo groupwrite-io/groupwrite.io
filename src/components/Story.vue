@@ -1,6 +1,7 @@
 <template>
   <div id='story'>
-    <h1>The Story's Title</h1>
+    <h1 v-if="sharedState.story.title.text" id="story-title">{{sharedState.story.title.text}}</h1>
+    <h1 v-else>The Story's Title</h1>
     <div id="story-html">
       <div v-for="contribution in sharedState.story.contributions" v-bind:class="{mine: contribution.playerId === sharedState.playerId, theend: contribution.text === 'The End'}">
         {{contribution.text}}

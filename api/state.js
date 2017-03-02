@@ -30,7 +30,8 @@ State.addPlayer = function (player) {
       id,
       playerIds: State.queue,
       story: {
-        contributions: []
+        contributions: [],
+        title: {}
       }
     }
     State.games[game.id] = game
@@ -163,7 +164,57 @@ State.updateStory = function (player) {
     playerId: roundWinner.id,
     text: roundWinner.suggestion
   }
+  
+  // game.story.title = contribution
   game.story.contributions.push(contribution)
+
+  // Clear votes
+  for (let playerId of game.playerIds) {
+    State.players[playerId].votedForId = null
+  }
+
+  // Clear winner's suggestion
+  State.players[roundWinner.id].suggestion = ''
+  return true
+}
+
+/**
+ * Test for first round (no contributions) and set new story title
+ * 
+ * Returns true if the title has been updated
+ */
+
+State.updateTitle = function (player) {
+  console.log('updating title')
+  
+  let game = State.findGameByPlayerId(player.id)
+  if (!game) {
+    console.log(`No current game for player ${player.Id}`)
+    return false
+  }
+
+  // Check if story has a title
+  if (game.story.title.text) {
+    return false
+  }
+
+  // Check if a player has majority vote
+  let roundWinner = State.findRoundWinner(game);
+  if (!roundWinner) {
+    return false
+  }
+
+  // Check if this isn't the first round
+  if(game.story.contribution){
+    return false
+  }
+
+  console.log(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
+  let title = {
+    playerId: roundWinner.id,
+    text: roundWinner.suggestion
+  }
+  game.story.title = title
 
   // Clear votes
   for (let playerId of game.playerIds) {
