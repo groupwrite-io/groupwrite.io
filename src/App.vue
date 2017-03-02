@@ -130,12 +130,12 @@
       socket.on('server:title-round-over', function () {
         updateState(() => {
           console.log('Story Title Picked')
-          // If I won the last round, clear my suggestion box
+          // If I won the title round, clear my suggestion box
           assert(self.sharedState.story)
           assert(self.sharedState.story.title)
-          var lastRound = self.sharedState.story.title
+          let titleRound = self.sharedState.story.title
 
-          if (lastRound.playerId === self.sharedState.playerId) {
+          if (titleRound.playerId === self.sharedState.playerId) {
             console.log('I chose the title!')
             // Clear my suggestion
             self.sharedState.suggestionText = ''
@@ -151,7 +151,7 @@
           // If I won the last round, clear my suggestion box
           assert(self.sharedState.story)
           assert(self.sharedState.story.contributions.length > 0)
-          var lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
+          let lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
 
           if (lastRound.text === 'The End') {
             console.log('--- Game over ---')
@@ -160,7 +160,7 @@
           }
 
           if (lastRound.playerId === self.sharedState.playerId) {
-            console.log('I won last round!')
+            console.log('I won title round!')
             // Clear my suggestion
             self.sharedState.suggestionText = ''
 
