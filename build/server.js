@@ -6,7 +6,6 @@ var app = require('./dev-server.js')
 var debug = require('debug')('writing.io:server');
 var http = require('http');
 var assert = require('assert')
-var opn = require('opn')
 
 /**
  * Create HTTP server.
@@ -53,13 +52,9 @@ server.listen(port, function (err) {
     return
   }
 
-  // when env is testing, don't need open it
-  if (process.env.NODE_ENV !== 'testing') {
-    var uri = 'http://localhost:' + port
-    opn(uri)
-  }
+  console.log(`Go to http://localhost:${port}`)
 })
-console.log(`Server listening on port ${port}`)
+console.log(`Started server listening on port ${port}`)
 
 server.on('error', onError);
 server.on('listening', onListening);

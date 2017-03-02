@@ -61,8 +61,16 @@ if (secret.mongoConnectionString === 'mongo-in-memory') {
     }
   })
 } else {
-  console.log('Connecting to mongoose')
-  mongoose.connect(secret.mongoConnectionString)
+  console.log('Connecting to mongodb')
+  mongoose.connect(secret.mongoConnectionString).then(() => {
+    console.log('Successfully connected to mongodb')
+    mongoose.connection.db.collection('startups').save({
+      'date': Date.now()
+    })
+  }).catch((err) => {
+    console.log(err)
+    process.exit()
+  })
 }
 
 var app = express()

@@ -7,8 +7,11 @@ import GamePage from './components/GamePage.vue'
 import GameOverPage from './components/GameOverPage.vue'
 import AdminPage from './components/AdminPage.vue'
 import QueuePage from './components/QueuePage.vue'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import StoryPage from './components/StoryPage.vue'
 import VueRouter from 'vue-router'
+import request from 'superagent'
+import assert from 'assert'
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css' // Bootstrap is called via CDN in index.html
 
 Vue.use(VueRouter)
 // 2. Define some routes
@@ -21,7 +24,8 @@ const routes = [
   { path: '/game', component: GamePage },
   { path: '/admin', component: AdminPage },
   { path: '/queue', component: QueuePage },
-  { path: '/gameover', component: GameOverPage }
+  { path: '/gameover', component: GameOverPage },
+  { path: '/story', component: StoryPage }
 ]
 
 // 3. Create the router instance and pass the `routes` option
@@ -36,3 +40,10 @@ new Vue({
   router,
   components: { App }
 })
+
+request.get('/api/version')
+  .set('Accept', 'application/json')
+  .end((err, res) => {
+    assert(!err)
+    console.log(`GroupWrite.io version ${res.text}`)
+  })
