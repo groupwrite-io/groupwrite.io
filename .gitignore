@@ -12,3 +12,4 @@ selenium-debug.log
 test-results.xml
 
 config/prod.secret.config.js
+config/local.secret.config.js

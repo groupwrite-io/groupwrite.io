@@ -4,7 +4,8 @@ export default {
     adminState: {
     },
     story: {
-      contributions: []
+      contributions: [],
+      title: {}
     },
     suggestionText: ''
   },

@@ -82,7 +82,9 @@ module.exports = function (router) {
     // https://github.com/groupwrite-io/groupwrite.io/issues/53
     player.votedForId = votedForId
 
-    if (State.updateStory(player)) {
+    if (State.updateTitle(player)){
+      server.io.emit('server:title-round-over')
+    } else if (State.updateStory(player)) {
       let game = State.findGameByPlayerId(player.id)
       assert(game)
       if (_.last(game.story.contributions).text === 'The End') {
