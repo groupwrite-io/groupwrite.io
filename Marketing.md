@@ -1,18 +1,18 @@
-= Marketing Plan =
+# Marketing Plan #
 
-== Story Blogs ==
-=== The Story of Telling === 
+## Story Blogs ##
+### The Story of Telling ###
 http://thestoryoftelling.com/contact/
 hello@thestoryoftelling.com 
 
-=== Story Center Blog ===
+### Story Center Blog ###
 https://www.storycenter.org/blog/ 
 info@storycenter.org 
 
-=== BookRiot ===
+### BookRiot ###
 http://bookriot.com/
 
-== Game Websites ==
+## Game Websites ##
 * http://tisch.nyu.edu/itp
 * http://rumblegames.com
 * https://itch.io/
