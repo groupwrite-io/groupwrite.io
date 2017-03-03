@@ -13,6 +13,9 @@
         <button class="btn btn-default btn-grow" type="submit" id="write-btn" v-on:click="login">Write!</button>
         <!--</div>-->
       </form>
+      <div id="stories-link">
+        Check out our <a href='/#/stories' target="blank">completed stories</a>
+      </div>
     </div>
     <span id="legal-notice">
       * By clicking the above button you specifically give us the following permission, you grant us a non-exclusive, transferable, sub-licensable, royalty-free, worldwide license to use any IP content that you post on Grouwrite.io.
@@ -88,6 +91,10 @@
   
   .home {
     margin-top: 10%;
+  }
+  
+  #stories-link {
+    margin-top: 5px;
   }
   
   @media all and (max-width:768px) {
