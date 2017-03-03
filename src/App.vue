@@ -172,7 +172,8 @@
       // Routes
       // If we're not on the admin page or a story page, reload --> home
       if (!window.location.href.endsWith('admin') &&
-        !window.location.href.endsWith('story')) {
+        !window.location.href.includes('story') &&
+        !window.location.href.includes('stories')) {
         router.replace('/')
       }
     }

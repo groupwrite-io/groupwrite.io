@@ -41,6 +41,7 @@
         // https://github.com/groupwrite-io/groupwrite.io/issues/58
         if (err) {
           window.alert(err + '\r\n' + err.text)
+          return
         }
         self.sharedState.story = response.body
       })
