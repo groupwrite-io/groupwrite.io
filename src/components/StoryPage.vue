@@ -37,11 +37,9 @@
       request.get('/api/stories/get', {
         storyId
       }, function (err, response) {
-        debugger
         // handle error
         // https://github.com/groupwrite-io/groupwrite.io/issues/58
         if (err) {
-          debugger
           window.alert(err + '\r\n' + err.text)
         }
         self.sharedState.story = response.body
