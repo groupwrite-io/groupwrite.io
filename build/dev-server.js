@@ -11,6 +11,7 @@ var webpackConfig = process.env.NODE_ENV === 'testing'
 var expressWinston = require('express-winston');
 var winston = require('winston'); // for transports.Console
 var api = require('../api/api');
+var stories = require('../ssr/stories/stories')
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -169,6 +170,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // serve API endpoints
 app.use('/api', api)
+app.use('/stories', stories)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
