@@ -7,7 +7,8 @@ var mongoose = require('mongoose')
 var storySchema = new Schema({
 
   date: { type: Date, default: Date.now },
-  contributions: []
+  contributions: [],
+  title: {}
 });
 
 module.exports = mongoose.model('Story', storySchema)

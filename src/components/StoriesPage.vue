@@ -6,7 +6,7 @@
       <span v-if='loading' class='loading'>Loading...</span>
       <ol class="nonelist container">
         <li class="storylink" v-for="story in stories">
-          <a v-bind:href="'/#/story?id=' + story._id">{{story.title}}</a>
+          <a v-bind:href="'/#/story?id=' + story._id">{{story.title.text}}</a>
         </li>
       </ol>
     </div>
@@ -33,7 +33,6 @@
       const self = this
       request.get('/api/stories/list',
         function (err, response) {
-          debugger
           // handle error
           // https://github.com/groupwrite-io/groupwrite.io/issues/58
           if (err) {

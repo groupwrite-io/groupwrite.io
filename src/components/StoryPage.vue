@@ -2,7 +2,7 @@
   <div class="game">
 
     <div class='container'>
-      <h1 id='loading'>Loading...</h1>
+      <h1 v-if='loading' id='loading'>Loading...</h1>
       <div class='row'>
       </div>
       <story></story>
@@ -22,11 +22,11 @@
     },
     data() {
       return {
-        sharedState: store.state
+        sharedState: store.state,
+        loading: true
       }
     },
     mounted: function () {
-      debugger
       const self = this
       let splitHash = window.location.hash.split('?')
       if (splitHash.length < 2) {
@@ -43,6 +43,7 @@
           window.alert(err + '\r\n' + err.text)
           return
         }
+        self.loading = false
         self.sharedState.story = response.body
       })
     }
