@@ -2,7 +2,7 @@
   <div class="game">
 
     <div class='container'>
-      <h1>Game Over</h1>
+      <h1 id='loading'>Loading...</h1>
       <div class='row'>
       </div>
       <story></story>
@@ -12,8 +12,8 @@
 <script>
   import store from './store'
   import Story from './Story'
-
-  //  var request = require('superagent')
+  import request from 'superagent'
+  import URLSearchParams from 'url-search-params'
 
   export default {
     name: 'GameOverPage',
@@ -25,7 +25,27 @@
         sharedState: store.state
       }
     },
-    methods: {
+    mounted: function () {
+      debugger
+      const self = this
+      let splitHash = window.location.hash.split('?')
+      if (splitHash.length < 2) {
+        // No story ID present
+        return
+      }
+      let storyId = new URLSearchParams(splitHash[1]).get('id')
+      request.get('/api/stories/get', {
+        storyId
+      }, function (err, response) {
+        debugger
+        // handle error
+        // https://github.com/groupwrite-io/groupwrite.io/issues/58
+        if (err) {
+          debugger
+          window.alert(err + '\r\n' + err.text)
+        }
+        self.sharedState.story = response.body
+      })
     }
   }
 
