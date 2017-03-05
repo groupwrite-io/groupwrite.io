@@ -3,6 +3,9 @@
     <h1>{{sharedState.myNickname}}</h1>
     <h1 class="waiting">Waiting for players {{sharedState.players.length}}/{{consts.maxPlayers}}...</h1>
     <h2>A gong will play when the game starts (turn up your speakers)</h2>
+    <div id="stories-link">
+      While you wait, check out our <a href='/#/stories' target="blank">completed stories</a>
+    </div>
     <quit-button></quit-button>
   </div>
 </template>
@@ -33,4 +36,5 @@
       }
     }
   }
+
 </script>

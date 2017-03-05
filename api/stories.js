@@ -1,4 +1,3 @@
-var State = require('./state')
 var Story = require('./model/story')
 
 module.exports = function (router) {

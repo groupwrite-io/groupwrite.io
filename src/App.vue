@@ -127,22 +127,16 @@
       socket.on('server:state', function () {
         updateState()
       })
-      socket.on('server:round-over', function () {
+      socket.on('server:title-round-over', function () {
         updateState(() => {
-          console.log('Round over')
-          // If I won the last round, clear my suggestion box
+          console.log('Story Title Picked')
+          // If I won the title round, clear my suggestion box
           assert(self.sharedState.story)
-          assert(self.sharedState.story.contributions.length > 0)
-          var lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
+          assert(self.sharedState.story.title)
+          let titleRound = self.sharedState.story.title
 
-          if (lastRound.text === 'The End') {
-            console.log('--- Game over ---')
-            router.replace('/gameover')
-            return
-          }
-
-          if (lastRound.playerId === self.sharedState.playerId) {
-            console.log('I won last round!')
+          if (titleRound.playerId === self.sharedState.playerId) {
+            console.log('I chose the title!')
             // Clear my suggestion
             self.sharedState.suggestionText = ''
 
@@ -151,11 +145,35 @@
           }
         })
       })
+      socket.on('server:round-over', function () {
+        updateState(() => {
+          console.log('Round over')
+          // If I won the last round, clear my suggestion box
+          assert(self.sharedState.story)
+          assert(self.sharedState.story.contributions.length > 0)
+          let lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
 
+          if (lastRound.text === 'The End') {
+            console.log('--- Game over ---')
+            router.replace('/gameover')
+            return
+          }
+
+          if (lastRound.playerId === self.sharedState.playerId) {
+            console.log('I won title round!')
+            // Clear my suggestion
+            self.sharedState.suggestionText = ''
+
+            // Let's play some animation here
+            // https://github.com/groupwrite-io/groupwrite.io/issues/57
+          }
+        })
+      })
       // Routes
       // If we're not on the admin page or a story page, reload --> home
       if (!window.location.href.endsWith('admin') &&
-        !window.location.href.endsWith('story')) {
+        !window.location.href.includes('story') &&
+        !window.location.href.includes('stories')) {
         router.replace('/')
       }
     }

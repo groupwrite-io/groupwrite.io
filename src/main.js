@@ -8,6 +8,7 @@ import GameOverPage from './components/GameOverPage.vue'
 import AdminPage from './components/AdminPage.vue'
 import QueuePage from './components/QueuePage.vue'
 import StoryPage from './components/StoryPage.vue'
+import StoriesPage from './components/StoriesPage.vue'
 import VueRouter from 'vue-router'
 import request from 'superagent'
 import assert from 'assert'
@@ -25,7 +26,8 @@ const routes = [
   { path: '/admin', component: AdminPage },
   { path: '/queue', component: QueuePage },
   { path: '/gameover', component: GameOverPage },
-  { path: '/story', component: StoryPage }
+  { path: '/story', component: StoryPage },
+  { path: '/stories', component: StoriesPage }
 ]
 
 // 3. Create the router instance and pass the `routes` option

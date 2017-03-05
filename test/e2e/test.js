@@ -16,7 +16,7 @@ var testTimeout = 30000
 
 function newNightmare() {
   return new Nightmare({
-    show: false,
+    show: true,
     waitTimeout: testTimeout,
     executionTimeout: testTimeout
   })
@@ -113,11 +113,12 @@ describe('Game page', function () {
       .catch(done);
   });
 
-  it("should select a player's suggestion if its get a majority vote", function (done) {
+  it("should select a player's suggestion as story title if its get a majority vote", function (done) {
     // This test should be refactored, too much duplicate code here
+    // *** exact copy of next test which was deleted change html selectors to make it work.
     // https://github.com/groupwrite-io/groupwrite.io/issues/61
 
-    var suggestion = "Dolly was a little lamb";
+    var suggestion = "Dolly and her special Lamb";
     var players = ['player1', 'player2', 'player3'];
     var p1 = newNightmare().loginPlayer(players[0]).run(() => { });
     var p2 = newNightmare().loginPlayer(players[1]).run(() => { });
@@ -155,7 +156,7 @@ describe('Game page', function () {
                 console.log("Starting iteration")
 
                 suggestions.forEach(s => {
-                  if (s.innerHTML.trim() === "Dolly was a little lamb") {
+                  if (s.innerHTML.trim() === "Dolly and her special Lamb") {
                     var parent = s.parentNode;
                     var voteButton = parent.querySelector('.vote-button')
                     var event = document.createEvent('MouseEvent');
@@ -176,7 +177,7 @@ describe('Game page', function () {
                 console.log("Starting iteration")
 
                 suggestions.forEach(s => {
-                  if (s.innerHTML.trim() === "Dolly was a little lamb") {
+                  if (s.innerHTML.trim() === "Dolly and her special Lamb") {
                     var parent = s.parentNode;
                     var voteButton = parent.querySelector('.vote-button')
                     var event = document.createEvent('MouseEvent');
@@ -190,9 +191,9 @@ describe('Game page', function () {
                 })
                 console.log("Done iterating")
               }).run(() => { });
-            p3.wait('#story-html div')
+            p3.wait('#story-title')
               .evaluate(function () {
-                return document.querySelectorAll('#story-html')[0].innerHTML
+                return document.querySelectorAll('#story-title')[0].innerHTML
               })
               .then(function (result) {
                 debugger

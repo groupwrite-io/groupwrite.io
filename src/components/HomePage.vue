@@ -10,13 +10,17 @@
           <input id="choosenickname" placeholder="Anonymous" v-model="sharedState.myNickname" class="form-control" type="text" autofocus/>
         </div>
         <!--<div class="text-center">-->
-          <button class="btn btn-default btn-grow" type="submit" id="write-btn" v-on:click="login">Write!</button>
+        <button class="btn btn-default btn-grow" type="submit" id="write-btn" v-on:click="login">Write!</button>
         <!--</div>-->
       </form>
+      <div id="stories-link">
+        Check out our <a href='/#/stories' target="blank">completed stories</a>
+      </div>
     </div>
     <span id="legal-notice">
       * By clicking the above button you specifically give us the following permission, you grant us a non-exclusive, transferable, sub-licensable, royalty-free, worldwide license to use any IP content that you post on Grouwrite.io.
     </span>
+  </div>
 </template>
 
 <script>
@@ -71,11 +75,11 @@
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     /* width: 121px; */
   }
-
+  
   a {
     color: #00B7FF;
   }
-
+  
   #legal-notice {
     font-size: 10px;
     position: absolute;
@@ -84,12 +88,19 @@
     color: #333;
     text-align: left;
   }
-
+  
   .home {
     margin-top: 10%;
   }
-
+  
+  #stories-link {
+    margin-top: 5px;
+  }
+  
   @media all and (max-width:768px) {
-   .btn-grow { width: 100%; display:block; }
-}  
+    .btn-grow {
+      width: 100%;
+      display: block;
+    }
+  }
 </style>
