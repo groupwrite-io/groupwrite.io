@@ -33,7 +33,7 @@
     border-radius: 15px;
     min-width: 320px;
     h1 {
-      margin-bottom: 20px
+      margin-bottom: 20px;
     }
     .theend {
       margin-top: 20px;
