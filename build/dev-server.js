@@ -188,4 +188,10 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
+const secret = require('../config/secret.config')
+if (secret.bugsnagId) {
+  var bugsnag = require("bugsnag")
+  bugsnag.register(secret.bugsnagId)
+}
+
 module.exports = app;
