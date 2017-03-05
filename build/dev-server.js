@@ -192,6 +192,9 @@ const secret = require('../config/secret.config')
 if (secret.bugsnagId) {
   var bugsnag = require("bugsnag")
   bugsnag.register(secret.bugsnagId)
+
+  // Test error
+  bugsnag.notify(new Error("Non-fatal, for testing purposes"));
 }
 
 module.exports = app;
