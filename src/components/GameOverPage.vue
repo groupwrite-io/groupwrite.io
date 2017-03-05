@@ -6,6 +6,7 @@
       <div class='row'>
       </div>
       <story></story>
+      <p>In order to find your story in the future, just <a :href="'/#/story?id=' + sharedState.story.id" target="_blank">click here.</a></p>
     </div>
   </div>
 </template>
