@@ -48,8 +48,7 @@
     data() {
       return {
         sharedState: store.state,
-        suggestionDisabled: 0,
-        needReset: 0
+        suggestionDisabled: false
       }
     },
     methods: {
