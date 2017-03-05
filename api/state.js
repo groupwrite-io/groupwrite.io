@@ -216,13 +216,12 @@ State.updateTitle = function (player) {
   }
   game.story.title = title
 
-  // Clear votes
+  // Clear votes and suggestions
   for (let playerId of game.playerIds) {
     State.players[playerId].votedForId = null
+    State.players[playerId].suggestion = ''
   }
 
-  // Clear winner's suggestion
-  State.players[roundWinner.id].suggestion = ''
   return true
 }
 
