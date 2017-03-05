@@ -48,7 +48,8 @@
     data() {
       return {
         sharedState: store.state,
-        suggestionDisabled: 0
+        suggestionDisabled: 0,
+        needReset: 0
       }
     },
     methods: {
@@ -83,13 +84,24 @@
     },
     mounted: function () {
       document.getElementById('mytext').focus()
-
+      // var self = this
       var audio = new window.Audio('./static/ding.ogg')
       audio.play()
+    },
+    created: function () {
+      // debugger
+      this.sharedState.socket.on('server:title-round-over', function () {
+        console.log('resetting text areas and buttons')
+        this.suggestionDisabled = false
+      })
+      this.sharedState.socket.on('server:round-over', function () {
+        console.log('resetting text areas and buttons')
+        this.suggestionDisabled = false
+      })
     }
   }
-
 </script>
+
 <style>
   #mytext {
     padding: 5px;

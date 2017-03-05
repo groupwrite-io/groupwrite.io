@@ -14,8 +14,8 @@
   </div>
 </template>
 <script>
-  import store from './components/store'
   import assert from 'assert'
+  import store from './components/store'
 
   var request = require('superagent')
   var socketlib = require('socket.io-client')
@@ -45,6 +45,7 @@
     },
     created: function () {
       var self = this
+      this.sharedState.socket = socket
 
       function updateStateForPlayer(playerId, callback) {
         return request.get('/api/user/state')
