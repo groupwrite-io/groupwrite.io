@@ -5,10 +5,12 @@ console.log(`Loading secret config, mode='${mode}'`)
 switch (mode) {
   case 'prod':
     config = require('./prod.secret.config')
+    break
 
   case 'dev':
   default:
     config = require('./dev.secret.config')
+    break
 }
 
 // Local file overrides if it exists 
