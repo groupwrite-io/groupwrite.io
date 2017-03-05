@@ -55,7 +55,6 @@
     },
     methods: {
       isTitleRound: function () {
-        debugger
         return !this.sharedState.story.title.text
       },
       syncText: function () {
