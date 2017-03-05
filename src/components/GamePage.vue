@@ -10,8 +10,8 @@
             <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
-            <button v-if="sharedState.story.title.text" class='action-btn' title='Propose an ending to the story' v-on:click='theend'
-              :disabled="suggestionDisabled == 1 ? true : false" v-on:keyup="syncText">The End</button>
+            <button v-if="!isTitleRound()" class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="suggestionDisabled == 1 ? true : false"
+              v-on:keyup="syncText">The End</button>
           </div>
         </div>
         <div class='col-md-5'>
