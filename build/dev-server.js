@@ -188,4 +188,9 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
+if (secret.bugsnagId) {
+  var bugsnag = require("bugsnag")
+  bugsnag.register(secret.bugsnagId)
+}
+
 module.exports = app;
