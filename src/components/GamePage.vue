@@ -12,13 +12,13 @@
             <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
-            <button v-if="!isTitleRound()" class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="suggestionDisabled == 1 ? true : false" v-on:keyup="syncText">The End</button>
+            <button v-if="!isTitleRound()" class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="sharedState.suggestionDisabled == 1 ? true : false" v-on:keyup="syncText">The End</button>
           </div>
         </div>
         <div class='col-md-5'>
           <form>
             <textarea rows=5 cols=55 id='mytext' :placeholder="isTitleRound() ? 'Suggest a title for the story' : 'Suggest how the story continues'"
-              v-model="sharedState.suggestionText" :disabled="suggestionDisabled == 1 ? true : false" v-on:keyup="syncText"
+              v-model="sharedState.suggestionText" :disabled="sharedState.suggestionDisabled" v-on:keyup="syncText"
               spellcheck='true'></textarea>
           </form>
           <player-list></player-list>
@@ -51,7 +51,6 @@
     data() {
       return {
         sharedState: store.state,
-        suggestionDisabled: false,
         suggestBtnDisabled: false
       }
     },
@@ -78,15 +77,15 @@
       },
       submit: function () {
         console.log(`submitting text for ${this.sharedState.playerId}`)
-        this.suggestionDisabled = true
+        this.sharedState.suggestionDisabled = true
         this.suggestBtnDisabled = true
         request.post('/api/submit', {
           playerId: this.sharedState.playerId,
-          suggestionDisabled: this.suggestionDisabled
+          suggestionDisabled: this.sharedState.suggestionDisabled
         }, function (err, state) {
           if (err) { console.log(err) }
         })
-        console.log(this.suggestionDisabled)
+        console.log(this.sharedState.suggestionDisabled)
       }
     },
     mounted: function () {
@@ -97,13 +96,13 @@
     },
     created: function () {
       // debugger
-      this.sharedState.socket.on('server:title-round-over', function () {
+      this.sharedState.sharedState.socket.on('server:title-round-over', function () {
         console.log('resetting text areas and buttons')
-        this.suggestionDisabled = false
+        this.sharedState.suggestionDisabled = false
       })
       this.sharedState.socket.on('server:round-over', function () {
         console.log('resetting text areas and buttons')
-        this.suggestionDisabled = false
+        this.sharedState.suggestionDisabled = false
       })
     }
   }

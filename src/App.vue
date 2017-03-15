@@ -134,8 +134,8 @@
           // If I won the title round, clear my suggestion box
           assert(self.sharedState.story)
           assert(self.sharedState.story.title)
+          self.sharedState.suggestionDisabled = false
           let titleRound = self.sharedState.story.title
-
           if (titleRound.playerId === self.sharedState.playerId) {
             console.log('I chose the title!')
             // Clear my suggestion
@@ -152,8 +152,8 @@
           // If I won the last round, clear my suggestion box
           assert(self.sharedState.story)
           assert(self.sharedState.story.contributions.length > 0)
+          self.sharedState.suggestionDisabled = false
           let lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
-
           if (lastRound.text === 'The End') {
             console.log('--- Game over ---')
             router.replace('/gameover')
