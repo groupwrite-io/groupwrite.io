@@ -29,6 +29,7 @@ State.addPlayer = function (player) {
       startTime: Date.now(),
       id,
       playerIds: State.queue,
+      players: Object.values(State.players).filter(p => State.queue.includes(p.id)),
       story: {
         contributions: [],
         title: {}
@@ -164,7 +165,7 @@ State.updateStory = function (player) {
     playerId: roundWinner.id,
     text: roundWinner.suggestion
   }
-  
+
   // game.story.title = contribution
   game.story.contributions.push(contribution)
 
@@ -186,7 +187,7 @@ State.updateStory = function (player) {
 
 State.updateTitle = function (player) {
   console.log('updating title')
-  
+
   let game = State.findGameByPlayerId(player.id)
   if (!game) {
     console.log(`No current game for player ${player.Id}`)
@@ -205,7 +206,7 @@ State.updateTitle = function (player) {
   }
 
   // Check if this isn't the first round
-  if(game.story.contribution){
+  if (game.story.contribution) {
     return false
   }
 

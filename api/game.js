@@ -70,8 +70,8 @@ module.exports = function (router) {
       let game = State.findGameByPlayerId(player.id)
       assert(game)
       if (_.last(game.story.contributions).text === 'The End') {
-        console.log('Game finished, saving story')
-        let story = new Story({ contributions: game.story.contributions, title: game.story.title })
+        console.log(`Game finished, saving story with players ${game.players}`)
+        let story = new Story({ contributions: game.story.contributions, title: game.story.title, players: game.players })
         story.save().then(() => {
           game.story.id = story._id
           // TODO - convert this to 'server:game-over' instead of detecting on client
