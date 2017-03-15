@@ -6,7 +6,7 @@
         <div v-if="player.nickname != sharedState.myNickname" class='row'>
           <div class="col-md-4">
             <div class='playerbox'>
-              <div class="nickname">
+              <div class="nickname" v-bind:style="{ color: player.color }">
                 {{player.nickname}}
               </div>
               <div class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)">
@@ -63,12 +63,12 @@
     margin: 0;
     padding: 0;
   }
-  
+
   ol.nonelist {
     list-style-type: none;
     padding: 0;
   }
-  
+
   .nickname {
     display: inline-block;
     text-align: center;
@@ -77,7 +77,7 @@
     word-wrap: break-word;
     margin: 5px;
   }
-  
+
   .suggestion {
     display: inline-block;
     width: 325px;
@@ -87,7 +87,7 @@
     border: 2px solid gray;
     padding: 5px;
   }
-  
+
   .playerbox {
     display: inline-block;
     padding: 5px;
@@ -95,7 +95,7 @@
     vertical-align: top;
     height: 90px;
   }
-  
+
   .vote-button {
     display: inline-block;
     background-image: url('../assets/heart-icon.png');
@@ -103,18 +103,18 @@
     height: 32px;
     cursor: pointer;
   }
-  
+
   .voteButtonActive {
     /* Use different style for active and hover
     https://github.com/groupwrite-io/groupwrite.io/issues/60
     */
     background-image: url('../assets/heart-icon-hover.png');
   }
-  
+
   .playerListItem {
     margin-top: 20px;
   }
-  
+
   .vote-button:hover {
     background-image: url('../assets/heart-icon-hover.png');
   }
