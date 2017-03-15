@@ -10,6 +10,8 @@
                 {{player.nickname}}
               </div>
               <div class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)">
+                <span class="glyphicon glyphicon-heart voteIcon">
+                </span>
               </div>
             </div>
           </div>
@@ -35,10 +37,9 @@
       }
     },
     methods: {
-      vote: function (event) {
+      vote: function (event) {        
         var voterId = this.sharedState.playerId
-        var votedForId = event.target.dataset.playerid
-
+        var votedForId = event.target.parentElement.dataset.playerid
         if (event.target.classList.contains('voteButtonActive')) {
           request.post('/api/removevote', { voterId }, function (err, result) {
             assert(!err)
@@ -98,17 +99,18 @@
   
   .vote-button {
     display: inline-block;
-    background-image: url('../assets/heart-icon.png');
+    /*background-image: url('../assets/heart-icon.png');*/
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
   
   .voteButtonActive {
+    color: red;
     /* Use different style for active and hover
     https://github.com/groupwrite-io/groupwrite.io/issues/60
     */
-    background-image: url('../assets/heart-icon-hover.png');
+    /*background-image: url('../assets/heart-icon-hover.png');*/
   }
   
   .playerListItem {
@@ -116,6 +118,7 @@
   }
   
   .vote-button:hover {
-    background-image: url('../assets/heart-icon-hover.png');
+    color: blue;
+    /*background-image: url('../assets/heart-icon-hover.png');*/
   }
 </style>

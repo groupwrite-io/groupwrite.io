@@ -6,7 +6,9 @@
       <div class='row'>
         <div class='col-md-1'>
           <div class='row'>
-            <div class="submit-btn" title='You finished typing, send in your suggestion' v-on:click="submit"></div>
+            <div title='You finished typing, send in your suggestion' v-on:click="submit"></div>
+            <span class="glyphicon glyphicon-send submit-btn">
+              </span>
             <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
@@ -103,7 +105,7 @@
   
   .submit-btn {
     display: inline-block;
-    background-image: url('../assets/send-icon.png');
+    /*background-image: url('../assets/send-icon.png');*/
     width: 32px;
     height: 32px;
     cursor: pointer;
