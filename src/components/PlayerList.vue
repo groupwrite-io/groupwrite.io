@@ -118,6 +118,10 @@
     */
     background-image: url('../assets/heart-icon-hover.png');
   }
+
+  .playerbox div .voteButtonActive:hover {
+    background-image: url('../assets/heart-icon.png');
+  }
   
   .playerListItem {
     margin-top: 20px;
