@@ -109,7 +109,7 @@
   }
   
   .voteButtonActive {
-    color: red;
+    color: red !important;
   }
   
   .playerListItem {
@@ -117,6 +117,6 @@
   }
   
   .vote-button:hover {
-    color: blue;
+    color: #770000;
   }
 </style>
