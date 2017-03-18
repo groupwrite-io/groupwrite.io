@@ -105,7 +105,6 @@
   
   .submit-btn {
     display: inline-block;
-    /*background-image: url('../assets/send-icon.png');*/
     width: 32px;
     height: 32px;
     cursor: pointer;

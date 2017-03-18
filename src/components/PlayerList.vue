@@ -68,12 +68,12 @@
     margin: 0;
     padding: 0;
   }
-
+  
   ol.nonelist {
     list-style-type: none;
     padding: 0;
   }
-
+  
   .nickname {
     display: inline-block;
     text-align: center;
@@ -82,7 +82,7 @@
     word-wrap: break-word;
     margin: 5px;
   }
-
+  
   .suggestion {
     display: inline-block;
     width: 325px;
@@ -92,7 +92,7 @@
     border: 2px solid gray;
     padding: 5px;
   }
-
+  
   .playerbox {
     display: inline-block;
     padding: 5px;
@@ -100,29 +100,23 @@
     vertical-align: top;
     height: 90px;
   }
-
+  
   .vote-button {
     display: inline-block;
-    /*background-image: url('../assets/heart-icon.png');*/
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
-
+  
   .voteButtonActive {
     color: red;
-    /* Use different style for active and hover
-    https://github.com/groupwrite-io/groupwrite.io/issues/60
-    */
-    /*background-image: url('../assets/heart-icon-hover.png');*/
   }
-
+  
   .playerListItem {
     margin-top: 20px;
   }
-
+  
   .vote-button:hover {
     color: blue;
-    /*background-image: url('../assets/heart-icon-hover.png');*/
   }
 </style>
