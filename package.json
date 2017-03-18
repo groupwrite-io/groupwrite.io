@@ -5,7 +5,7 @@
   "author": "Ron Gross <chiefninjaofficer@gmail.com>",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/cross-env mode=dev ./node_modules/.bin/nodemon build/server.js | ./node_modules/.bin/bunyan -o short",
+    "start": "./node_modules/.bin/cross-env mode=dev ./node_modules/.bin/nodemon build/server.js | \"./node_modules/.bin/bunyan\" -o short",
     "prestartprod": "npm run decrypt ${enc_password}",
     "startprod": "./node_modules/.bin/cross-env mode=prod node build/server.js",
     "build": "node build/build.js",
