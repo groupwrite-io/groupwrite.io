@@ -1,7 +1,7 @@
 var State = require('./state')
 var server = require('../build/server')
 var bunyan = require('bunyan')
-var log = bunyan.createLogger({name: "groupwrite.io"})
+var log = require('../util/logger').getLogger()
 
 module.exports = function (router) {
   // POST /user/login

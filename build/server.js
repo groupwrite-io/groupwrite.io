@@ -7,7 +7,7 @@ var debug = require('debug')('writing.io:server');
 var http = require('http');
 var assert = require('assert')
 var bunyan = require('bunyan')
-var log = bunyan.createLogger({name: "groupwrite.io"})
+var log = require('../util/logger').getLogger()
 
 /**
  * Create HTTP server.

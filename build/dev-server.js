@@ -11,8 +11,7 @@ var webpackConfig = process.env.NODE_ENV === 'testing'
 var expressWinston = require('express-winston');
 var winston = require('winston'); // for transports.Console
 var api = require('../api/api');
-var bunyan = require('bunyan')
-var log = bunyan.createLogger({name: "groupwrite.io"})
+var log = require('../util/logger').getLogger()
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');

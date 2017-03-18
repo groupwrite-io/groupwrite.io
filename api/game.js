@@ -1,7 +1,7 @@
 const assert = require('assert')
 const _ = require('underscore')
 var bunyan = require('bunyan')
-var log = bunyan.createLogger({name: "groupwrite.io"})
+var log = require('../util/logger').getLogger()
 
 const State = require('./state')
 const server = require('../build/server')
