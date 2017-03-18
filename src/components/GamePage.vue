@@ -76,7 +76,13 @@
       },
       submit: function () {
         console.log(`submitting text for ${this.sharedState.playerId}`)
-        this.suggestionDisabled = 1
+        this.suggestionDisabled = true
+        request.post('/api/submit', {
+          playerId: this.sharedState.playerId,
+          suggestionDisabled: this.suggestionDisabled
+        }, function (err, state) {
+          if (err) { console.log(err) }
+        })
         console.log(this.suggestionDisabled)
       }
     },

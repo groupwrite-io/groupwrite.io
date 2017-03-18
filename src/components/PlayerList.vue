@@ -9,7 +9,8 @@
               <div class="nickname">
                 {{player.nickname}}
               </div>
-              <div class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)">
+              <div>
+                <button class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)" :disabled="!player.suggestionSubmitted"></button>
               </div>
             </div>
           </div>
@@ -98,13 +99,20 @@
   
   .vote-button {
     display: inline-block;
-    background-image: url('../assets/heart-icon.png');
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
-  
-  .voteButtonActive {
+
+  .vote-button:disabled {
+    background-image: url('../assets/pencil-writing.png')
+  }
+
+   .vote-button:enabled { 
+     background-image: url('../assets/heart-icon.png') 
+  }
+
+  .playerbox div .voteButtonActive {
     /* Use different style for active and hover
     https://github.com/groupwrite-io/groupwrite.io/issues/60
     */
@@ -115,7 +123,7 @@
     margin-top: 20px;
   }
   
-  .vote-button:hover {
+  .vote-button:hover:enabled {
     background-image: url('../assets/heart-icon-hover.png');
   }
 </style>
