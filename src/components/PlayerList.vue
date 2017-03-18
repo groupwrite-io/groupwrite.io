@@ -37,10 +37,14 @@
       }
     },
     methods: {
-      vote: function (event) {        
+      vote: function (event) {
         var voterId = this.sharedState.playerId
-        var votedForId = event.target.parentElement.dataset.playerid
-        if (event.target.classList.contains('voteButtonActive')) {
+        let button = event.target
+        if (!button.classList.contains('vote-button')) {
+          button = button.parentElement
+        }
+        var votedForId = button.dataset.playerid
+        if (button.classList.contains('voteButtonActive')) {
           request.post('/api/removevote', { voterId }, function (err, result) {
             assert(!err)
             console.log(`Player ${voterId} removed voted`)
