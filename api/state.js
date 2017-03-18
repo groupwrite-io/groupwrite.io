@@ -1,8 +1,11 @@
 var uuid = require('uuid/v4')
-var values = require('object.values');
-var config = require('../config/server.config');
+var values = require('object.values')
+var config = require('../config/server.config')
 var bunyan = require('bunyan')
-var log = bunyan.createLogger({name: "groupwrite.io"})
+var log = bunyan.createLogger({ name: "groupwrite.io" })
+
+var colorPicker = require('./colorPicker')
+colorPicker.init(['blue', 'red', 'green'])
 
 var State = {}
 
@@ -17,7 +20,7 @@ State.gameToStr = function (game) {
   for (var playerId of game.playerIds) {
     result += playerId
   }
-  return result;
+  return result
 }
 
 State.addPlayer = function (player) {
@@ -39,6 +42,14 @@ State.addPlayer = function (player) {
     }
     State.games[game.id] = game
     log.info(`Created game ${State.gameToStr(game)}`)
+
+    // Apply colors
+    const selectedColors = []
+    game.playerIds.forEach(playerId => {
+      const player = State.getPlayerById(playerId)
+      player.color = colorPicker.getColor(selectedColors)
+      selectedColors.push(player.color)
+    })
 
     // Clear queue
     State.queue = []
@@ -71,8 +82,6 @@ State.getPlayerById = function (playerId) {
 
 // Returns the state as seen by a particular player
 State.getStateByPlayerId = function (playerId) {
-  let filteredState = {}
-
   // Find current game for the player
   let game =
     values(State.games).find((g) => g.playerIds.includes(playerId))
@@ -146,7 +155,7 @@ State.findGameByPlayerId = function (playerId) {
 
 /**
  * Update the current story by votes (and in the future, check if a player has finalized their suggestion)
- * 
+ *
  * Returns true if the story has been updated
  */
 State.updateStory = function (player) {
@@ -157,7 +166,7 @@ State.updateStory = function (player) {
   }
 
   // Check if a player has majority vote
-  let roundWinner = State.findRoundWinner(game);
+  let roundWinner = State.findRoundWinner(game)
   if (!roundWinner) {
     return false
   }
@@ -165,7 +174,8 @@ State.updateStory = function (player) {
   log.info(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
   let contribution = {
     playerId: roundWinner.id,
-    text: roundWinner.suggestion
+    text: roundWinner.suggestion,
+    color: roundWinner.color
   }
 
   // game.story.title = contribution
@@ -183,7 +193,7 @@ State.updateStory = function (player) {
 
 /**
  * Test for first round (no contributions) and set new story title
- * 
+ *
  * Returns true if the title has been updated
  */
 
@@ -202,7 +212,7 @@ State.updateTitle = function (player) {
   }
 
   // Check if a player has majority vote
-  let roundWinner = State.findRoundWinner(game);
+  let roundWinner = State.findRoundWinner(game)
   if (!roundWinner) {
     return false
   }
@@ -230,4 +240,4 @@ State.updateTitle = function (player) {
 
 State.clearAll()
 
-module.exports = State;
+module.exports = State

@@ -1,7 +1,7 @@
 <template>
   <div id='story'>
     <h1 v-if="sharedState.story.title.text" id="story-title">{{sharedState.story.title.text}}</h1>
-    <div v-for="contribution in sharedState.story.contributions" v-bind:class="{mine: contribution.playerId === sharedState.playerId, theend: contribution.text === 'The End'}">
+    <div v-for="contribution in sharedState.story.contributions" v-bind:style="{ color: contribution.color }" v-bind:class="{mine: contribution.playerId === sharedState.playerId, theend: contribution.text === 'The End'}">
       {{contribution.text}}
     </div>
     <h2 class='theend'>{{sharedState.story.theend}}</h2>
