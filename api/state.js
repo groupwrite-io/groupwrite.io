@@ -2,10 +2,10 @@ var uuid = require('uuid/v4')
 var values = require('object.values')
 var config = require('../config/server.config')
 var bunyan = require('bunyan')
-var log = bunyan.createLogger({name: "groupwrite.io"})
+var log = bunyan.createLogger({ name: "groupwrite.io" })
 
 var colorPicker = require('./colorPicker')
-colorPicker.init(['blue', 'red', 'green', 'grey', 'brown', 'gold'])
+colorPicker.init(['blue', 'red', 'green'])
 
 var State = {}
 
