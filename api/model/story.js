@@ -8,7 +8,8 @@ var storySchema = new Schema({
 
   date: { type: Date, default: Date.now },
   contributions: [],
-  title: {}
+  title: {},
+  players: []
 });
 
 module.exports = mongoose.model('Story', storySchema)

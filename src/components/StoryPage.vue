@@ -6,6 +6,13 @@
       <div class='row'>
       </div>
       <story></story>
+      <div id='written-by'>
+        Written by
+        <span v-for="(player, index) in sharedState.story.players">
+          {{player.nickname}} 
+          <span v-if="index < sharedState.story.players.length - 1">,</span>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -51,5 +58,7 @@
 
 </script>
 <style>
-
+  #written-by {
+    margin-top: 10px;
+  }
 </style>

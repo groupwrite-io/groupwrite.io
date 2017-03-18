@@ -17,3 +17,9 @@ http://bookriot.com/
 * http://rumblegames.com
 * https://itch.io/
 * http://reddit.com/r/webgames
+
+## Writing Websites ##
+* https://www.reddit.com/r/writing
+* https://www.reddit.com/r/write/
+* https://www.reddit.com/r/KeepWriting/
+* https://www.reddit.com/r/writers/

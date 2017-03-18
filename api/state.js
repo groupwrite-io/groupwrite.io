@@ -1,8 +1,10 @@
 var uuid = require('uuid/v4')
 var values = require('object.values')
 var config = require('../config/server.config')
-var colorPicker = require('./colorPicker')
+var bunyan = require('bunyan')
+var log = bunyan.createLogger({name: "groupwrite.io"})
 
+var colorPicker = require('./colorPicker')
 colorPicker.init(['blue', 'red', 'green', 'grey', 'brown', 'gold'])
 
 var State = {}
@@ -32,13 +34,14 @@ State.addPlayer = function (player) {
       startTime: Date.now(),
       id,
       playerIds: State.queue,
+      players: Object.values(State.players).filter(p => State.queue.includes(p.id)),
       story: {
         contributions: [],
         title: {}
       }
     }
     State.games[game.id] = game
-    console.log(`Created game ${State.gameToStr(game)}`)
+    log.info(`Created game ${State.gameToStr(game)}`)
 
     // Apply colors
     const selectedColors = []
@@ -52,12 +55,12 @@ State.addPlayer = function (player) {
     State.queue = []
   }
 
-  console.log(`Player logged in: Added ${player.nickname}, ${player.id} to player array of length ${State.players.length}`)
+  log.info(`Player logged in: Added ${player.nickname}, ${player.id} to player array of length ${State.players.length}`)
 }
 
 State.removePlayer = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(config.noPlayerFoundMessage(playerId))
+    log.warn(config.noPlayerFoundMessage(playerId))
     return
   }
 
@@ -65,12 +68,12 @@ State.removePlayer = function (playerId) {
   delete State[playerId]
 
   State.queue = State.queue.filter((qPlayerId) => qPlayerId !== playerId)
-  console.log(`Player quit: ${player.nickname}, ${player.id}`)
+  log.info(`Player quit: ${player.nickname}, ${player.id}`)
 }
 
 State.getPlayerById = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(config.noPlayerFoundMessage(playerId))
+    log.warn(config.noPlayerFoundMessage(playerId))
     return
   }
 
@@ -111,7 +114,7 @@ State.getAdminState = function () {
 
 State.getPlayerById = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(config.noPlayerFoundMessage(playerId))
+    log.warn(config.noPlayerFoundMessage(playerId))
     return null
   }
   return State.players[playerId]
@@ -158,7 +161,7 @@ State.findGameByPlayerId = function (playerId) {
 State.updateStory = function (player) {
   let game = State.findGameByPlayerId(player.id)
   if (!game) {
-    console.log(`No current game for player ${player.Id}`)
+    log.warn(`No current game for player ${player.Id}`)
     return false
   }
 
@@ -168,7 +171,7 @@ State.updateStory = function (player) {
     return false
   }
 
-  console.log(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
+  log.info(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
   let contribution = {
     playerId: roundWinner.id,
     text: roundWinner.suggestion,
@@ -195,11 +198,11 @@ State.updateStory = function (player) {
  */
 
 State.updateTitle = function (player) {
-  console.log('updating title')
+  log.info('updating title')
 
   let game = State.findGameByPlayerId(player.id)
   if (!game) {
-    console.log(`No current game for player ${player.Id}`)
+    log.warn(`No current game for player ${player.Id}`)
     return false
   }
 
@@ -219,7 +222,7 @@ State.updateTitle = function (player) {
     return false
   }
 
-  console.log(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
+  log.info(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
   let title = {
     playerId: roundWinner.id,
     text: roundWinner.suggestion
