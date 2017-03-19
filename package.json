@@ -67,6 +67,7 @@
     "html-webpack-plugin": "2.8.1",
     "http-proxy-middleware": "0.17.2",
     "inject-loader": "2.0.1",
+    "intro.js": "2.4.0",
     "json-loader": "0.5.4",
     "less": "2.7.2",
     "less-loader": "2.2.3",

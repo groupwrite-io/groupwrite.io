@@ -39,6 +39,9 @@
   import PlayerList from './PlayerList.vue'
   import QuitButton from './QuitButton'
   import Story from './Story'
+  import * as IntroJs from 'intro.js/minified/intro.min.js'
+  // import * as IntroJs from 'intro.js/intro.js'
+  const introJs = IntroJs.introJs
 
   var request = require('superagent')
 
@@ -87,11 +90,55 @@
 
       var audio = new window.Audio('./static/ding.ogg')
       audio.play()
+
+        (function startIntro() {
+          /* eslint-disable quotes */
+          var intro = introJs('#app')
+          intro.setOptions({
+            steps: [
+              {
+                intro: "Hello world!"
+              },
+              {
+                intro: "You <b>don't need</b> to define element to focus, this is a floating tooltip."
+              },
+              {
+                element: document.querySelector('#step1'),
+                intro: "This is a tooltip."
+              },
+              {
+                element: document.querySelectorAll('#step2')[0],
+                intro: "Ok, wasn't that fun?",
+                position: 'right'
+              },
+              {
+                element: '#step3',
+                intro: 'More features, more fun.',
+                position: 'left'
+              },
+              {
+                element: '#step4',
+                intro: "Another step.",
+                position: 'bottom'
+              },
+              {
+                element: '#step5',
+                intro: 'Get it, use it.'
+              }
+            ]
+          })
+
+          intro.start()
+          /* eslint-enable quotes */
+        })()
     }
   }
 
 </script>
 <style>
+  /* @import '../node_modules/intro.js/minified/introjs.min.css' */
+  /* This comment prevents VS Code auto-format from breaking :( */
+  
   #mytext {
     padding: 5px;
   }
