@@ -97,7 +97,8 @@
         intro.setOptions({
           steps: [
             {
-              intro: "Hi, let's write a story together!",
+              intro: `Hi, let's write a story together!<br/>
+              (<i>Intro will display until completed</i>)`,
               element: "#welcome"
             },
             {
@@ -119,8 +120,14 @@
             }
           ]
         })
+        intro.oncomplete(() => {
+          window.localStorage.setItem('introComplete', 'true')
+        })
 
-        intro.start()
+        if (!window.localStorage.getItem('introComplete')) {
+          intro.start()
+        }
+
         /* eslint-enable quotes */
       })()
     }
