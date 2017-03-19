@@ -2,7 +2,7 @@
   <div class="game">
 
     <div class='container'>
-      <h1>Welcome {{sharedState.myNickname}}</h1>
+      <h1 id='welcome'>Welcome {{sharedState.myNickname}}</h1>
       <div class='row'>
         <div class='col-md-1'>
           <div class='row'>
@@ -89,48 +89,40 @@
       document.getElementById('mytext').focus()
 
       var audio = new window.Audio('./static/ding.ogg')
-      audio.play()
+      audio.play();
 
-        (function startIntro() {
-          /* eslint-disable quotes */
-          var intro = introJs('#app')
-          intro.setOptions({
-            steps: [
-              {
-                intro: "Hello world!"
-              },
-              {
-                intro: "You <b>don't need</b> to define element to focus, this is a floating tooltip."
-              },
-              {
-                element: document.querySelector('#step1'),
-                intro: "This is a tooltip."
-              },
-              {
-                element: document.querySelectorAll('#step2')[0],
-                intro: "Ok, wasn't that fun?",
-                position: 'right'
-              },
-              {
-                element: '#step3',
-                intro: 'More features, more fun.',
-                position: 'left'
-              },
-              {
-                element: '#step4',
-                intro: "Another step.",
-                position: 'bottom'
-              },
-              {
-                element: '#step5',
-                intro: 'Get it, use it.'
-              }
-            ]
-          })
+      (function startIntro() {
+        /* eslint-disable quotes */
+        var intro = introJs('#app')
+        intro.setOptions({
+          steps: [
+            {
+              intro: "Hi, let's write a story together!",
+              element: "#welcome"
+            },
+            {
+              intro: "You suggest the story's title or content here.",
+              element: "#mytext"
+            },
+            {
+              intro: "Vote on other people's suggestions here",
+              element: document.querySelectorAll('.vote-button')[0]
+            },
+            {
+              intro: 'Top suggestions are added to the ongoing story',
+              element: '#story',
+              position: 'left'
+            },
+            {
+              intro: "Suggest 'The End' to finish the story",
+              element: '#mytext'
+            }
+          ]
+        })
 
-          intro.start()
-          /* eslint-enable quotes */
-        })()
+        intro.start()
+        /* eslint-enable quotes */
+      })()
     }
   }
 
