@@ -135,15 +135,8 @@
           assert(self.sharedState.story)
           assert(self.sharedState.story.title)
           self.sharedState.suggestionDisabled = false
-          let titleRound = self.sharedState.story.title
-          if (titleRound.playerId === self.sharedState.playerId) {
-            console.log('I chose the title!')
-            // Clear my suggestion
-            self.sharedState.suggestionText = ''
-
-            // Let's play some animation here
-            // https://github.com/groupwrite-io/groupwrite.io/issues/57
-          }
+          // Clear my suggestion
+          self.sharedState.suggestionText = ''
         })
       })
       socket.on('server:round-over', function () {

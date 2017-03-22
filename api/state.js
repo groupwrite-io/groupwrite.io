@@ -138,8 +138,15 @@ State.findRoundWinner = function (game) {
       }
     }
   }
-
   return null
+}
+
+State.roundOver = function (game) {
+  // reset suggestionDisabled
+  for (let playerId of game.playerIds) {
+    let player = State.players[playerId]
+    player.suggestionDisabled = false
+  }
 }
 
 State.findGameByPlayerId = function (playerId) {

@@ -84,11 +84,13 @@ module.exports = function (router) {
     // https://github.com/groupwrite-io/groupwrite.io/issues/53
     player.votedForId = votedForId
 
+    let game = State.findGameByPlayerId(player.id)
+    assert(game)
     if (State.updateTitle(player)) {
+      State.roundOver(game)
       server.io.emit('server:title-round-over')
     } else if (State.updateStory(player)) {
-      let game = State.findGameByPlayerId(player.id)
-      assert(game)
+      State.roundOver(game)
       if (_.last(game.story.contributions).text === 'The End') {
         log.info(`Game finished, saving story with players ${game.players}`)
         let story = new Story({ contributions: game.story.contributions, title: game.story.title, players: game.players })
