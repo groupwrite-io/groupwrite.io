@@ -12,7 +12,7 @@
             <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
-            <button v-if="!isTitleRound()" class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="suggestionDisabled == 1 ? true : false"
+            <button class='action-btn btn' title='Propose an ending to the story' v-on:click='theend' :disabled="isTitleRound() || suggestionDisabled == 1 ? true : false"
               v-on:keyup="syncText">The End</button>
           </div>
         </div>

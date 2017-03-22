@@ -1,5 +1,5 @@
 <template>
-  <button id='quit-btn' v-on:click="quit">Quit</button>
+  <button class='btn' id='quit-btn' v-on:click="quit">Quit</button>
 </template>
 
 <script>
