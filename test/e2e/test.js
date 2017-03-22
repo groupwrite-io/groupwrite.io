@@ -137,6 +137,7 @@ describe('Game page', function () {
       })
       .then(function () {
         p3.type('.suggestion', suggestion)
+          .click('#submit-btn')
           .wait('#story')
           .evaluate(function () {
             return {
