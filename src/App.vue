@@ -135,6 +135,7 @@
           assert(self.sharedState.story)
           assert(self.sharedState.story.title)
           self.sharedState.suggestionDisabled = false
+          self.sharedState.suggestBtnDisabled = false
           // Clear my suggestion
           self.sharedState.suggestionText = ''
         })
@@ -146,6 +147,7 @@
           assert(self.sharedState.story)
           assert(self.sharedState.story.contributions.length > 0)
           self.sharedState.suggestionDisabled = false
+          self.sharedState.suggestBtnDisabled = false
           let lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
           if (lastRound.text === 'The End') {
             console.log('--- Game over ---')

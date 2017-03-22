@@ -142,10 +142,10 @@ State.findRoundWinner = function (game) {
 }
 
 State.roundOver = function (game) {
-  // reset suggestionDisabled
+  // reset suggestionSubmitted
   for (let playerId of game.playerIds) {
     let player = State.players[playerId]
-    player.suggestionDisabled = false
+    player.suggestionSubmitted = false
   }
 }
 

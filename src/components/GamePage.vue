@@ -7,13 +7,13 @@
         <div class='col-md-1'>
           <div class='row'>
             <div class="div-submit-btn">
-                <button class="glyphicon glyphicon-send submit-btn" title='When you finish typing, send in your suggestion' v-on:click="submit" :disabled="sharedState.suggestionText=='' || suggestBtnDisabled==true ? true :false" >
+                <button class="glyphicon glyphicon-send submit-btn" title='When you finish typing, send in your suggestion' v-on:click="submit" :disabled="sharedState.suggestionText=='' || sharedState.suggestBtnDisabled" >
                 </button>
             </div>
             <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
-            <button v-if="!isTitleRound()" class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="sharedState.suggestionDisabled == 1 ? true : false" v-on:keyup="syncText">The End</button>
+            <button v-if="!isTitleRound()" class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="sharedState.suggestionDisabled" v-on:keyup="syncText">The End</button>
           </div>
         </div>
         <div class='col-md-5'>
@@ -54,8 +54,7 @@
     },
     data() {
       return {
-        sharedState: store.state,
-        suggestBtnDisabled: false
+        sharedState: store.state
       }
     },
     methods: {
@@ -82,7 +81,7 @@
       submit: function () {
         console.log(`submitting text for ${this.sharedState.playerId}`)
         this.sharedState.suggestionDisabled = true
-        this.suggestBtnDisabled = true
+        this.sharedState.suggestBtnDisabled = true
         request.post('/api/submit', {
           playerId: this.sharedState.playerId,
           suggestionDisabled: this.sharedState.suggestionDisabled

@@ -8,7 +8,8 @@ export default {
       title: {}
     },
     suggestionText: '',
-    suggestionDisabled: false
+    suggestionDisabled: false,
+    suggestBtnDisabled: false
   },
   consts: {
     maxPlayers: 3
