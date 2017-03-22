@@ -6,12 +6,10 @@
       <div class='row'>
         <div class='col-md-1'>
           <div class='row'>
-            <div class="div-submit-btn">
-              <button class="glyphicon glyphicon-send submit-btn" title='When you finish typing, send in your suggestion' v-on:click="submit"
-                :disabled="sharedState.suggestionText=='' || sharedState.suggestBtnDisabled">
-                </button>
-            </div>
-            <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
+            <button id="submit-btn" class="glyphicon glyphicon-send" title='When you finish typing, send in your suggestion' v-on:click="submit"
+              :disabled="sharedState.suggestionText=='' || sharedState.suggestBtnDisabled">
+              </button>
+              <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
             <button class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="isTitleRound() || sharedState.suggestionDisabled"
@@ -21,7 +19,8 @@
         <div class='col-md-5'>
           <form>
             <textarea rows=5 cols=55 id='mytext' :placeholder="isTitleRound() ? 'Suggest a title for the story' : 'Suggest how the story continues'"
-              v-model="sharedState.suggestionText" :disabled="sharedState.suggestionDisabled" v-on:keyup="syncText" spellcheck='true'></textarea>
+              v-model="sharedState.suggestionText" :disabled="sharedState.suggestionDisabled" v-on:keyup="syncText(); showSubmitHint();"
+              spellcheck='true'></textarea>
           </form>
           <player-list></player-list>
           <quit-button></quit-button>
@@ -55,14 +54,47 @@
     },
     data() {
       return {
-        sharedState: store.state
+        sharedState: store.state,
+        submitHintShown: false,
+        submitHintTriggered: 0,
+        voteHintShown: false
       }
     },
     methods: {
       isTitleRound: function () {
         return !this.sharedState.story.title.text
       },
+      showSubmitHint: function () {
+        const submitHintTimeout = 3000
+        const self = this
+
+        // Show submit hint (only the first time)
+        if (this.submitHintShown) {
+          return
+        }
+
+        ++this.submitHintTriggered
+        const currentSubmitHintTriggered = this.submitHintTriggered
+        setTimeout(() => {
+          if (self.submitHintShown || // Just in case
+            currentSubmitHintTriggered !== self.submitHintTriggered) {
+            // Another trigger has been triggered since then, let's ignore this one
+            return
+          }
+
+          let intro = introJs('#app')
+          intro.setOptions({
+            showBullets: false,
+            steps: [{
+              intro: 'When finished, remember to hit the Submit button', element: '#submit-btn'
+            }]
+          })
+          intro.start()
+          self.submitHintShown = true
+        }, submitHintTimeout)
+      },
       syncText: function () {
+        // Sync to server
         console.log(`Syncing text for ${this.sharedState.playerId}`)
         request.post('/api/suggest', {
           playerId: this.sharedState.playerId,
@@ -90,6 +122,20 @@
           if (err) { console.log(err) }
         })
         console.log(this.sharedState.suggestionDisabled)
+
+        if (!this.voteHintShown) {
+          this.voteHintShown = true
+
+          let intro = introJs('#app')
+          intro.setOptions({
+            showBullets: false,
+            steps: [{
+              intro: 'After the other players submit their suggestions, be sure to vote for them',
+              element: '.vote-button'
+            }]
+          })
+          intro.start()
+        }
       }
     },
     mounted: function () {
@@ -102,7 +148,7 @@
       // startInfo
       (function startIntro() {
         /* eslint-disable quotes */
-        var intro = introJs('#app')
+        let intro = introJs('#app')
         intro.setOptions({
           steps: [
             {
@@ -170,7 +216,7 @@
     min-height: 20px;
   }
   
-  .submit-btn {
+  #submit-btn {
     display: inline-block;
     width: 32px;
     height: 32px;
