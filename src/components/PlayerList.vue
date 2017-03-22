@@ -9,9 +9,10 @@
               <div class="nickname" v-bind:style="{ color: player.color }">
                 {{player.nickname}}
               </div>
-              <div class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)">
-                <span class="glyphicon glyphicon-heart voteIcon">
-                </span>
+              <div>
+                <button class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)" :disabled="!player.suggestionSubmitted">
+                  <span v-if="player.suggestionSubmitted" class="glyphicon glyphicon-heart voteIcon"></span>
+                </button>
               </div>
             </div>
           </div>
@@ -100,22 +101,21 @@
     vertical-align: top;
     height: 90px;
   }
-  
   .vote-button {
     display: inline-block;
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
-  
+  .vote-button:disabled {
+    background-image: url('../assets/pencil-writing.png')
+  }
   .voteButtonActive {
     color: red !important;
   }
-  
   .playerListItem {
     margin-top: 20px;
   }
-  
   .vote-button:hover {
     color: #770000;
   }

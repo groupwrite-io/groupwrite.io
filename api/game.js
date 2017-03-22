@@ -27,6 +27,24 @@ module.exports = function (router) {
     res.send(true)
   })
 
+  // POST /submit
+  router.post('/submit', function (req, res, next) {
+    var playerId = req.body.playerId
+    var suggestionDisabled = req.body.suggestionDisabled
+    if (!playerId) {
+      res.status(422).send("Missing playerId")
+      return
+    }
+    var player = State.getPlayerById(playerId)
+    if (player == null) {
+      res.status(422).send(`Missing player for playerId ${playerId}`)
+      return
+    }
+    player.suggestionSubmitted = true
+    server.io.emit('server:state')
+    res.send(true)
+  })
+
   // POST /removeVote
   router.post('/removevote', function (req, res, next) {
     var voterId = req.body.voterId
@@ -66,11 +84,13 @@ module.exports = function (router) {
     // https://github.com/groupwrite-io/groupwrite.io/issues/53
     player.votedForId = votedForId
 
+    let game = State.findGameByPlayerId(player.id)
+    assert(game)
     if (State.updateTitle(player)) {
+      State.roundOver(game)
       server.io.emit('server:title-round-over')
     } else if (State.updateStory(player)) {
-      let game = State.findGameByPlayerId(player.id)
-      assert(game)
+      State.roundOver(game)
       if (_.last(game.story.contributions).text === 'The End') {
         log.info(`Game finished, saving story with players ${game.players}`)
         let story = new Story({ contributions: game.story.contributions, title: game.story.title, players: game.players })

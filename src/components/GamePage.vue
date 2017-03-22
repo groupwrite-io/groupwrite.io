@@ -6,20 +6,20 @@
       <div class='row'>
         <div class='col-md-1'>
           <div class='row'>
-            <div title='You finished typing, send in your suggestion' v-on:click="submit"></div>
-            <span class="glyphicon glyphicon-send submit-btn">
-              </span>
+            <div class="div-submit-btn">
+                <button class="glyphicon glyphicon-send submit-btn" title='When you finish typing, send in your suggestion' v-on:click="submit" :disabled="sharedState.suggestionText=='' || sharedState.suggestBtnDisabled" >
+                </button>
+            </div>
             <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
           <div class='row'>
-            <button class='action-btn btn' title='Propose an ending to the story' v-on:click='theend' :disabled="isTitleRound() || suggestionDisabled == 1 ? true : false"
-              v-on:keyup="syncText">The End</button>
+            <button class='action-btn' title='Propose an ending to the story' v-on:click='theend' :disabled="isTitleRound() || sharedState.suggestionDisabled" v-on:keyup="syncText">The End</button>
           </div>
         </div>
         <div class='col-md-5'>
           <form>
             <textarea rows=5 cols=55 id='mytext' :placeholder="isTitleRound() ? 'Suggest a title for the story' : 'Suggest how the story continues'"
-              v-model="sharedState.suggestionText" :disabled="suggestionDisabled == 1 ? true : false" v-on:keyup="syncText"
+              v-model="sharedState.suggestionText" :disabled="sharedState.suggestionDisabled" v-on:keyup="syncText"
               spellcheck='true'></textarea>
           </form>
           <player-list></player-list>
@@ -54,8 +54,7 @@
     },
     data() {
       return {
-        sharedState: store.state,
-        suggestionDisabled: 0
+        sharedState: store.state
       }
     },
     methods: {
@@ -81,16 +80,25 @@
       },
       submit: function () {
         console.log(`submitting text for ${this.sharedState.playerId}`)
-        this.suggestionDisabled = 1
-        console.log(this.suggestionDisabled)
+        this.sharedState.suggestionDisabled = true
+        this.sharedState.suggestBtnDisabled = true
+        request.post('/api/submit', {
+          playerId: this.sharedState.playerId,
+          suggestionDisabled: this.sharedState.suggestionDisabled
+        }, function (err, state) {
+          if (err) { console.log(err) }
+        })
+        console.log(this.sharedState.suggestionDisabled)
       }
     },
     mounted: function () {
       document.getElementById('mytext').focus()
+      // var self = this
 
       var audio = new window.Audio('./static/ding.ogg')
       audio.play();
 
+      // startInfo
       (function startIntro() {
         /* eslint-disable quotes */
         var intro = introJs('#app')
@@ -130,10 +138,21 @@
 
         /* eslint-enable quotes */
       })()
+    },
+    created: function () {
+      // debugger
+      this.sharedState.sharedState.socket.on('server:title-round-over', function () {
+        console.log('resetting text areas and buttons')
+        this.sharedState.suggestionDisabled = false
+      })
+      this.sharedState.socket.on('server:round-over', function () {
+        console.log('resetting text areas and buttons')
+        this.sharedState.suggestionDisabled = false
+      })
     }
   }
-
 </script>
+
 <style>
   /* @import '../node_modules/intro.js/minified/introjs.min.css' */
   /* This comment prevents VS Code auto-format from breaking :( */

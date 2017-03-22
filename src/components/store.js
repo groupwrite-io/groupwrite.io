@@ -7,7 +7,9 @@ export default {
       contributions: [],
       title: {}
     },
-    suggestionText: ''
+    suggestionText: '',
+    suggestionDisabled: false,
+    suggestBtnDisabled: false
   },
   consts: {
     maxPlayers: 3

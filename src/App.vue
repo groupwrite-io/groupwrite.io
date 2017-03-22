@@ -14,8 +14,8 @@
   </div>
 </template>
 <script>
-  import store from './components/store'
   import assert from 'assert'
+  import store from './components/store'
 
   var request = require('superagent')
   var socketlib = require('socket.io-client')
@@ -45,6 +45,7 @@
     },
     created: function () {
       var self = this
+      this.sharedState.socket = socket
 
       function updateStateForPlayer(playerId, callback) {
         return request.get('/api/user/state')
@@ -133,16 +134,10 @@
           // If I won the title round, clear my suggestion box
           assert(self.sharedState.story)
           assert(self.sharedState.story.title)
-          let titleRound = self.sharedState.story.title
-
-          if (titleRound.playerId === self.sharedState.playerId) {
-            console.log('I chose the title!')
-            // Clear my suggestion
-            self.sharedState.suggestionText = ''
-
-            // Let's play some animation here
-            // https://github.com/groupwrite-io/groupwrite.io/issues/57
-          }
+          self.sharedState.suggestionDisabled = false
+          self.sharedState.suggestBtnDisabled = false
+          // Clear my suggestion
+          self.sharedState.suggestionText = ''
         })
       })
       socket.on('server:round-over', function () {
@@ -151,8 +146,9 @@
           // If I won the last round, clear my suggestion box
           assert(self.sharedState.story)
           assert(self.sharedState.story.contributions.length > 0)
+          self.sharedState.suggestionDisabled = false
+          self.sharedState.suggestBtnDisabled = false
           let lastRound = self.sharedState.story.contributions[self.sharedState.story.contributions.length - 1]
-
           if (lastRound.text === 'The End') {
             console.log('--- Game over ---')
             router.replace('/gameover')
