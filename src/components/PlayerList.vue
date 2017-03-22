@@ -6,11 +6,13 @@
         <div v-if="player.nickname != sharedState.myNickname" class='row'>
           <div class="col-md-4">
             <div class='playerbox'>
-              <div class="nickname">
+              <div class="nickname" v-bind:style="{ color: player.color }">
                 {{player.nickname}}
               </div>
               <div>
-                <button class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)" :disabled="!player.suggestionSubmitted"></button>
+                <button class="vote-button" v-bind:class="{ voteButtonActive:player.iVotedFor }" :data-playerid="player.id" v-on:click="vote($event)" :disabled="!player.suggestionSubmitted">
+                  <span v-if="player.suggestionSubmitted" class="glyphicon glyphicon-heart voteIcon"></span>
+                </button>
               </div>
             </div>
           </div>
@@ -38,9 +40,12 @@
     methods: {
       vote: function (event) {
         var voterId = this.sharedState.playerId
-        var votedForId = event.target.dataset.playerid
-
-        if (event.target.classList.contains('voteButtonActive')) {
+        let button = event.target
+        if (!button.classList.contains('vote-button')) {
+          button = button.parentElement
+        }
+        var votedForId = button.dataset.playerid
+        if (button.classList.contains('voteButtonActive')) {
           request.post('/api/removevote', { voterId }, function (err, result) {
             assert(!err)
             console.log(`Player ${voterId} removed voted`)
@@ -96,38 +101,22 @@
     vertical-align: top;
     height: 90px;
   }
-  
   .vote-button {
     display: inline-block;
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
-
   .vote-button:disabled {
     background-image: url('../assets/pencil-writing.png')
   }
-
-   .vote-button:enabled { 
-     background-image: url('../assets/heart-icon.png') 
+  .voteButtonActive {
+    color: red !important;
   }
-
-  .playerbox div .voteButtonActive {
-    /* Use different style for active and hover
-    https://github.com/groupwrite-io/groupwrite.io/issues/60
-    */
-    background-image: url('../assets/heart-icon-hover.png');
-  }
-
-  .playerbox div .voteButtonActive:hover {
-    background-image: url('../assets/heart-icon.png');
-  }
-  
   .playerListItem {
     margin-top: 20px;
   }
-  
-  .vote-button:hover:enabled {
-    background-image: url('../assets/heart-icon-hover.png');
+  .vote-button:hover {
+    color: #770000;
   }
 </style>

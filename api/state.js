@@ -1,6 +1,11 @@
 var uuid = require('uuid/v4')
-var values = require('object.values');
-var config = require('../config/server.config');
+var values = require('object.values')
+var config = require('../config/server.config')
+var bunyan = require('bunyan')
+var log = require('../util/logger').getLogger()
+
+var colorPicker = require('./colorPicker')
+colorPicker.init(['blue', 'red', 'green'])
 
 var State = {}
 
@@ -15,7 +20,7 @@ State.gameToStr = function (game) {
   for (var playerId of game.playerIds) {
     result += playerId
   }
-  return result;
+  return result
 }
 
 State.addPlayer = function (player) {
@@ -29,24 +34,33 @@ State.addPlayer = function (player) {
       startTime: Date.now(),
       id,
       playerIds: State.queue,
+      players: Object.values(State.players).filter(p => State.queue.includes(p.id)),
       story: {
         contributions: [],
         title: {}
       }
     }
     State.games[game.id] = game
-    console.log(`Created game ${State.gameToStr(game)}`)
+    log.info(`Created game ${State.gameToStr(game)}`)
+
+    // Apply colors
+    const selectedColors = []
+    game.playerIds.forEach(playerId => {
+      const player = State.getPlayerById(playerId)
+      player.color = colorPicker.getColor(selectedColors)
+      selectedColors.push(player.color)
+    })
 
     // Clear queue
     State.queue = []
   }
 
-  console.log(`Player logged in: Added ${player.nickname}, ${player.id} to player array of length ${State.players.length}`)
+  log.info(`Player logged in: Added ${player.nickname}, ${player.id} to player array of length ${State.players.length}`)
 }
 
 State.removePlayer = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(config.noPlayerFoundMessage(playerId))
+    log.warn(config.noPlayerFoundMessage(playerId))
     return
   }
 
@@ -54,12 +68,12 @@ State.removePlayer = function (playerId) {
   delete State[playerId]
 
   State.queue = State.queue.filter((qPlayerId) => qPlayerId !== playerId)
-  console.log(`Player quit: ${player.nickname}, ${player.id}`)
+  log.info(`Player quit: ${player.nickname}, ${player.id}`)
 }
 
 State.getPlayerById = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(config.noPlayerFoundMessage(playerId))
+    log.warn(config.noPlayerFoundMessage(playerId))
     return
   }
 
@@ -68,8 +82,6 @@ State.getPlayerById = function (playerId) {
 
 // Returns the state as seen by a particular player
 State.getStateByPlayerId = function (playerId) {
-  let filteredState = {}
-
   // Find current game for the player
   let game =
     values(State.games).find((g) => g.playerIds.includes(playerId))
@@ -102,7 +114,7 @@ State.getAdminState = function () {
 
 State.getPlayerById = function (playerId) {
   if (!State.players[playerId]) {
-    console.log(config.noPlayerFoundMessage(playerId))
+    log.warn(config.noPlayerFoundMessage(playerId))
     return null
   }
   return State.players[playerId]
@@ -143,28 +155,29 @@ State.findGameByPlayerId = function (playerId) {
 
 /**
  * Update the current story by votes (and in the future, check if a player has finalized their suggestion)
- * 
+ *
  * Returns true if the story has been updated
  */
 State.updateStory = function (player) {
   let game = State.findGameByPlayerId(player.id)
   if (!game) {
-    console.log(`No current game for player ${player.Id}`)
+    log.warn(`No current game for player ${player.Id}`)
     return false
   }
 
   // Check if a player has majority vote
-  let roundWinner = State.findRoundWinner(game);
+  let roundWinner = State.findRoundWinner(game)
   if (!roundWinner) {
     return false
   }
 
-  console.log(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
+  log.info(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
   let contribution = {
     playerId: roundWinner.id,
-    text: roundWinner.suggestion
+    text: roundWinner.suggestion,
+    color: roundWinner.color
   }
-  
+
   // game.story.title = contribution
   game.story.contributions.push(contribution)
 
@@ -180,16 +193,16 @@ State.updateStory = function (player) {
 
 /**
  * Test for first round (no contributions) and set new story title
- * 
+ *
  * Returns true if the title has been updated
  */
 
 State.updateTitle = function (player) {
-  console.log('updating title')
-  
+  log.info('updating title')
+
   let game = State.findGameByPlayerId(player.id)
   if (!game) {
-    console.log(`No current game for player ${player.Id}`)
+    log.warn(`No current game for player ${player.Id}`)
     return false
   }
 
@@ -199,17 +212,17 @@ State.updateTitle = function (player) {
   }
 
   // Check if a player has majority vote
-  let roundWinner = State.findRoundWinner(game);
+  let roundWinner = State.findRoundWinner(game)
   if (!roundWinner) {
     return false
   }
 
   // Check if this isn't the first round
-  if(game.story.contribution){
+  if (game.story.contribution) {
     return false
   }
 
-  console.log(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
+  log.info(`Round over in game ${game.id}, winner=${roundWinner.id}. Appending to ongoing story: ${roundWinner.suggestion}`)
   let title = {
     playerId: roundWinner.id,
     text: roundWinner.suggestion
@@ -227,4 +240,4 @@ State.updateTitle = function (player) {
 
 State.clearAll()
 
-module.exports = State;
+module.exports = State

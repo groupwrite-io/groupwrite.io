@@ -11,6 +11,7 @@ var webpackConfig = process.env.NODE_ENV === 'testing'
 var expressWinston = require('express-winston');
 var winston = require('winston'); // for transports.Console
 var api = require('../api/api');
+var log = require('../util/logger').getLogger()
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -25,19 +26,19 @@ mongoose.Promise = global.Promise
 mongoose.plugin(autoIncrement.mongoosePlugin);
 
 if (secret.mongoConnectionString === 'mongo-in-memory') {
-  console.log('Using dev mongo-in-memory')
+  log.info('Using dev mongo-in-memory')
   const MongoInMemory = require('mongo-in-memory');
   var mongoPort = 8000;
   var mongoServerInstance = new MongoInMemory(mongoPort); //DEFAULT PORT is 27017 
   mongoServerInstance.start((error, config) => {
     if (error) {
-      console.error(error);
+      log.error(error);
     } else {
 
       //callback when server has started successfully 
 
-      console.log("HOST " + config.host);
-      console.log("PORT " + config.port);
+      log.info("HOST " + config.host);
+      log.info("PORT " + config.port);
 
       var mongouri = mongoServerInstance.getMongouri("groupwrite-prod");
       mongoose.connect(mongouri).then(() => {
@@ -55,20 +56,20 @@ if (secret.mongoConnectionString === 'mongo-in-memory') {
         //   }
         // )
       }).catch((err) => {
-        console.log(err)
+        log.error(err)
         process.exit()
       })
     }
   })
 } else {
-  console.log('Connecting to mongodb')
+  log.info('Connecting to mongodb')
   mongoose.connect(secret.mongoConnectionString).then(() => {
-    console.log('Successfully connected to mongodb')
+    log.info('Successfully connected to mongodb')
     mongoose.connection.db.collection('startups').save({
       'date': Date.now()
     })
   }).catch((err) => {
-    console.log(err)
+    log.error(err)
     process.exit()
   })
 }
@@ -136,7 +137,7 @@ var port = process.env.PORT || config.dev.port
 app.set('port', port)
 var uri = 'http://localhost:' + port
 devMiddleware.waitUntilValid(function () {
-  console.log('> Listening at ' + uri + '\n')
+  log.info('> Listening at ' + uri + '\n')
 })
 
 // Register handlebars templates
@@ -183,7 +184,7 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  console.error(err.stack)
+  log.error(err.stack)
   res.status(err.status || 500);
   res.render('error');
 });

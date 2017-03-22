@@ -6,6 +6,8 @@ var app = require('./dev-server.js')
 var debug = require('debug')('writing.io:server');
 var http = require('http');
 var assert = require('assert')
+var bunyan = require('bunyan')
+var log = require('../util/logger').getLogger()
 
 /**
  * Create HTTP server.
@@ -22,25 +24,25 @@ io.use(sharedsession(app.session, {
   autoSave: true
 }));
 
-console.log("Starting socket.io");
+log.info("Starting socket.io");
 io.on('connection', function (socket) {
   var session = socket.handshake.session
 
-  console.log(`a user connected, sessionId=${session.id}`);
+  log.info(`a user connected, sessionId=${session.id}`);
 
   socket.on('disconnect', function () {
     if (session.playerId) {
       var playerId = session.playerId
       var nickname = session.nickname
-      console.log(`socket disconnected, sessionId=${session.id}, playerId=${playerId}, nickname=${nickname}`);
+      log.info(`socket disconnected, sessionId=${session.id}, playerId=${playerId}, nickname=${nickname}`);
       State.removePlayer(playerId)
       io.emit('server:state')
     } else {
-      console.log(`socket disconnected, sessionId=${session.id}`);
+      log.info(`socket disconnected, sessionId=${session.id}`);
     }
   });
 });
-console.log('Successfully Started socket.io');
+log.info('Successfully Started socket.io');
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -48,13 +50,13 @@ console.log('Successfully Started socket.io');
 var port = app.get('port')
 server.listen(port, function (err) {
   if (err) {
-    console.log(err)
+    log.error(err)
     return
   }
 
-  console.log(`Go to http://localhost:${port}`)
+  log.info(`Go to http://localhost:${port}`)
 })
-console.log(`Started server listening on port ${port}`)
+log.info(`Started server listening on port ${port}`)
 
 server.on('error', onError);
 server.on('listening', onListening);

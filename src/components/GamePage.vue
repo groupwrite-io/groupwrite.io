@@ -2,12 +2,13 @@
   <div class="game">
 
     <div class='container'>
-      <h1>Welcome {{sharedState.myNickname}}</h1>
+      <h1 id='welcome'>Welcome {{sharedState.myNickname}}</h1>
       <div class='row'>
         <div class='col-md-1'>
           <div class='row'>
             <div class="div-submit-btn">
-                <button class="submit-btn" title='When you finish typing, send in your suggestion' v-on:click="submit" :disabled="sharedState.suggestionText=='' || suggestBtnDisabled==true ? true :false" > </button>
+                <button class="glyphicon glyphicon-send submit-btn" title='When you finish typing, send in your suggestion' v-on:click="submit" :disabled="sharedState.suggestionText=='' || suggestBtnDisabled==true ? true :false" >
+                </button>
             </div>
             <!--v-bind:class="{ submitButtonActive:player.playerId }" :data-playerid="player.id"-->
           </div>
@@ -38,6 +39,9 @@
   import PlayerList from './PlayerList.vue'
   import QuitButton from './QuitButton'
   import Story from './Story'
+  import * as IntroJs from 'intro.js/minified/intro.min.js'
+  // import * as IntroJs from 'intro.js/intro.js'
+  const introJs = IntroJs.introJs
 
   var request = require('superagent')
 
@@ -91,8 +95,50 @@
     mounted: function () {
       document.getElementById('mytext').focus()
       // var self = this
+
       var audio = new window.Audio('./static/ding.ogg')
-      audio.play()
+      audio.play();
+
+      // startInfo
+      (function startIntro() {
+        /* eslint-disable quotes */
+        var intro = introJs('#app')
+        intro.setOptions({
+          steps: [
+            {
+              intro: `Hi, let's write a story together!<br/>
+              (<i>Intro will display until completed</i>)`,
+              element: "#welcome"
+            },
+            {
+              intro: "You suggest the story's title or content here.",
+              element: "#mytext"
+            },
+            {
+              intro: "Vote on other people's suggestions here",
+              element: document.querySelectorAll('.vote-button')[0]
+            },
+            {
+              intro: 'Top suggestions are added to the ongoing story',
+              element: '#story',
+              position: 'left'
+            },
+            {
+              intro: "Suggest 'The End' to finish the story",
+              element: '#mytext'
+            }
+          ]
+        })
+        intro.oncomplete(() => {
+          window.localStorage.setItem('introComplete', 'true')
+        })
+
+        if (!window.localStorage.getItem('introComplete')) {
+          intro.start()
+        }
+
+        /* eslint-enable quotes */
+      })()
     },
     created: function () {
       // debugger
@@ -109,6 +155,9 @@
 </script>
 
 <style>
+  /* @import '../node_modules/intro.js/minified/introjs.min.css' */
+  /* This comment prevents VS Code auto-format from breaking :( */
+  
   #mytext {
     padding: 5px;
   }
@@ -122,7 +171,6 @@
   
   .submit-btn {
     display: inline-block;
-    background-image: url('../assets/send-icon.png');
     width: 32px;
     height: 32px;
     cursor: pointer;

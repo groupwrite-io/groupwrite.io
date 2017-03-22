@@ -1,5 +1,7 @@
 var State = require('./state')
 var server = require('../build/server')
+var bunyan = require('bunyan')
+var log = require('../util/logger').getLogger()
 
 module.exports = function (router) {
   // POST /user/login
@@ -21,7 +23,7 @@ module.exports = function (router) {
     //   return
     // }
     req.session.playerId = playerId
-    console.log(`/user/login Saved playerId ${playerId} on session ${req.session.id}`)
+    log.info(`/user/login Saved playerId ${playerId} on session ${req.session.id}`)
     State.addPlayer({
       id: playerId,
       nickname
