@@ -197,17 +197,6 @@ export default {
 
       /* eslint-enable quotes */
     })()
-  },
-  created: function () {
-    // debugger
-    this.sharedState.socket.on('server:title-round-over', function () {
-      console.log('resetting text areas and buttons')
-      this.sharedState.suggestionDisabled = false
-    })
-    this.sharedState.socket.on('server:round-over', function () {
-      console.log('resetting text areas and buttons')
-      this.sharedState.suggestionDisabled = false
-    })
   }
 }
 
@@ -234,12 +223,5 @@ export default {
   display: inline-block;
   width: 32px;
   height: 32px;
-  /*cursor: pointer;*/
 }
-
-
-
-/*#submit-btn:disabled {
-  opacity: 0.5;
-}*/
 </style>
