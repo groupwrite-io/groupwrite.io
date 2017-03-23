@@ -17,6 +17,7 @@ http://bookriot.com/
 * http://rumblegames.com
 * https://itch.io/
 * http://reddit.com/r/webgames
+* http://indiegamedevelopers.org/ (Post your game channel on Slack)
 
 ## Writing Websites ##
 * https://www.reddit.com/r/writing
