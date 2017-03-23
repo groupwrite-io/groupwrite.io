@@ -7,7 +7,7 @@
         <div class='col-md-1'>
           <div class='row'>
             <button id="submit-btn"
-                    class="glyphicon glyphicon-send"
+                    class="glyphicon glyphicon-send btn"
                     title='When you finish typing, send in your suggestion'
                     v-on:click="submit"
                     :disabled="sharedState.suggestionText=='' || sharedState.suggestBtnDisabled">
@@ -16,7 +16,7 @@
           </div>
           <div class='row'>
             <button id='theend-btn'
-                    class='action-btn'
+                    class='action-btn btn'
                     title='Propose an ending to the story'
                     v-on:click='theend'
                     :disabled="isTitleRound() || sharedState.suggestionDisabled"
@@ -234,10 +234,12 @@ export default {
   display: inline-block;
   width: 32px;
   height: 32px;
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 
-#submit-btn:disabled {
+
+
+/*#submit-btn:disabled {
   opacity: 0.5;
-}
+}*/
 </style>
